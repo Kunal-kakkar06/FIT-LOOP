@@ -1,0 +1,11 @@
+# Core vision + ML
+opencv-python>=4.9,<5
+mediapipe>=0.10,<0.11
+numpy>=1.26,<2
+
+# Image utilities
+Pillow>=10,<12
+
+# Development and testing
+pytest>=8,<9
+matplotlib>=3.8,<4         # notebook visualisation

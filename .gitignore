@@ -1,0 +1,28 @@
+# Python & virtual environments
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.ipynb_checkpoints/
+.env
+
+# Model binaries & large weights
+*.task
+
+# FitLoop Private Dataset Directories
+fitloop/models/model1_body_measurement/data/raw/*
+fitloop/models/model1_body_measurement/data/processed/*
+fitloop/models/model1_body_measurement/data/ground_truth/*
+!fitloop/models/model1_body_measurement/data/raw/.gitkeep
+!fitloop/models/model1_body_measurement/data/processed/.gitkeep
+!fitloop/models/model1_body_measurement/data/ground_truth/.gitkeep
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
