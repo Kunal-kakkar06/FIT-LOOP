@@ -12,7 +12,7 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 # Resolved relative to this file so the package is location-independent.
 _PACKAGE_ROOT = Path(__file__).resolve().parent
-MODEL1_ROOT   = _PACKAGE_ROOT.parents[2]          # model1_body_measurement/
+MODEL1_ROOT   = _PACKAGE_ROOT.parents[1]          # model1_body_measurement/
 
 DATA_DIR          = MODEL1_ROOT / "data"
 RAW_DIR           = DATA_DIR / "raw"
