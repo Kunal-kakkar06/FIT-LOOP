@@ -51,6 +51,7 @@ desktop.ini
 ehthumbs.db
 .idea/
 .vscode/
+.agent/
 *.swp
 *.swo
 
