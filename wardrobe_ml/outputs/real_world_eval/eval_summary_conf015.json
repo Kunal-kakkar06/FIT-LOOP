@@ -1,0 +1,259 @@
+{
+  "timestamp": "2026-11-14 21:30:09 UTC",
+  "model_path": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\models\\best.pt",
+  "parameters": {
+    "conf": 0.15,
+    "iou": 0.5,
+    "agnostic_nms": true,
+    "core_trim": 0.2,
+    "device": "cpu"
+  },
+  "overall": {
+    "total_images": 3,
+    "total_detections": 7,
+    "avg_confidence": 0.4501,
+    "low_confidence_count": 4,
+    "zero_detection_images": [],
+    "elapsed_seconds": 19.0
+  },
+  "per_folder": {
+    "closet": {
+      "images_count": 1,
+      "detections_count": 3,
+      "avg_confidence": 0.4908,
+      "low_confidence_count": 2,
+      "zero_detection_images": [],
+      "category_distribution": {
+        "long sleeve outwear": 3
+      },
+      "images": [
+        {
+          "filename": "Gemini_Generated_Image_m8860cm8860cm886.png",
+          "detections_count": 3,
+          "detections": [
+            {
+              "bbox": [
+                1023,
+                352,
+                1770,
+                1544
+              ],
+              "core_bbox": [
+                1172,
+                590,
+                1621,
+                1306
+              ],
+              "category": "long sleeve outwear",
+              "confidence": 0.8018,
+              "dominant_color": {
+                "name": "Charcoal",
+                "hex": "#3C4651"
+              },
+              "secondary_color": {
+                "name": "Charcoal",
+                "hex": "#262E39"
+              },
+              "color_name": "Charcoal",
+              "color_hex": "#3C4651"
+            },
+            {
+              "bbox": [
+                535,
+                380,
+                1121,
+                1542
+              ],
+              "core_bbox": [
+                652,
+                612,
+                1004,
+                1310
+              ],
+              "category": "long sleeve outwear",
+              "confidence": 0.4287,
+              "dominant_color": {
+                "name": "Charcoal",
+                "hex": "#2B2D32"
+              },
+              "secondary_color": {
+                "name": "Charcoal",
+                "hex": "#24262C"
+              },
+              "color_name": "Charcoal",
+              "color_hex": "#2B2D32"
+            },
+            {
+              "bbox": [
+                369,
+                375,
+                766,
+                1544
+              ],
+              "core_bbox": [
+                448,
+                609,
+                687,
+                1310
+              ],
+              "category": "long sleeve outwear",
+              "confidence": 0.2418,
+              "dominant_color": {
+                "name": "Black",
+                "hex": "#18181B"
+              },
+              "secondary_color": {
+                "name": "Light Gray",
+                "hex": "#D9E1EA"
+              },
+              "color_name": "Black",
+              "color_hex": "#18181B"
+            }
+          ]
+        }
+      ]
+    },
+    "flat_lay": {
+      "images_count": 1,
+      "detections_count": 2,
+      "avg_confidence": 0.365,
+      "low_confidence_count": 1,
+      "zero_detection_images": [],
+      "category_distribution": {
+        "short sleeve top": 1,
+        "skirt": 1
+      },
+      "images": [
+        {
+          "filename": "Gemini_Generated_Image_m8860cm8860cm886 (1).png",
+          "detections_count": 2,
+          "detections": [
+            {
+              "bbox": [
+                4,
+                513,
+                1108,
+                1322
+              ],
+              "core_bbox": [
+                225,
+                675,
+                887,
+                1160
+              ],
+              "category": "short sleeve top",
+              "confidence": 0.575,
+              "dominant_color": {
+                "name": "Navy Blue",
+                "hex": "#353F61"
+              },
+              "secondary_color": {
+                "name": "Denim Blue",
+                "hex": "#425278"
+              },
+              "color_name": "Navy Blue",
+              "color_hex": "#353F61"
+            },
+            {
+              "bbox": [
+                1516,
+                501,
+                2398,
+                1317
+              ],
+              "core_bbox": [
+                1692,
+                664,
+                2222,
+                1154
+              ],
+              "category": "skirt",
+              "confidence": 0.155,
+              "dominant_color": {
+                "name": "Wine",
+                "hex": "#4E222A"
+              },
+              "secondary_color": {
+                "name": "Wine",
+                "hex": "#3B171D"
+              },
+              "color_name": "Wine",
+              "color_hex": "#4E222A"
+            }
+          ]
+        }
+      ]
+    },
+    "single_garment": {
+      "images_count": 1,
+      "detections_count": 2,
+      "avg_confidence": 0.4743,
+      "low_confidence_count": 1,
+      "zero_detection_images": [],
+      "category_distribution": {
+        "long sleeve top": 1,
+        "trousers": 1
+      },
+      "images": [
+        {
+          "filename": "Gemini_Generated_Image_m8860cm8860cm886 (2).png",
+          "detections_count": 2,
+          "detections": [
+            {
+              "bbox": [
+                319,
+                572,
+                1517,
+                2016
+              ],
+              "core_bbox": [
+                559,
+                861,
+                1277,
+                1727
+              ],
+              "category": "long sleeve top",
+              "confidence": 0.6749,
+              "dominant_color": {
+                "name": "Emerald Green",
+                "hex": "#257A69"
+              },
+              "secondary_color": {
+                "name": "Emerald Green",
+                "hex": "#319485"
+              },
+              "color_name": "Emerald Green",
+              "color_hex": "#257A69"
+            },
+            {
+              "bbox": [
+                522,
+                1814,
+                1250,
+                2400
+              ],
+              "core_bbox": [
+                668,
+                1931,
+                1104,
+                2283
+              ],
+              "category": "trousers",
+              "confidence": 0.2736,
+              "dominant_color": {
+                "name": "Light Gray",
+                "hex": "#C4BBB0"
+              },
+              "secondary_color": {
+                "name": "Khaki",
+                "hex": "#A79D92"
+              },
+              "color_name": "Light Gray",
+              "color_hex": "#C4BBB0"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "viewpoint_distribution": {
+    "1_No_Wear": {
+      "count": 22675,
+      "pct": 7.26
+    },
+    "2_Frontal": {
+      "count": 244459,
+      "pct": 78.31
+    },
+    "3_Side_Back": {
+      "count": 45052,
+      "pct": 14.43
+    },
+    "total": 312186,
+    "semantic_description": "CVPR 2019: 1=No Wear (flat-lay/hanger/ghost mannequin), 2=Frontal (front view on person), 3=Side/Back (profile/back view on person)"
+  },
+  "occlusion_distribution": {
+    "1_Slight": {
+      "count": 145379,
+      "pct": 46.57
+    },
+    "2_Medium": {
+      "count": 147102,
+      "pct": 47.12
+    },
+    "3_Heavy": {
+      "count": 19705,
+      "pct": 6.31
+    },
+    "total": 312186,
+    "semantic_description": "CVPR 2019: Landmark-based occlusion definition: Slight/Partial (<20% landmarks occluded), Heavy (>50% landmarks occluded), Medium (otherwise, 20%-50%). Stored as discrete codes 1, 2, 3 in JSON."
+  },
+  "zoom_distribution": {
+    "1_No_Zoom": {
+      "count": 211894,
+      "pct": 67.87
+    },
+    "2_Medium_Zoom": {
+      "count": 66643,
+      "pct": 21.35
+    },
+    "3_Large_Zoom": {
+      "count": 33649,
+      "pct": 10.78
+    },
+    "total": 312186,
+    "semantic_description": "CVPR 2019: Qualitative annotation categories based on garment landmark truncation (landmarks falling outside the image frame): 1=No Zoom, 2=Medium Zoom, 3=Large Zoom, without claiming exact numeric proportion rules."
+  },
+  "scale_distribution": {
+    "1_Small": {
+      "count": 78735,
+      "pct": 25.22
+    },
+    "2_Modest": {
+      "count": 157021,
+      "pct": 50.3
+    },
+    "3_Large": {
+      "count": 76430,
+      "pct": 24.48
+    },
+    "total": 312186,
+    "semantic_description": "CVPR 2019: 1=Small, 2=Modest, 3=Large. Discrete semantic scales without arbitrary percentage area thresholds."
+  },
+  "garments_per_image": {
+    "1_garment": 76107,
+    "2_garments": 112530,
+    "3_garments": 2296,
+    "4+_garments": 1028,
+    "total_unique_images": 191961
+  },
+  "source_distribution_unique_images": {
+    "shop": {
+      "count": 132157,
+      "pct": 68.85
+    },
+    "user": {
+      "count": 59804,
+      "pct": 31.15
+    },
+    "total": 191961
+  },
+  "denominators": {
+    "total_garments_expected": 312186,
+    "total_garments_actual": 312186,
+    "total_unique_images_expected": 191961,
+    "total_unique_images_actual": 191961
+  }
+}

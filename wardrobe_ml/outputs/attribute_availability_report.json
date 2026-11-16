@@ -1,0 +1,44 @@
+[
+  {
+    "attribute": "Category",
+    "directly_available": "Yes",
+    "annotation_field": "category_id (1-13) & category_name",
+    "details": "13 predefined apparel categories covering tops, bottoms, dresses, outwear.",
+    "recommendation": "Use category_id directly as primary classification and object detection target."
+  },
+  {
+    "attribute": "Subcategory",
+    "directly_available": "Partially",
+    "annotation_field": "category_name (implicit in coarse definition)",
+    "details": "Distinguishes 'shorts' vs 'trousers', 'skirt', 'vest', 'sling', but lacks fine-grained types (e.g. jeans, polo, hoodies, cargo).",
+    "recommendation": "Derive baseline subcategories from category_name; fine-grained subcategories require zero-shot CLIP classification or auxiliary annotations."
+  },
+  {
+    "attribute": "Color",
+    "directly_available": "No",
+    "annotation_field": "None (No color field in DeepFashion2 JSON)",
+    "details": "No color label is provided in the annotations.",
+    "recommendation": "Extract dominant colors directly from pixels inside the segmentation mask using K-Means clustering in CIELAB or HSV color space."
+  },
+  {
+    "attribute": "Pattern",
+    "directly_available": "No",
+    "annotation_field": "None (No texture or pattern field in DeepFashion2 JSON)",
+    "details": "No pattern labels (e.g., solid, striped, floral, plaid, polka dot).",
+    "recommendation": "Train a secondary pattern classification head or use a pretrained Vision Transformer / CLIP model prompted with fashion pattern prompts."
+  },
+  {
+    "attribute": "Sleeve Type",
+    "directly_available": "Partially",
+    "annotation_field": "category_name ('short sleeve', 'long sleeve', 'vest', 'sling') & landmarks",
+    "details": "Category names explicitly encode short vs. long vs. sleeveless for tops, dresses, and outwear. Exact cuff/armpit landmarks are also labeled.",
+    "recommendation": "Extract sleeve length directly from the category label and refine using landmark distances between shoulder and wrist/elbow."
+  },
+  {
+    "attribute": "Style",
+    "directly_available": "No (Name collision)",
+    "annotation_field": "style (integer Re-ID index only)",
+    "details": "The 'style' field is a Re-Identification cluster ID linking shop and consumer garment pairs. It does NOT represent aesthetic style (Casual, Formal, Boho, Streetwear).",
+    "recommendation": "Do not use 'style' field for fashion styling. Aesthetic style must be predicted via image embeddings (CLIP / DINOv2) or an aesthetic classification dataset."
+  }
+]

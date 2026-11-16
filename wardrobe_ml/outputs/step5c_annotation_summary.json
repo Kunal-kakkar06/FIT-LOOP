@@ -1,0 +1,120 @@
+{
+  "total_images": 191961,
+  "total_garments": 312186,
+  "scan_runtime_sec": 205.29,
+  "memory_mb_before": 72.4,
+  "memory_mb_after": 930.5,
+  "category_distribution": [
+    {
+      "category_id": 1,
+      "category_name": "short sleeve top",
+      "count": 71645,
+      "pct": 22.95
+    },
+    {
+      "category_id": 8,
+      "category_name": "trousers",
+      "count": 55387,
+      "pct": 17.74
+    },
+    {
+      "category_id": 7,
+      "category_name": "shorts",
+      "count": 36616,
+      "pct": 11.73
+    },
+    {
+      "category_id": 2,
+      "category_name": "long sleeve top",
+      "count": 36064,
+      "pct": 11.55
+    },
+    {
+      "category_id": 9,
+      "category_name": "skirt",
+      "count": 30835,
+      "pct": 9.88
+    },
+    {
+      "category_id": 12,
+      "category_name": "vest dress",
+      "count": 17949,
+      "pct": 5.75
+    },
+    {
+      "category_id": 10,
+      "category_name": "short sleeve dress",
+      "count": 17211,
+      "pct": 5.51
+    },
+    {
+      "category_id": 5,
+      "category_name": "vest",
+      "count": 16095,
+      "pct": 5.16
+    },
+    {
+      "category_id": 4,
+      "category_name": "long sleeve outwear",
+      "count": 13457,
+      "pct": 4.31
+    },
+    {
+      "category_id": 11,
+      "category_name": "long sleeve dress",
+      "count": 7907,
+      "pct": 2.53
+    },
+    {
+      "category_id": 13,
+      "category_name": "sling dress",
+      "count": 6492,
+      "pct": 2.08
+    },
+    {
+      "category_id": 6,
+      "category_name": "sling",
+      "count": 1985,
+      "pct": 0.64
+    },
+    {
+      "category_id": 3,
+      "category_name": "short sleeve outwear",
+      "count": 543,
+      "pct": 0.17
+    }
+  ],
+  "bbox_stats": {
+    "valid_count": 312186,
+    "missing_count": 0,
+    "width_mean": 293.73,
+    "width_median": 275.0,
+    "width_std": 121.76,
+    "width_min": 0.0,
+    "width_max": 1048.0,
+    "height_mean": 356.95,
+    "height_median": 330.0,
+    "height_std": 169.1,
+    "height_min": 0.0,
+    "height_max": 1319.0,
+    "area_mean": 117908.51,
+    "area_median": 89572.5,
+    "area_std": 94792.23,
+    "area_min": 0.0,
+    "area_max": 1158082.0
+  },
+  "segmentation_stats": {
+    "has_seg_count": 312186,
+    "has_seg_pct": 100.0,
+    "avg_polygon_vertices": 38.79,
+    "min_polygon_vertices": 4,
+    "max_polygon_vertices": 928
+  },
+  "landmark_stats": {
+    "has_landmarks_count": 312186,
+    "has_landmarks_pct": 100.0,
+    "avg_landmark_count": 20.62,
+    "min_landmarks": 8,
+    "max_landmarks": 39
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "total_training_files": 191961,
+  "total_garment_instances": 312186,
+  "scan_duration_seconds": 55.2,
+  "field_availability_counts": {
+    "category_id": 312186,
+    "category_name": 312186,
+    "category": 0,
+    "style": 312186,
+    "bounding_box": 312186,
+    "segmentation": 312186,
+    "landmarks": 312186,
+    "scale": 312186,
+    "occlusion": 312186,
+    "zoom_in": 312186,
+    "viewpoint": 312186
+  },
+  "top_field_availability_counts": {
+    "source": 191961,
+    "pair_id": 191961
+  },
+  "confirmed_category_field": "category_name",
+  "category_field_exists": false,
+  "malformed_items_count": 0,
+  "taxonomy_matches_official_13": true,
+  "garments_per_image": {
+    "1": 76107,
+    "2": 112530,
+    "3": 2296,
+    "4": 1018,
+    "5": 3,
+    "6": 6,
+    "8": 1
+  },
+  "occlusion_distribution": {
+    "1": 145379,
+    "2": 147102,
+    "3": 19705
+  },
+  "zoom_distribution": {
+    "1": 211894,
+    "2": 66643,
+    "3": 33649
+  },
+  "viewpoint_distribution": {
+    "1": 22675,
+    "2": 244459,
+    "3": 45052
+  },
+  "scale_distribution": {
+    "1": 78735,
+    "2": 157021,
+    "3": 76430
+  },
+  "source_distribution": {
+    "shop": 132157,
+    "user": 59804
+  },
+  "mathematical_checks": {
+    "instance_sum_equals_total": true,
+    "instance_sum": 312186,
+    "total_instances": 312186,
+    "unique_image_sum": 309174,
+    "actual_total_images": 191961
+  }
+}

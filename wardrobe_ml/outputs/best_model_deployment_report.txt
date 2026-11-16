@@ -1,0 +1,82 @@
+==============================================================================
+FITLOOP PHASE 6: FINE-TUNED YOLO26n (best.pt) DEPLOYMENT & VERIFICATION REPORT
+==============================================================================
+Timestamp           : 2026-11-14 13:20:35 UTC
+Execution Target    : wardrobe_ml/src/app.py & wardrobe_ml/src/test_api.py
+Python Environment  : C:\Users\Lenovo\Downloads\Fitloop\fitloop_yolo_env
+
+1. ARTIFACT INSPECTION & ACQUISITION
+------------------------------------------------------------------------------
+Source File         : C:\Users\Lenovo\Downloads\best.zip
+Source Size         : 5,446,469 bytes (~5.19 MB)
+Archive Type        : Native PyTorch Checkpoint (contains 'best/data.pkl', 'best/data/*', etc.)
+Target Destination  : C:\Users\Lenovo\Downloads\Fitloop\wardrobe_ml\models\best.pt
+Target Size         : 5,446,469 bytes
+Target Status       : VERIFIED (Copied directly without using nested extraction)
+Preserved Fallback  : wardrobe_ml/models/yolo26n.pt (5,366,078 bytes, INTACT)
+
+2. PYTORCH & ULTRALYTICS YOLO VERIFICATION
+------------------------------------------------------------------------------
+Model Architecture  : YOLO26n (Fine-Tuned on DeepFashion2)
+Training Date       : 2026-11-14T09:37:42.988256+00:00
+Base Model          : yolo26n.pt
+Device Placement    : CPU
+Class Count         : 13
+Class Mapping       :
+  0: short sleeve top
+  1: long sleeve top
+  2: short sleeve outwear
+  3: long sleeve outwear
+  4: vest
+  5: sling
+  6: shorts
+  7: trousers
+  8: skirt
+  9: short sleeve dress
+  10: long sleeve dress
+  11: vest dress
+  12: sling dress
+Ultralytics Loading : ZERO ERRORS (Clean load via YOLO('wardrobe_ml/models/best.pt'))
+
+3. FASTAPI INTEGRATION (wardrobe_ml/src/app.py)
+------------------------------------------------------------------------------
+Detector Class      : GarmentDetector
+Candidate Paths     :
+  1. Explicit model_path / FITLOOP_MODEL_PATH environment override
+  2. PROJECT_DIR / "models" / "best.pt" (PRIMARY DEFAULT)
+  3. PROJECT_DIR / "models" / "yolo26n.pt" (SECONDARY FALLBACK)
+  4. PROJECT_DIR / "outputs" / "step_6_7_cpu_benchmark" / "run" / "weights" / "best.pt"
+Resolved Path       : C:\Users\Lenovo\Downloads\Fitloop\wardrobe_ml\models\best.pt
+Model Loaded Flag   : True
+
+4. END-TO-END AUTOMATED TEST SUITE (wardrobe_ml/src/test_api.py)
+------------------------------------------------------------------------------
+Total Test Cases    : 13
+Passed              : 13
+Failed              : 0
+Overall Status      : SUCCESS
+Total Runtime       : 8,067.71 ms
+
+Detailed Results:
+- 1. Health Check Endpoint                 : PASS (Status 200, Arch: YOLO26n, Model Loaded: True)
+- 2a. Create User Alice                    : PASS (Status 201, User ID=1, Email=alice.green@fitloop.test)
+- 2b. Duplicate Email Conflict             : PASS (Status 400 caught duplicate email)
+- 2c. Create User Bob                      : PASS (Status 201, User ID=2, Bob registered for isolation testing)
+- 3a. Upload Scan & Color Extraction       : PASS (Status 201, Scan ID=1, Detected=Navy Blue (#111C30))
+- 3b. Scan Unknown User ID                 : PASS (Status 404 caught missing user_id=999999 cleanly)
+- 3c. Scan Invalid Image File              : PASS (Status 400 rejected corrupted file payload)
+- 4a. Query Alice Wardrobe Inventory       : PASS (Status 200, Items Count=1)
+- 4b. Strict User Isolation (Bob)          : PASS (Status 200, Bob items=0, Alice items hidden, 0 leaks)
+- 4c. Query Unknown Wardrobe ID            : PASS (Status 404 caught non-existent user 888888)
+- 5a. Check Before Buy: Duplicate Detected : PASS (Verdict=DUPLICATE, Score=1.00, Rec: DUPLICATE DETECTED...)
+- 5b. Check Before Buy: Unique Garment     : PASS (Verdict=UNIQUE, Score=0.00, Rec: UNIQUE ADDITION...)
+- 5c. Check Before Buy Unknown User        : PASS (Status 404 caught non-existent user 777777)
+
+5. SAFETY CONSTRAINTS & INVARIANTS
+------------------------------------------------------------------------------
+- wardrobe_ml/models/yolo26n.pt            : Preserved intact (5,366,078 bytes)
+- wardrobe_ml/src/color_extractor.py       : Untouched
+- wardrobe_ml/src/duplicate_detector.py    : Untouched
+- wardrobe_ml/src/database.py              : Untouched
+- Temporary Test Database                  : Cleanly deleted (fitloop_api_test.db unlinked)
+==============================================================================

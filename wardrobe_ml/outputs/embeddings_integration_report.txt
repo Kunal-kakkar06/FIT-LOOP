@@ -1,0 +1,110 @@
+================================================================================
+FITLOOP PHASE 11: VISUAL SIMILARITY EMBEDDINGS & COSINE MATCHING REPORT
+================================================================================
+Timestamp           : 2026-11-16 00:44:00 UTC
+Execution Python    : C:\Users\Lenovo\Downloads\Fitloop\fitloop_yolo_env\Scripts\python.exe
+Model Architecture  : MobileNetV3-Small (ImageNet Pretrained Feature Backbone)
+Embedding Dimension : 576-dim L2-Normalized (norm == 1.0)
+Integration Targets :
+  1. wardrobe_ml/src/embedding_extractor.py (GarmentEmbeddingExtractor)
+  2. wardrobe_ml/src/database.py (ItemEmbedding model, relationships, repo integration)
+  3. wardrobe_ml/src/duplicate_detector.py (visual_similarity blending & breakdown)
+  4. wardrobe_ml/src/app.py (FastAPI scan embedding extraction & check-before-buy)
+  5. wardrobe_ml/src/test_embedding_extractor.py (Automated test suite)
+
+--------------------------------------------------------------------------------
+1. COMPONENT ARCHITECTURE & DESIGN
+--------------------------------------------------------------------------------
+A. GarmentEmbeddingExtractor:
+   - Backbone: torchvision.models.mobilenet_v3_small(weights=MobileNet_V3_Small_Weights.DEFAULT)
+   - Feature Head: classifier replaced with torch.nn.Identity(), yielding 576-dim feature vectors.
+   - Normalization: Strict L2 unit normalization (norm == 1.0) on CPU in eval() mode with torch.no_grad().
+   - Cosine Similarity: compute_cosine_similarity(emb1, emb2) returning float bounded strictly in [0.0, 1.0].
+
+B. Database Persistence (ItemEmbedding):
+   - Table: item_embeddings
+   - Columns:
+     * id: Integer PK autoincrement
+     * item_id: Integer FK (wardrobe_items.id, ondelete="CASCADE"), unique=True, index=True
+     * embedding_json: Text (serialized 576-dim float list)
+     * model_version: String(100), default="mobilenet_v3_small"
+     * created_at: DateTime(timezone=True) UTC
+   - Relationships:
+     * WardrobeItem.embedding_record (1-to-1 relationship, cascade="all, delete-orphan")
+     * WardrobeItem.to_detector_dict() deserializes embedding_record and exposes "embedding"
+     * WardrobeRepository.get_user_wardrobe() utilizes selectinload(WardrobeItem.embedding_record)
+       for eager loading without detached instance errors or N+1 queries.
+
+C. DuplicateDetector Visual Similarity Blending:
+   - Dynamic weight rebalancing when both candidate and inventory item possess embeddings:
+     * Base: category 0.40, dominant_color 0.30, visual_similarity 0.30 (Sum = 1.00)
+     * With secondary: category 0.35, dominant_color 0.25, visual_similarity 0.25, secondary_color 0.15 (Sum = 1.00)
+     * With pattern: category 0.40, dominant_color 0.25, visual_similarity 0.30, pattern 0.05 (Sum = 1.00)
+     * With sec + pat: category 0.35, dominant_color 0.25, visual_similarity 0.25, secondary_color 0.10, pattern 0.05 (Sum = 1.00)
+   - Graceful fallback: when either item lacks embedding, uses previous text/color weights (100% backward compatible).
+   - Cross-category rule: when cat_sim == 0.0, score is strictly bounded:
+     composite_score = round(float(np.clip(0.20 * dom_sim + 0.10 * vis_sim, 0.0, 1.0)), 3)
+     ensuring cross-category pairs remain far below the UNIQUE ceiling (< 0.65).
+   - Result payload includes visual_similarity in breakdown dict.
+
+D. FastAPI Service Wiring:
+   - Singleton GarmentEmbeddingExtractor(device="cpu") initialized on app startup.
+   - POST /api/v1/scans: extracts 576-dim embedding for each detected garment bounding box
+     and persists into item_embeddings table via repo.add_scan_and_items().
+   - POST /api/v1/check-before-buy: extracts candidate embedding and executes multi-attribute
+     similarity matching against user inventory with visual cosine blending.
+
+--------------------------------------------------------------------------------
+2. TEST SUITE EXECUTION SUMMARY
+--------------------------------------------------------------------------------
+Suite 1: test_embedding_extractor.py
+  - Test 1 (Feature Dimension & Unit Norm 576-dim)  : PASS (norm = 1.000000)
+  - Test 2 (Identical Swatch Similarity >= 0.99)    : PASS (sim = 1.0000)
+  - Test 3 (Solid Navy vs Striped Navy < 0.70)      : PASS (sim = 0.4336)
+  - Test 4 (Solid Navy vs Checkerboard < 0.20)      : PASS (sim = 0.0801)
+  - Test 5 (DuplicateDetector Interoperability)     : PASS (None/empty handled cleanly)
+  - Overall Status                                  : ALL TESTS PASSED (100%)
+
+Suite 2: test_duplicate_detector.py
+  - Case 1 (Exact Duplicate: Navy Top vs Navy Top)  : PASS (Score: 1.000, Verdict: DUPLICATE)
+  - Case 2 (Close Variant: Midnight Blue vs Navy)   : PASS (Score: 0.808, Verdict: SIMILAR)
+  - Case 3 (Same Color Diff Cat: Trousers vs Top)   : PASS (Score: 0.617, Verdict: UNIQUE)
+  - Case 4 (Distinct Item: Yellow Skirt vs Wardrobe): PASS (Score: 0.000, Verdict: UNIQUE)
+  - Pairwise Check (Navy Trousers vs Navy Top)       : PASS (Score: 0.300, Verdict: UNIQUE)
+  - Invariant Checks ([0.0, 1.0] bounds)            : PASS
+  - Overall Status                                  : ALL TESTS PASSED (100%)
+
+Suite 3: test_database.py
+  - Test 1 (User Creation & Unique Email)           : PASS
+  - Test 2 (Scan & Item Persistence)                : PASS
+  - Test 3 (Tenant Isolation & Embedding Retrieval) : PASS (576-dim embedding retrieved)
+  - Test 4 (DuplicateDetector Interop from DB)      : PASS (DUPLICATE for Alice, UNIQUE for Bob)
+  - Test 5 (DuplicateCheck Persistence & Audit)     : PASS
+  - Test 6 (Foreign Key Protection PRAGMA)          : PASS
+  - Overall Status                                  : ALL TESTS PASSED (100%)
+
+Suite 4: test_api.py (FastAPI End-to-End Service)
+  - 1. Health Check Endpoint                        : PASS (Status 200, Arch: YOLO26n)
+  - 2a. Create User Alice                           : PASS (Status 201)
+  - 2b. Duplicate Email Conflict                    : PASS (Status 400 caught)
+  - 2c. Create User Bob                             : PASS (Status 201)
+  - 3a. Upload Scan & Color Extraction              : PASS (Status 201, Scan ID=1, Navy Blue)
+  - 3b. Scan Unknown User ID                        : PASS (Status 404)
+  - 3c. Scan Invalid Image File                     : PASS (Status 400)
+  - 4a. Query Alice Wardrobe Inventory              : PASS (Status 200, Items=1)
+  - 4b. Strict User Isolation (Bob)                 : PASS (Status 200, Bob=0, 0 leaks)
+  - 4c. Query Unknown Wardrobe ID                   : PASS (Status 404)
+  - 5a. Check Before Buy: Duplicate Detected        : PASS (Verdict=DUPLICATE, Score=0.96)
+  - 5b. Check Before Buy: Unique Garment            : PASS (Verdict=UNIQUE, Score=0.09)
+  - 5c. Check Before Buy Unknown User               : PASS (Status 404)
+  - Overall Status                                  : 13/13 PASSED (100%)
+
+--------------------------------------------------------------------------------
+3. SAFETY & REGRESSION AUDIT
+--------------------------------------------------------------------------------
+- Models Untouched     : wardrobe_ml/models/best.pt (Phase 5) strictly preserved.
+- Backups Untouched    : best_phase1.pt, best_phase2.pt, best_phase3.pt, best_phase4.pt, best_phase4_1.pt preserved.
+- Color Extractor      : wardrobe_ml/src/color_extractor.py unmodified.
+- Regressions Detected : 0 regressions across all 4 test suites.
+- Mathematical Bounds  : 100% of similarity scores strictly within [0.0, 1.0].
+================================================================================

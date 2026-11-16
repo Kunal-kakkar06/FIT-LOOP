@@ -1,0 +1,4 @@
+image_filename,original_split,number_of_visible_annotated_garments,number_of_valid_yolo_labels,number_of_rejected_garments,reason_for_exclusion,recommendation
+028225.jpg,train,2,1,1,Rejected trousers (y2=626 > 624) creates false-negative penalty on visible trousers during training,EXCLUDE_UNTIL_REPAIRED (repair candidate: clip y2 to 624)
+115063.jpg,train,1,0,1,Rejected top (y2=829 > 702) leaves empty label file; would act as toxic false-negative background image punishing top detections,"EXCLUDE_UNTIL_REPAIRED (repair candidate: derive box from segmentation [26, 226, 377, 641])"
+101338.jpg,train,2,1,1,"Rejected top (zero-area [0,0,0,0]) creates false-negative penalty on visible top paired with skirt during training","EXCLUDE_UNTIL_REPAIRED (repair candidate: derive box from segmentation [338, 332, 446, 448])"

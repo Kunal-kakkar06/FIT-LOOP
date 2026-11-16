@@ -1,0 +1,286 @@
+{
+  "timestamp": "2026-11-15 17:16:56 UTC",
+  "model_path": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\models\\best.pt",
+  "parameters": {
+    "conf": 0.35,
+    "iou": 0.45,
+    "agnostic_nms": true,
+    "core_trim": 0.2,
+    "device": "cpu"
+  },
+  "overall": {
+    "total_images": 3,
+    "total_detections": 8,
+    "avg_confidence": 0.6249,
+    "low_confidence_count": 3,
+    "zero_detection_images": [],
+    "elapsed_seconds": 10.69
+  },
+  "per_folder": {
+    "closet": {
+      "images_count": 1,
+      "detections_count": 5,
+      "avg_confidence": 0.511,
+      "low_confidence_count": 3,
+      "zero_detection_images": [],
+      "category_distribution": {
+        "trousers": 3,
+        "long sleeve top": 1,
+        "short sleeve top": 1
+      },
+      "images": [
+        {
+          "filename": "Gemini_Generated_Image_m8860cm8860cm886.png",
+          "detections_count": 5,
+          "detections": [
+            {
+              "bbox": [
+                1067,
+                383,
+                1481,
+                1513
+              ],
+              "core_bbox": [
+                1150,
+                609,
+                1398,
+                1287
+              ],
+              "category": "trousers",
+              "confidence": 0.7641,
+              "dominant_color": {
+                "name": "Dark Denim",
+                "hex": "#2E3842"
+              },
+              "secondary_color": {
+                "name": "Dark Denim",
+                "hex": "#3C4752"
+              },
+              "color_name": "Dark Denim",
+              "color_hex": "#2E3842"
+            },
+            {
+              "bbox": [
+                1433,
+                395,
+                1750,
+                1507
+              ],
+              "core_bbox": [
+                1496,
+                617,
+                1687,
+                1285
+              ],
+              "category": "trousers",
+              "confidence": 0.5721,
+              "dominant_color": {
+                "name": "Light Blue",
+                "hex": "#7B889D"
+              },
+              "secondary_color": {
+                "name": "Light Blue",
+                "hex": "#97A6BD"
+              },
+              "color_name": "Light Blue",
+              "color_hex": "#7B889D"
+            },
+            {
+              "bbox": [
+                598,
+                411,
+                1073,
+                1529
+              ],
+              "core_bbox": [
+                693,
+                635,
+                978,
+                1305
+              ],
+              "category": "long sleeve top",
+              "confidence": 0.4309,
+              "dominant_color": {
+                "name": "Black",
+                "hex": "#2C2E33"
+              },
+              "secondary_color": {
+                "name": "Black",
+                "hex": "#26292E"
+              },
+              "color_name": "Black",
+              "color_hex": "#2C2E33"
+            },
+            {
+              "bbox": [
+                364,
+                424,
+                667,
+                1493
+              ],
+              "core_bbox": [
+                425,
+                638,
+                606,
+                1279
+              ],
+              "category": "short sleeve top",
+              "confidence": 0.4165,
+              "dominant_color": {
+                "name": "White",
+                "hex": "#DAE1E9"
+              },
+              "secondary_color": {
+                "name": "Slate Gray",
+                "hex": "#7E7E7B"
+              },
+              "color_name": "White",
+              "color_hex": "#DAE1E9"
+            },
+            {
+              "bbox": [
+                1696,
+                474,
+                1945,
+                1358
+              ],
+              "core_bbox": [
+                1746,
+                651,
+                1895,
+                1181
+              ],
+              "category": "trousers",
+              "confidence": 0.3716,
+              "dominant_color": {
+                "name": "Black",
+                "hex": "#2E2F33"
+              },
+              "secondary_color": {
+                "name": "Black",
+                "hex": "#222427"
+              },
+              "color_name": "Black",
+              "color_hex": "#2E2F33"
+            }
+          ]
+        }
+      ]
+    },
+    "flat_lay": {
+      "images_count": 1,
+      "detections_count": 2,
+      "avg_confidence": 0.8912,
+      "low_confidence_count": 0,
+      "zero_detection_images": [],
+      "category_distribution": {
+        "trousers": 1,
+        "short sleeve top": 1
+      },
+      "images": [
+        {
+          "filename": "Gemini_Generated_Image_m8860cm8860cm886 (1).png",
+          "detections_count": 2,
+          "detections": [
+            {
+              "bbox": [
+                1027,
+                564,
+                1527,
+                1231
+              ],
+              "core_bbox": [
+                1127,
+                697,
+                1427,
+                1098
+              ],
+              "category": "trousers",
+              "confidence": 0.8939,
+              "dominant_color": {
+                "name": "Khaki",
+                "hex": "#BFA990"
+              },
+              "secondary_color": {
+                "name": "Khaki",
+                "hex": "#CBB59C"
+              },
+              "color_name": "Khaki",
+              "color_hex": "#BFA990"
+            },
+            {
+              "bbox": [
+                6,
+                524,
+                1095,
+                1311
+              ],
+              "core_bbox": [
+                224,
+                681,
+                877,
+                1154
+              ],
+              "category": "short sleeve top",
+              "confidence": 0.8885,
+              "dominant_color": {
+                "name": "Navy Blue",
+                "hex": "#353F62"
+              },
+              "secondary_color": {
+                "name": "Denim Blue",
+                "hex": "#425278"
+              },
+              "color_name": "Navy Blue",
+              "color_hex": "#353F62"
+            }
+          ]
+        }
+      ]
+    },
+    "single_garment": {
+      "images_count": 1,
+      "detections_count": 1,
+      "avg_confidence": 0.6614,
+      "low_confidence_count": 0,
+      "zero_detection_images": [],
+      "category_distribution": {
+        "long sleeve outwear": 1
+      },
+      "images": [
+        {
+          "filename": "Gemini_Generated_Image_m8860cm8860cm886 (2).png",
+          "detections_count": 1,
+          "detections": [
+            {
+              "bbox": [
+                335,
+                583,
+                1502,
+                1995
+              ],
+              "core_bbox": [
+                568,
+                865,
+                1269,
+                1713
+              ],
+              "category": "long sleeve outwear",
+              "confidence": 0.6614,
+              "dominant_color": {
+                "name": "Emerald Green",
+                "hex": "#257A69"
+              },
+              "secondary_color": {
+                "name": "Emerald Green",
+                "hex": "#329486"
+              },
+              "color_name": "Emerald Green",
+              "color_hex": "#257A69"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

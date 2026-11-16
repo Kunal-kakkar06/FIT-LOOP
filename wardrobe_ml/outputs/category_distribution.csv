@@ -1,0 +1,14 @@
+category_id,category_name,garment_instances,unique_images,instance_percentage,image_percentage
+1,short sleeve top,71645,70586,22.95,36.77
+8,trousers,55387,54969,17.74,28.64
+7,shorts,36616,36332,11.73,18.93
+2,long sleeve top,36064,35751,11.55,18.62
+9,skirt,30835,30625,9.88,15.95
+12,vest dress,17949,17767,5.75,9.26
+10,short sleeve dress,17211,17028,5.51,8.87
+5,vest,16095,15974,5.16,8.32
+4,long sleeve outwear,13457,13381,4.31,6.97
+11,long sleeve dress,7907,7803,2.53,4.06
+13,sling dress,6492,6455,2.08,3.36
+6,sling,1985,1964,0.64,1.02
+3,short sleeve outwear,543,539,0.17,0.28

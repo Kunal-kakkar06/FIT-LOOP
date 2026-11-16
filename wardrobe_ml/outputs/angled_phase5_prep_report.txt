@@ -1,0 +1,91 @@
+==============================================================================
+FITLOOP PHASE 10.1: ANGLED/FOLDED DATASET PREPARATION REPORT
+==============================================================================
+Execution Timestamp : 2026-11-15 18:00:28 UTC
+Execution Duration  : 0.75 s
+Python Version      : 3.11.6
+Source Archive      : C:\Users\Lenovo\Downloads\fitloop-folded-trousers.v2i.yolo26.zip
+Source ZIP Size     : 2,776,888 bytes (2.65 MB)
+Destination Folder  : C:\Users\Lenovo\Downloads\Fitloop\wardrobe_ml\outputs\kaggle_phase5_angled
+Packaged ZIP Path   : C:\Users\Lenovo\Downloads\Fitloop\wardrobe_ml\outputs\kaggle_phase5_angled\fitloop_phase5_angled_wardrobe.zip
+Packaged ZIP Size   : 2,757,346 bytes (2.63 MB)
+ZIP Integrity Check : PASSED (testzip returned None, 99 entries)
+------------------------------------------------------------------------------
+SOURCE DATA.YAML SPECIFICATION
+------------------------------------------------------------------------------
+Raw YAML Keys       : ['train', 'val', 'test', 'nc', 'names', 'roboflow']
+Source Classes (nc) : 6
+Raw Classes Content :
+  | train: ../train/images
+  | val: ../valid/images
+  | test: ../test/images
+  | 
+  | nc: 6
+  | names: ['Tshirt', 'dress', 'jacket', 'pants', 'shirt', 'sweater']
+  | 
+  | roboflow:
+  |   workspace: sohan-morabad
+  |   project: fitloop-folded-trousers
+  |   version: 2
+  |   license: Private
+  |   url: https://app.roboflow.com/sohan-morabad/fitloop-folded-trousers/2
+------------------------------------------------------------------------------
+DYNAMIC CLASS REMAPPING TABLE (Source -> FitLoop 13-Class Schema)
+------------------------------------------------------------------------------
+Src ID   Source Name        -> FitLoop ID   FitLoop Class Name       
+-------- ------------------    ------------ -------------------------
+0        Tshirt             -> 0            short sleeve top         
+1        dress              -> 9            short sleeve dress       
+2        jacket             -> 3            long sleeve outwear      
+3        pants              -> 7            trousers                 
+4        shirt              -> 1            long sleeve top          
+5        sweater            -> 1            long sleeve top          
+------------------------------------------------------------------------------
+PER-SPLIT CONVERSION SUMMARY
+------------------------------------------------------------------------------
+Split    Images   Labels   Instances   Empty    Rejected  
+-------- -------- -------- ----------- -------- ----------
+train    45       45       411         0        0         
+val      2        2        28          0        0         
+test     2        2        17          0        0         
+-------- -------- -------- ----------- -------- ----------
+TOTAL    49       49       456         0        0         
+------------------------------------------------------------------------------
+REMAPPED INSTANCE COUNTS PER FITLOOP CLASS
+------------------------------------------------------------------------------
+Class ID   FitLoop Class Name       Train    Val      Test     Total   
+---------- ------------------------ -------- -------- -------- --------
+0          short sleeve top         21       0        0        21      
+1          long sleeve top          219      18       14       251     
+2          short sleeve outwear     0        0        0        0       
+3          long sleeve outwear      60       1        0        61      
+4          vest                     0        0        0        0       
+5          sling                    0        0        0        0       
+6          shorts                   0        0        0        0       
+7          trousers                 102      8        3        113     
+8          skirt                    0        0        0        0       
+9          short sleeve dress       9        1        0        10      
+10         long sleeve dress        0        0        0        0       
+11         vest dress               0        0        0        0       
+12         sling dress              0        0        0        0       
+---------- ------------------------ -------- -------- -------- --------
+SUM        All 13 Classes           411      28       17       456     
+------------------------------------------------------------------------------
+LABEL VALIDATION SUITE RESULTS
+------------------------------------------------------------------------------
+Total Label Files Inspected : 49
+Validation Errors Detected  : 0
+Schema Checks               : Exactly 5 tokens (class cx cy w h)
+Class ID Bounds             : Strictly integer in [0, 12]
+Coordinate Bounds           : Strictly finite floats, cx, cy in [0, 1], w, h in (0, 1]
+Validation Result           : PASSED (100% Valid)
+------------------------------------------------------------------------------
+OUTPUT ZIP INTEGRITY VERIFICATION
+------------------------------------------------------------------------------
+Archive Filename            : fitloop_phase5_angled_wardrobe.zip
+Archive File Path           : C:\Users\Lenovo\Downloads\Fitloop\wardrobe_ml\outputs\kaggle_phase5_angled\fitloop_phase5_angled_wardrobe.zip
+Archive Size (bytes)        : 2,757,346
+Archive Size (MB)           : 2.63 MB
+Total Packaged Files        : 99
+testzip() Integrity Check  : PASSED (0 corrupted files)
+==============================================================================

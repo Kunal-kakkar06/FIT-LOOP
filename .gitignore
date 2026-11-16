@@ -1,0 +1,119 @@
+# ==========================================
+# FitLoop .gitignore
+# ==========================================
+
+# 1. Virtual Environments
+fitloop_yolo_env/
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# 2. Python & Bytecode Cache
+__pycache__/
+*.py[cod]
+*.pyc
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 3. Notebook, IDE & Tool Caches
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 4. Datasets & Large Archives
+wardrobe_ml/data/
+data/
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+*.rar
+*.gz
+*.parquet
+*.feather
+*.h5
+*.hdf5
+
+# 5. Staging & Intermediate Kaggle/Colab Outputs
+wardrobe_ml/outputs/colab_transfer_staging/
+wardrobe_ml/outputs/kaggle_dataset_parts/
+wardrobe_ml/outputs/kaggle_phase3_roboflow/
+wardrobe_ml/outputs/kaggle_phase4_folded/
+wardrobe_ml/outputs/kaggle_phase5_angled/
+*.cache
+
+# 6. Database & Uploads
+*.db
+*.sqlite
+*.sqlite3
+uploads/
+wardrobe_ml/outputs/scan_uploads/
+user_uploads/
+private/
+data/private/
+
+# 7. Model Checkpoints & Weights
+# Ignore intermediate/backup phase weights, keep production best.pt tracked
+checkpoints/
+weights/
+wardrobe_ml/models/best_phase*.pt
+wardrobe_ml/models/yolo26n.pt
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.safetensors
+*.ckpt
+*.bin
+*.engine
+# Whitelist production model
+!wardrobe_ml/models/best.pt
+
+# 8. Experiment Tracking Logs
+runs/
+wandb/
+mlruns/
+experiments/logs/
+experiments/runs/
+
+# 9. Environment & Credentials
+.env
+.env.local
+.env.*.local
+secrets.json
+credentials.json

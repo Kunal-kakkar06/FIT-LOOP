@@ -1,0 +1,52 @@
+==============================================================================
+FITLOOP PHASE 6.1: CLASS-AGNOSTIC NMS CONFIGURATION & VERIFICATION REPORT
+==============================================================================
+Timestamp           : 2026-11-14 13:48:49 UTC
+Target Script       : wardrobe_ml/src/app.py
+Verification Target : wardrobe_ml/src/test_api.py
+Python Environment  : C:\Users\Lenovo\Downloads\Fitloop\fitloop_yolo_env
+
+1. CONFIGURATION UPDATE
+------------------------------------------------------------------------------
+Module              : wardrobe_ml/src/app.py
+Class               : GarmentDetector
+Method              : detect(image_bgr, conf_threshold=0.25, iou_threshold=0.45, agnostic_nms=True, default_category='short sleeve top')
+Inference Call      :
+    results = self.model.predict(
+        image_bgr,
+        device=self.device,
+        conf=conf_threshold,
+        iou=iou_threshold,
+        agnostic_nms=agnostic_nms,
+        verbose=False,
+    )
+
+Key Parameter Settings:
+- agnostic_nms = True   : Ensures overlapping bounding boxes across different categories
+                          on the same physical garment are suppressed via NMS.
+- iou = 0.45            : Standard IoU suppression threshold for clothing overlap.
+- conf = 0.25           : Standard confidence threshold eliminating spurious low-confidence artifacts.
+
+2. VERIFICATION RESULTS (wardrobe_ml/src/test_api.py)
+------------------------------------------------------------------------------
+Total Test Cases    : 13
+Passed              : 13
+Failed              : 0
+Overall Status      : SUCCESS
+Total Runtime       : 6,242.41 ms
+
+Endpoint Tests Verified:
+- GET  /health                      : PASS (Status 200, YOLO26n loaded on CPU)
+- POST /api/v1/users                : PASS (Alice & Bob created, duplicate email 400 validated)
+- POST /api/v1/scans                : PASS (Navy Blue #111C30 scanned with agnostic NMS, 404/400 handled)
+- GET  /api/v1/wardrobe/{user_id}   : PASS (Alice items query, Bob 0 items tenant isolation, 404 handled)
+- POST /api/v1/check-before-buy     : PASS (Duplicate detected 1.00, Unique detected 0.00, 404 handled)
+
+3. SAFETY CONSTRAINTS & INVARIANTS
+------------------------------------------------------------------------------
+- wardrobe_ml/models/best.pt        : Preserved intact (5,446,469 bytes)
+- wardrobe_ml/models/yolo26n.pt     : Preserved intact (5,366,078 bytes)
+- wardrobe_ml/src/color_extractor.py: Preserved untouched
+- wardrobe_ml/src/duplicate_detector.py: Preserved untouched
+- wardrobe_ml/src/database.py       : Preserved untouched
+==============================================================================

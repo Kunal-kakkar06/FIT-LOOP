@@ -1,0 +1,68 @@
+==============================================================================
+FITLOOP PHASE 8.2: ROBOFLOW DATASET CONVERSION & PACKAGING REPORT
+==============================================================================
+Execution Timestamp   : 2026-11-14 22:22:16 UTC
+Source Archive        : C:\Users\Lenovo\Downloads\Clothes detection.v6i.yolo26.zip
+Output Directory      : C:\Users\Lenovo\Downloads\Fitloop\wardrobe_ml\outputs\kaggle_phase3_roboflow
+Output Archive        : C:\Users\Lenovo\Downloads\Fitloop\wardrobe_ml\outputs\kaggle_phase3_roboflow\fitloop_phase3_roboflow.zip
+Output Archive Size   : 73.80 MB (77,389,309 bytes)
+Total Packaged Files  : 3,603
+Execution Total Time  : 26.75 s
+
+==============================================================================
+SECTION 1: CLASS REMAPPING SCHEMA (ROBOFLOW 8 -> FITLOOP 13)
+==============================================================================
+Roboflow Class         | Target DeepFashion2 Class | Target ID 
+------------------------------------------------------------------------------
+0: Tshirt              -> short sleeve top         | ID: 0
+1: dress               -> short sleeve dress       | ID: 9
+2: jacket              -> long sleeve outwear      | ID: 3
+3: pants               -> trousers                 | ID: 7
+4: shirt               -> long sleeve top          | ID: 1
+5: short               -> shorts                   | ID: 6
+6: skirt               -> skirt                    | ID: 8
+7: sweater             -> long sleeve top          | ID: 1
+
+==============================================================================
+SECTION 2: SPLIT IMAGE & LABEL FILE COUNTS
+==============================================================================
+Split    | Images Count   | Label Files    | Instances    | Empty Labels  
+------------------------------------------------------------------------------
+train    |          1,404 |          1,404 |        2,153 |              0
+val      |            254 |            254 |          447 |              0
+test     |            143 |            143 |          238 |              0
+------------------------------------------------------------------------------
+TOTAL    |          1,801 |          1,801 |        2,838 |              0
+
+==============================================================================
+SECTION 3: PER-CLASS CONVERTED INSTANCE COUNTS (FITLOOP 13 SCHEMA)
+==============================================================================
+ID   | FitLoop Class Name       | Train     | Val      | Test     | Total    
+------------------------------------------------------------------------------
+0    | short sleeve top         |       565 |       76 |       30 |       671
+1    | long sleeve top          |       455 |      114 |       66 |       635
+2    | short sleeve outwear     |         0 |        0 |        0 |         0
+3    | long sleeve outwear      |       105 |       22 |       10 |       137
+4    | vest                     |         0 |        0 |        0 |         0
+5    | sling                    |         0 |        0 |        0 |         0
+6    | shorts                   |       108 |        9 |        9 |       126
+7    | trousers                 |       342 |       60 |       44 |       446
+8    | skirt                    |       295 |      104 |       47 |       446
+9    | short sleeve dress       |       283 |       62 |       32 |       377
+10   | long sleeve dress        |         0 |        0 |        0 |         0
+11   | vest dress               |         0 |        0 |        0 |         0
+12   | sling dress              |         0 |        0 |        0 |         0
+------------------------------------------------------------------------------
+ALL  | TOTAL CONVERTED INSTANCES |     2,153 |      447 |      238 |     2,838
+
+==============================================================================
+SECTION 4: 100% LABEL INTEGRITY VALIDATION AUDIT
+==============================================================================
+Total Label Files Audited    : 1,801
+Validation Errors Encountered: 0 (100% PASSED)
+5-Token Line Format Check    : 100.0% Compliant (class cx cy w h)
+Class ID Range [0, 12] Check : 100.0% Compliant
+Coordinates [0.0, 1.0] Bounds: 100.0% Compliant & strictly clipped
+Zero-Area Boxes Rejection    : 0 boxes rejected
+Packaged ZIP testzip() Status: PASSED (Zero corruption)
+==============================================================================
