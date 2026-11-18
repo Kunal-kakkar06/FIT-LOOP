@@ -75,6 +75,8 @@ wardrobe_ml/outputs/kaggle_dataset_parts/
 wardrobe_ml/outputs/kaggle_phase3_roboflow/
 wardrobe_ml/outputs/kaggle_phase4_folded/
 wardrobe_ml/outputs/kaggle_phase5_angled/
+wardrobe_ml/outputs/kaggle_phase6_tyaw9/
+wardrobe_ml/outputs/kaggle_phase*/
 *.cache
 
 # 6. Database & Uploads

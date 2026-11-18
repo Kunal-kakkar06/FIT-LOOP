@@ -85,35 +85,44 @@ FitLoop maps apparel into 13 mutually exclusive standardized garment categories 
 
 ---
 
-## 📊 3. Verified Model Evaluation Scorecard
+## 📊 3. Verified Model Evaluation Scorecard (Phase 6 Production Model)
 
-Evaluated against the **unseen real-world test split** (143 photographs, 238 ground-truth instances) on an Intel Core i5 CPU without GPU dependency:
+Evaluated against the **unseen real-world test splits** on an Intel Core i5 CPU without GPU dependency:
 
-### Overall Benchmark Metrics
+### Primary Benchmark: Massive Casual & Retail Apparel Split (`tyaw9` 837 Unseen Images)
 
 | Metric | Measured Score | Evaluation Notes |
 | :--- | :---: | :--- |
-| **Overall Precision (P)** | **90.40%** | Exceptionally low false-positive clutter across crowded closets |
-| **Overall Recall (R)** | **86.46%** | High item capture across folded, angled, and layered clothing |
-| **Overall mAP@50** | **93.85%** | Exceeds production acceptance threshold ($\ge 90\%$) |
-| **Overall mAP@50-95** | **78.51%** | Robust IoU box localization precision |
-| **Inference Latency** | **58.40 ms** | Fast CPU inference (~16.6 FPS on modern 12th-gen Intel CPU) |
-| **Model Size** | **5.45 MB** | Lightweight YOLO26n footprint (`wardrobe_ml/models/best.pt`) |
+| **Overall Precision (P)** | **73.07%** | High precision across dense, varied, and real-world casual outfits |
+| **Overall Recall (R)** | **67.67%** | Comprehensive item localization across complex layering and occlusions |
+| **Overall mAP@50** | **71.25%** | +34.00% absolute increase over Phase 5 baseline (37.25%) |
+| **Overall mAP@50-95** | **53.08%** | +27.96% absolute increase over Phase 5 baseline (25.12%) |
+| **Inference Latency** | **50.38 ms** | Fast CPU inference (~19.2 FPS on Intel 12th-Gen Core i5) |
+| **Model Size** | **5.46 MB** | Lightweight YOLO26n footprint (`wardrobe_ml/models/best.pt`) |
 
-### Itemized Per-Class Performance
+### Itemized Per-Class Performance (`tyaw9` 837 Images, 1,513 Instances)
 
 | Class ID | Garment Category | Instances | Precision | Recall | mAP@50 | mAP@50-95 |
 | :-: | :--- | :-: | :-: | :-: | :-: | :-: |
-| **0** | `short sleeve top` | 30 | 79.88% | 70.00% | 82.99% | 66.79% |
-| **1** | `long sleeve top` | 66 | 89.55% | 77.90% | 87.95% | 68.86% |
-| **3** | `long sleeve outwear` | 10 | 81.96% | 90.92% | 97.83% | 90.17% |
-| **6** | `shorts` | 9 | 98.24% | 100.00% | 99.50% | 91.56% |
-| **7** | `trousers` | 44 | **89.55%** | **93.18%** | **94.71%** | **77.18%** |
-| **8** | `skirt` | 47 | 93.66% | 93.62% | 97.75% | 76.45% |
-| **9** | `short sleeve dress` | 32 | 100.00% | 79.61% | 96.18% | 78.58% |
-| **ALL** | **Combined Aggregate** | **238** | **90.40%** | **86.46%** | **93.85%** | **78.51%** |
+| **0** | `short sleeve top` | 233 | **80.71%** | **89.70%** | **92.43%** | **83.37%** |
+| **1** | `long sleeve top` | 381 | 66.10% | 63.52% | 64.40% | 43.03% |
+| **3** | `long sleeve outwear` | 273 | 74.51% | 55.31% | 59.32% | 42.76% |
+| **6** | `shorts` | 114 | 73.86% | 50.00% | 51.28% | 30.10% |
+| **7** | `trousers` | 258 | 68.73% | 64.74% | **70.85%** | **56.45%** |
+| **8** | `skirt` | 163 | 75.66% | 72.39% | **78.49%** | **55.97%** |
+| **9** | `short sleeve dress` | 91 | 71.94% | 78.02% | **81.96%** | **59.91%** |
+| **ALL** | **Combined Aggregate** | **1,513** | **73.07%** | **67.67%** | **71.25%** | **53.08%** |
 
-*Note: Classes 2, 4, 5, 10, 11, and 12 had 0 ground-truth occurrences in this 143-image test split.*
+*Note: Classes 2, 4, 5, 10, 11, and 12 had 0 ground-truth occurrences in this split.*
+
+### Complementary Benchmark: Real-World Multi-Garment Split (143 Unseen Images)
+
+| Metric | Measured Score | Evaluation Notes |
+| :--- | :---: | :--- |
+| **Overall Precision (P)** | **75.54%** | Low false-positive rate across crowded closet environments |
+| **Overall Recall (R)** | **73.95%** | Consistent garment identification in multi-garment wardrobe photos |
+| **Overall mAP@50** | **77.19%** | Robust IoU overlap across diverse lighting and garment types |
+| **Overall mAP@50-95** | **62.95%** | High box localization fidelity |
 
 ---
 
@@ -150,23 +159,26 @@ pip install -r wardrobe_ml/requirements-yolo.txt
 
 ## 🧪 5. Automated Verification Test Suites
 
-FitLoop includes 4 complete automated verification suites covering all layers of the stack:
+FitLoop includes 5 complete automated verification suites covering all layers of the stack:
 
 ```bash
-# 1. Verify MobileNetV3-Small 576-dim feature extraction & cosine similarity
+# 1. Verify CIE LAB K-Means color clustering & swatch identification
+python wardrobe_ml/src/test_color_extractor.py
+
+# 2. Verify MobileNetV3-Small 576-dim feature extraction & cosine similarity
 python wardrobe_ml/src/test_embedding_extractor.py
 
-# 2. Verify CIE LAB color distance & multi-attribute duplicate scoring
+# 3. Verify CIE LAB color distance & multi-attribute duplicate scoring
 python wardrobe_ml/src/test_duplicate_detector.py
 
-# 3. Verify SQLite multi-tenant isolation, ORM relationships & ItemEmbedding
+# 4. Verify SQLite multi-tenant isolation, ORM relationships & ItemEmbedding
 python wardrobe_ml/src/test_database.py
 
-# 4. Run end-to-end FastAPI integration tests (13/13 tests)
+# 5. Run end-to-end FastAPI integration tests (13/13 tests)
 python wardrobe_ml/src/test_api.py
 
-# 5. Generate complete Precision/Recall/mAP scorecard on unseen test sets
-python wardrobe_ml/src/evaluate_final_scorecard.py
+# 6. Generate complete Phase 6 Precision/Recall/mAP scorecard on unseen test sets
+python wardrobe_ml/src/evaluate_scorecard_phase6.py
 ```
 
 ---

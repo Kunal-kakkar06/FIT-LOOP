@@ -1,6 +1,6 @@
 FITLOOP GARMENT EMBEDDING EXTRACTOR VERIFICATION REPORT
 ===========================================================================
-Execution Timestamp : 2026-11-16 17:01:17 UTC
+Execution Timestamp : 2026-11-18 02:25:02 UTC
 Python Environment  : C:\Users\Lenovo\Downloads\Fitloop\fitloop_yolo_env\Scripts\python.exe
 
 SECTION 1: BACKBONE ARCHITECTURE & NORMALIZATION
@@ -12,6 +12,6 @@ Test 4: Solid Navy vs Checkerboard Cosine Similarity=0.0801 (exp: < 0.20) -> [PA
 Test 5: DuplicateDetector Interoperability: sim=1.0, handles None/empty cleanly -> [PASS]
 
 ===========================================================================
-Total Runtime       : 697.77 ms
+Total Runtime       : 465.31 ms
 Overall Status      : ALL TESTS PASSED
 ===========================================================================
