@@ -1,0 +1,34 @@
+FITLOOP GARMENT COLOR EXTRACTOR VERIFICATION REPORT
+======================================================================
+Test Execution Timestamp: 2026-11-18 02:24:41 UTC
+Python Environment:      C:\Users\Lenovo\Downloads\Fitloop\fitloop_yolo_env\Scripts\python.exe
+OpenCV Version:          4.11.0
+NumPy Version:           1.26.4
+Recognized Fashion Names:63 categories
+
+SECTION 1: SYNTHETIC CONTROLLED BENCHMARK
+----------------------------------------------------------------------
+Solid Red Swatch                 | Expected: Red          | Extracted: Red          (#FF0000, 100.0%) | Sec: Red (#FF0000,   0.0%) | Status: [PASS]
+Solid Navy Blue Swatch           | Expected: Navy Blue    | Extracted: Navy Blue    (#1B263B, 100.0%) | Sec: Navy Blue (#1B263B,   0.0%) | Status: [PASS]
+Solid Olive Green Swatch         | Expected: Olive Green  | Extracted: Olive Green  (#556B2F, 100.0%) | Sec: Olive Green (#556B2F,   0.0%) | Status: [PASS]
+Solid Burgundy Swatch            | Expected: Burgundy     | Extracted: Burgundy     (#800020, 100.0%) | Sec: Burgundy (#800020,   0.0%) | Status: [PASS]
+Two-Tone Garment (Navy + Olive)  | Expected: Navy Blue    | Extracted: Navy Blue    (#1B263B,  81.2%) | Sec: Olive Green (#556B2F,  18.8%) | Status: [PASS]
+
+SECTION 2: REAL DEEPFASHION2 GARMENT IMAGES
+----------------------------------------------------------------------
+000001.jpg | Mode: YOLO BBox Cropped | Dominant: Light Gray   (#A9AAAC,  45.8%) | Secondary: Light Gray   (#BEC1C7,  37.8%) | Status: [PASS]
+000002.jpg | Mode: YOLO BBox Cropped | Dominant: Black        (#181915,  42.7%) | Secondary: Beige        (#D8DBD1,  32.3%) | Status: [PASS]
+000003.jpg | Mode: YOLO BBox Cropped | Dominant: Plum         (#412748,  55.3%) | Secondary: Plum         (#652C4D,  25.2%) | Status: [PASS]
+000009.jpg | Mode: YOLO BBox Cropped | Dominant: Midnight Blue (#0A0A1A,  38.2%) | Secondary: Navy Blue    (#04103C,  27.4%) | Status: [PASS]
+000011.jpg | Mode: YOLO BBox Cropped | Dominant: White        (#E0E5E2,  38.7%) | Secondary: Lavender     (#B3A6A3,  31.2%) | Status: [PASS]
+
+SECTION 3: VERIFICATION SUMMARY & INVARIANTS
+----------------------------------------------------------------------
+Synthetic Tests:       5/5 PASSED
+Real Image Tests:      5/5 PASSED
+HEX Format Validation: 100% Valid (Pattern: ^#[0-9A-F]{6}$)
+Color Name Mapping:    100% Recognized in Fashion Palette
+Percentage Integrity:  100% Positive and Normalised
+CPU Execution Time:    0.809 seconds total
+OVERALL STATUS:        VERIFIED_PASS
+======================================================================

@@ -1,0 +1,62 @@
+{
+  "scan_time_sec": 23.64,
+  "total_images": 191961,
+  "total_garments": 312186,
+  "degenerate_boxes": {
+    "total_count": 1,
+    "w_zero_count": 0,
+    "h_zero_count": 0,
+    "both_zero_count": 1,
+    "w_neg_count": 0,
+    "h_neg_count": 0,
+    "category_breakdown": {
+      "short sleeve top": 1
+    },
+    "samples": [
+      {
+        "file": "101338.json",
+        "item_key": "item2",
+        "category_id": 1,
+        "category_name": "short sleeve top",
+        "bbox": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "w": 0,
+        "h": 0,
+        "viewpoint": 2,
+        "occlusion": 2,
+        "zoom_in": 1,
+        "scale": 1
+      }
+    ]
+  },
+  "metadata_distributions": {
+    "viewpoint": {
+      "1": 22675,
+      "2": 244459,
+      "3": 45052
+    },
+    "occlusion": {
+      "1": 145379,
+      "2": 147102,
+      "3": 19705
+    },
+    "zoom_in": {
+      "1": 211894,
+      "2": 66643,
+      "3": 33649
+    },
+    "scale": {
+      "1": 78735,
+      "2": 157021,
+      "3": 76430
+    },
+    "source": {
+      "shop": 132157,
+      "user": 59804
+    }
+  }
+}

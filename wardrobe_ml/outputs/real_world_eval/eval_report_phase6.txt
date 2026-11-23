@@ -1,0 +1,70 @@
+==============================================================================
+FITLOOP REAL-WORLD WARDROBE EVALUATION DIAGNOSTIC REPORT
+==============================================================================
+Execution Timestamp : 2026-11-18 02:10:27 UTC
+Model Checkpoint    : C:\Users\Lenovo\Downloads\Fitloop\wardrobe_ml\models\best.pt
+Inference Parameters: conf=0.25, iou=0.45, agnostic_nms=True
+Center-Weighted Core: 60% (trimmed 20% each edge)
+Total Runtime       : 10.39 s
+------------------------------------------------------------------------------
+OVERALL SUMMARY
+------------------------------------------------------------------------------
+Total Images Evaluated   : 3
+Total Garments Detected  : 8
+Average Confidence       : 74.33%
+Low-Confidence (< 0.45)  : 0
+Zero-Detection Images    : 0
+------------------------------------------------------------------------------
+PER-FOLDER BREAKDOWN
+------------------------------------------------------------------------------
+
+Context: [CLOSET]
+  Images Found        : 1
+  Garments Detected   : 4
+  Average Confidence  : 78.11%
+  Low-Confidence (<45): 0
+  Zero Detections     : 0
+  Category Distribution:
+    - long sleeve top         : 2
+    - short sleeve top        : 1
+    - long sleeve outwear     : 1
+
+Context: [FLAT_LAY]
+  Images Found        : 1
+  Garments Detected   : 3
+  Average Confidence  : 73.27%
+  Low-Confidence (<45): 0
+  Zero Detections     : 0
+  Category Distribution:
+    - trousers                : 1
+    - short sleeve top        : 1
+    - long sleeve top         : 1
+
+Context: [SINGLE_GARMENT]
+  Images Found        : 1
+  Garments Detected   : 1
+  Average Confidence  : 62.43%
+  Low-Confidence (<45): 0
+  Zero Detections     : 0
+  Category Distribution:
+    - long sleeve top         : 1
+
+------------------------------------------------------------------------------
+ITEMIZED DETECTION & COLOR EXTRACTION DETAILS
+------------------------------------------------------------------------------
+
+Image: closet/Gemini_Generated_Image_m8860cm8860cm886.png (4 detected):
+  [1] short sleeve top     | Conf:  86.0% | BBox: [363, 428, 688, 1525] | Core: [428, 647, 623, 1306] | Dominant: White (#D9E0E8), Secondary: Black (#181617)
+  [2] long sleeve top      | Conf:  80.7% | BBox: [1403, 379, 1768, 1531] | Core: [1476, 609, 1695, 1301] | Dominant: Light Blue (#7A879D), Secondary: Light Blue (#97A6BD)
+  [3] long sleeve top      | Conf:  78.6% | BBox: [575, 401, 1088, 1556] | Core: [678, 632, 985, 1325] | Dominant: Black (#2B2D33), Secondary: Black (#25282D)
+  [4] long sleeve outwear  | Conf:  67.2% | BBox: [1039, 379, 1504, 1536] | Core: [1132, 610, 1411, 1305] | Dominant: Dark Denim (#3B4550), Secondary: Black (#2C3640)
+
+Image: flat_lay/Gemini_Generated_Image_m8860cm8860cm886 (1).png (3 detected):
+  [1] trousers             | Conf:  92.0% | BBox: [979, 543, 1577, 1237] | Core: [1099, 682, 1457, 1098] | Dominant: Khaki (#BEA890), Secondary: Khaki (#CDB69D)
+  [2] short sleeve top     | Conf:  77.6% | BBox: [0, 481, 1099, 1311] | Core: [220, 647, 879, 1145] | Dominant: Dark Denim (#353F61), Secondary: Denim Blue (#425278)
+  [3] long sleeve top      | Conf:  50.3% | BBox: [1506, 480, 2400, 1341] | Core: [1685, 652, 2221, 1169] | Dominant: Wine (#50222B), Secondary: Wine (#3D181E)
+
+Image: single_garment/Gemini_Generated_Image_m8860cm8860cm886 (2).png (1 detected):
+  [1] long sleeve top      | Conf:  62.4% | BBox: [304, 545, 1515, 2027] | Core: [546, 841, 1273, 1731] | Dominant: Emerald Green (#257A69), Secondary: Emerald Green (#319485)
+
+==============================================================================

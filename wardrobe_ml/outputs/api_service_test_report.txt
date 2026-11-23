@@ -1,0 +1,26 @@
+==============================================================================
+FITLOOP PHASE 5: FASTAPI SERVICE AUTOMATED VERIFICATION REPORT
+==============================================================================
+Execution Timestamp : 2026-11-18 02:26:50 UTC
+Total Test Cases    : 13
+Passed              : 13
+Failed              : 0
+Overall Status      : SUCCESS
+Total Runtime       : 2181.25 ms
+------------------------------------------------------------------------------
+Test Case                              | Status | Time (ms) | Details
+------------------------------------------------------------------------------
+1. Health Check Endpoint               | PASS   | 58.4      | Status 200, Arch: YOLO26n, Model Loaded: True
+2a. Create User Alice                  | PASS   | 246.4     | Status 201, User ID=1, Email=alice.green@fitloop.test
+2b. Duplicate Email Conflict           | PASS   | 26.1      | Status 400 caught duplicate email: User with email 'alice.green@fitloop.test' already exists.
+2c. Create User Bob                    | PASS   | 44.0      | Status 201, User ID=2, Bob registered for isolation testing
+3a. Upload Scan & Color Extraction     | PASS   | 864.3     | Status 201, Scan ID=1, Detected=Navy Blue (#111C30)
+3b. Scan Unknown User ID               | PASS   | 21.6      | Status 404 caught missing user_id=999999 cleanly
+3c. Scan Invalid Image File            | PASS   | 21.1      | Status 400 rejected corrupted file payload
+4a. Query Alice Wardrobe Inventory     | PASS   | 36.4      | Status 200, Items Count=1
+4b. Strict User Isolation (Bob)        | PASS   | 32.0      | Status 200, Bob items=0 (Alice items hidden, 0 leaks)
+4c. Query Unknown Wardrobe ID          | PASS   | 27.4      | Status 404 caught non-existent user 888888
+5a. Check Before Buy: Duplicate Detected | PASS   | 341.4     | Verdict=DUPLICATE, Score=0.92, Rec: DUPLICATE DETECTED: You already own an identical or nea...
+5b. Check Before Buy: Unique Garment   | PASS   | 321.8     | Verdict=UNIQUE, Score=0.09, Rec: UNIQUE ADDITION: This Mustard Yellow Trousers is distin...
+5c. Check Before Buy Unknown User      | PASS   | 23.9      | Status 404 caught non-existent user 777777
+==============================================================================

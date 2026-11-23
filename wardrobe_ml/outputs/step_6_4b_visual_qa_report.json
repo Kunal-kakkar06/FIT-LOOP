@@ -1,0 +1,1117 @@
+{
+  "stage": "6.4B",
+  "timestamp": "2026-11-06T22:25:00+05:30",
+  "description": "Visual Verification Report of DeepFashion2-to-YOLO Converted Annotations",
+  "output_directory": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\outputs\\step_6_4b_visual_qa",
+  "annotated_images_directory": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\outputs\\step_6_4b_visual_qa\\annotated_images",
+  "contact_sheets": {
+    "key_cases": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\outputs\\step_6_4b_visual_qa\\contact_sheet_key_cases.jpg",
+    "single_and_diverse": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\outputs\\step_6_4b_visual_qa\\contact_sheet_single_and_diverse.jpg",
+    "all_20_samples": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\outputs\\step_6_4b_visual_qa\\contact_sheet_all_20_samples.jpg"
+  },
+  "summary": {
+    "total_images_inspected": 20,
+    "total_valid_boxes_displayed": 37,
+    "max_pixel_reconstruction_error": 0.00058,
+    "all_boxes_within_image_boundaries": true,
+    "all_classes_correctly_mapped": true,
+    "overall_assessment": "PASS"
+  },
+  "category_box_distribution": {
+    "short sleeve top": 6,
+    "long sleeve top": 6,
+    "short sleeve outwear": 1,
+    "long sleeve outwear": 2,
+    "vest": 3,
+    "sling": 1,
+    "shorts": 3,
+    "trousers": 8,
+    "skirt": 3,
+    "short sleeve dress": 1,
+    "long sleeve dress": 1,
+    "vest dress": 1,
+    "sling dress": 1
+  },
+  "key_case_audits": {
+    "101338_degenerate_rejection": {
+      "status": "PASS",
+      "description": "Degenerate item2 [0,0,0,0] shirt produces NO box. Valid item1 skirt produces exact [8] skirt box.",
+      "boxes_rendered": 1,
+      "category": "skirt",
+      "reconstruction_error_px": 0.00038
+    },
+    "000392_four_garments": {
+      "status": "PASS",
+      "description": "Four separate non-merged boxes over 2 short sleeve tops, 1 shorts, and 1 trousers.",
+      "boxes_rendered": 4,
+      "categories": [
+        "short sleeve top",
+        "shorts",
+        "short sleeve top",
+        "trousers"
+      ],
+      "reconstruction_error_px": 0.00036
+    },
+    "000495_three_garments": {
+      "status": "PASS",
+      "description": "Three garments (long sleeve top, long sleeve outwear, trousers) clearly separated.",
+      "boxes_rendered": 3,
+      "categories": [
+        "long sleeve top",
+        "long sleeve outwear",
+        "trousers"
+      ],
+      "reconstruction_error_px": 0.00034
+    },
+    "000527_four_garments": {
+      "status": "PASS",
+      "description": "Four garments (2 vests, 2 trousers) on multiple models.",
+      "boxes_rendered": 4,
+      "categories": [
+        "vest",
+        "vest",
+        "trousers",
+        "trousers"
+      ],
+      "reconstruction_error_px": 0.00051
+    },
+    "aspect_ratio_diversity": {
+      "status": "PASS",
+      "min_aspect_ratio": 0.5625,
+      "max_aspect_ratio": 1.2098,
+      "description": "Aspect ratios range from 0.5625 (tall, e.g. 000003 at 468x832) to 1.2098 (wide, e.g. 000016 at 640x529). All boxes align without aspect distortion."
+    }
+  },
+  "visual_alignment_observations": {
+    "box_coverage": "Bounding boxes tightly circumscribe each garment without pixel offset.",
+    "multi_garment_separation": "Overlapping/adjacent garments (e.g. tops and trousers/skirts) have distinct separate boxes.",
+    "degenerate_box_handling": "101338 shirt annotation [0,0,0,0] is completely absent; valid skirt box is preserved and perfectly localized.",
+    "dense_annotations": "000392 (4 garments) and 000527 (4 garments) show clear box boundaries around each garment on multi-person scenes.",
+    "ambiguities_or_edge_cases": [
+      "Full-body models with tight tops tucked into trousers produce adjacent/touching bounding boxes at the waistline, which accurately matches ground-truth DeepFashion2 pixel boundaries.",
+      "In 000392, multiple models stand side-by-side; garments on different people are localized into independent top/bottom boxes as expected."
+    ]
+  },
+  "per_image_inspections": [
+    {
+      "image_id": "000001",
+      "dimensions": [
+        468,
+        624
+      ],
+      "aspect_ratio": 0.75,
+      "box_count": 2,
+      "max_reconstruction_error_px": 0.00039,
+      "categories": [
+        "trousers",
+        "short sleeve top"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 7,
+          "category_name": "trousers",
+          "normalized_yolo": {
+            "x_center": 0.763889,
+            "y_center": 0.838141,
+            "width": 0.463675,
+            "height": 0.320513
+          },
+          "pixel_coordinates": {
+            "x1": 249.0,
+            "y1": 423.0,
+            "x2": 466.0,
+            "y2": 623.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.0001
+        },
+        {
+          "box_index": 2,
+          "class_id": 0,
+          "category_name": "short sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.497863,
+            "y_center": 0.521635,
+            "width": 0.995726,
+            "height": 0.950321
+          },
+          "pixel_coordinates": {
+            "x1": 0.0,
+            "y1": 29.0,
+            "x2": 466.0,
+            "y2": 622.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00039
+        }
+      ]
+    },
+    {
+      "image_id": "000002",
+      "dimensions": [
+        468,
+        702
+      ],
+      "aspect_ratio": 0.6667,
+      "box_count": 2,
+      "max_reconstruction_error_px": 0.00025,
+      "categories": [
+        "short sleeve top",
+        "short sleeve top"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 0,
+          "category_name": "short sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.674145,
+            "y_center": 0.502137,
+            "width": 0.643162,
+            "height": 0.625356
+          },
+          "pixel_coordinates": {
+            "x1": 165.0,
+            "y1": 133.0,
+            "x2": 466.0,
+            "y2": 572.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.00023
+        },
+        {
+          "box_index": 2,
+          "class_id": 0,
+          "category_name": "short sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.393162,
+            "y_center": 0.712963,
+            "width": 0.782051,
+            "height": 0.571225
+          },
+          "pixel_coordinates": {
+            "x1": 1.0,
+            "y1": 300.0,
+            "x2": 367.0,
+            "y2": 701.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00025
+        }
+      ]
+    },
+    {
+      "image_id": "000003",
+      "dimensions": [
+        468,
+        832
+      ],
+      "aspect_ratio": 0.5625,
+      "box_count": 1,
+      "max_reconstruction_error_px": 0.00012,
+      "categories": [
+        "long sleeve dress"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 10,
+          "category_name": "long sleeve dress",
+          "normalized_yolo": {
+            "x_center": 0.5,
+            "y_center": 0.530649,
+            "width": 0.995726,
+            "height": 0.936298
+          },
+          "pixel_coordinates": {
+            "x1": 1.0,
+            "y1": 52.0,
+            "x2": 467.0,
+            "y2": 831.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00012
+        }
+      ]
+    },
+    {
+      "image_id": "000009",
+      "dimensions": [
+        468,
+        623
+      ],
+      "aspect_ratio": 0.7512,
+      "box_count": 1,
+      "max_reconstruction_error_px": 0.00024,
+      "categories": [
+        "long sleeve top"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 1,
+          "category_name": "long sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.42094,
+            "y_center": 0.657303,
+            "width": 0.84188,
+            "height": 0.682183
+          },
+          "pixel_coordinates": {
+            "x1": 0.0,
+            "y1": 197.0,
+            "x2": 394.0,
+            "y2": 622.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00024
+        }
+      ]
+    },
+    {
+      "image_id": "000011",
+      "dimensions": [
+        750,
+        961
+      ],
+      "aspect_ratio": 0.7804,
+      "box_count": 2,
+      "max_reconstruction_error_px": 0.00058,
+      "categories": [
+        "trousers",
+        "long sleeve top"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 7,
+          "category_name": "trousers",
+          "normalized_yolo": {
+            "x_center": 0.494667,
+            "y_center": 0.727888,
+            "width": 0.232,
+            "height": 0.315297
+          },
+          "pixel_coordinates": {
+            "x1": 284.0,
+            "y1": 548.0,
+            "x2": 458.0,
+            "y2": 851.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.00058
+        },
+        {
+          "box_index": 2,
+          "class_id": 1,
+          "category_name": "long sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.416667,
+            "y_center": 0.520812,
+            "width": 0.150667,
+            "height": 0.223725
+          },
+          "pixel_coordinates": {
+            "x1": 256.0,
+            "y1": 393.0,
+            "x2": 369.0,
+            "y2": 608.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00047
+        }
+      ]
+    },
+    {
+      "image_id": "000013",
+      "dimensions": [
+        468,
+        702
+      ],
+      "aspect_ratio": 0.6667,
+      "box_count": 2,
+      "max_reconstruction_error_px": 0.00035,
+      "categories": [
+        "skirt",
+        "long sleeve top"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 8,
+          "category_name": "skirt",
+          "normalized_yolo": {
+            "x_center": 0.401709,
+            "y_center": 0.84188,
+            "width": 0.666667,
+            "height": 0.31339
+          },
+          "pixel_coordinates": {
+            "x1": 32.0,
+            "y1": 481.0,
+            "x2": 344.0,
+            "y2": 701.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.00035
+        },
+        {
+          "box_index": 2,
+          "class_id": 1,
+          "category_name": "long sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.523504,
+            "y_center": 0.505698,
+            "width": 0.833333,
+            "height": 0.669516
+          },
+          "pixel_coordinates": {
+            "x1": 50.0,
+            "y1": 120.0,
+            "x2": 440.0,
+            "y2": 590.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00021
+        }
+      ]
+    },
+    {
+      "image_id": "000016",
+      "dimensions": [
+        640,
+        529
+      ],
+      "aspect_ratio": 1.2098,
+      "box_count": 2,
+      "max_reconstruction_error_px": 0.00032,
+      "categories": [
+        "trousers",
+        "long sleeve top"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 7,
+          "category_name": "trousers",
+          "normalized_yolo": {
+            "x_center": 0.364063,
+            "y_center": 0.666352,
+            "width": 0.278125,
+            "height": 0.232514
+          },
+          "pixel_coordinates": {
+            "x1": 144.0,
+            "y1": 291.0,
+            "x2": 322.0,
+            "y2": 414.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.00032
+        },
+        {
+          "box_index": 2,
+          "class_id": 1,
+          "category_name": "long sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.369531,
+            "y_center": 0.517958,
+            "width": 0.329688,
+            "height": 0.344045
+          },
+          "pixel_coordinates": {
+            "x1": 131.0,
+            "y1": 183.0,
+            "x2": 342.0,
+            "y2": 365.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00032
+        }
+      ]
+    },
+    {
+      "image_id": "000019",
+      "dimensions": [
+        750,
+        1125
+      ],
+      "aspect_ratio": 0.6667,
+      "box_count": 2,
+      "max_reconstruction_error_px": 0.00037,
+      "categories": [
+        "skirt",
+        "long sleeve top"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 8,
+          "category_name": "skirt",
+          "normalized_yolo": {
+            "x_center": 0.591333,
+            "y_center": 0.776889,
+            "width": 0.446667,
+            "height": 0.133333
+          },
+          "pixel_coordinates": {
+            "x1": 276.0,
+            "y1": 799.0,
+            "x2": 611.0,
+            "y2": 949.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.00037
+        },
+        {
+          "box_index": 2,
+          "class_id": 1,
+          "category_name": "long sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.517333,
+            "y_center": 0.566222,
+            "width": 0.528,
+            "height": 0.312889
+          },
+          "pixel_coordinates": {
+            "x1": 190.0,
+            "y1": 461.0,
+            "x2": 586.0,
+            "y2": 813.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00031
+        }
+      ]
+    },
+    {
+      "image_id": "000033",
+      "dimensions": [
+        468,
+        624
+      ],
+      "aspect_ratio": 0.75,
+      "box_count": 1,
+      "max_reconstruction_error_px": 0.00024,
+      "categories": [
+        "shorts"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 6,
+          "category_name": "shorts",
+          "normalized_yolo": {
+            "x_center": 0.434829,
+            "y_center": 0.523237,
+            "width": 0.865385,
+            "height": 0.472756
+          },
+          "pixel_coordinates": {
+            "x1": 1.0,
+            "y1": 179.0,
+            "x2": 406.0,
+            "y2": 474.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00024
+        }
+      ]
+    },
+    {
+      "image_id": "000091",
+      "dimensions": [
+        291,
+        516
+      ],
+      "aspect_ratio": 0.564,
+      "box_count": 1,
+      "max_reconstruction_error_px": 0.00015,
+      "categories": [
+        "long sleeve outwear"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 3,
+          "category_name": "long sleeve outwear",
+          "normalized_yolo": {
+            "x_center": 0.525773,
+            "y_center": 0.525194,
+            "width": 0.941581,
+            "height": 0.728682
+          },
+          "pixel_coordinates": {
+            "x1": 16.0,
+            "y1": 83.0,
+            "x2": 290.0,
+            "y2": 459.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00015
+        }
+      ]
+    },
+    {
+      "image_id": "000143",
+      "dimensions": [
+        468,
+        624
+      ],
+      "aspect_ratio": 0.75,
+      "box_count": 1,
+      "max_reconstruction_error_px": 0.00031,
+      "categories": [
+        "vest dress"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 11,
+          "category_name": "vest dress",
+          "normalized_yolo": {
+            "x_center": 0.403846,
+            "y_center": 0.499199,
+            "width": 0.807692,
+            "height": 0.998397
+          },
+          "pixel_coordinates": {
+            "x1": 0.0,
+            "y1": 0.0,
+            "x2": 378.0,
+            "y2": 623.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00031
+        }
+      ]
+    },
+    {
+      "image_id": "000278",
+      "dimensions": [
+        468,
+        624
+      ],
+      "aspect_ratio": 0.75,
+      "box_count": 2,
+      "max_reconstruction_error_px": 0.0002,
+      "categories": [
+        "trousers",
+        "short sleeve dress"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 7,
+          "category_name": "trousers",
+          "normalized_yolo": {
+            "x_center": 0.473291,
+            "y_center": 0.650641,
+            "width": 0.301282,
+            "height": 0.509615
+          },
+          "pixel_coordinates": {
+            "x1": 151.0,
+            "y1": 247.0,
+            "x2": 292.0,
+            "y2": 565.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.0002
+        },
+        {
+          "box_index": 2,
+          "class_id": 9,
+          "category_name": "short sleeve dress",
+          "normalized_yolo": {
+            "x_center": 0.459402,
+            "y_center": 0.346955,
+            "width": 0.525641,
+            "height": 0.69391
+          },
+          "pixel_coordinates": {
+            "x1": 92.0,
+            "y1": 0.0,
+            "x2": 338.0,
+            "y2": 433.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00016
+        }
+      ]
+    },
+    {
+      "image_id": "000332",
+      "dimensions": [
+        790,
+        1198
+      ],
+      "aspect_ratio": 0.6594,
+      "box_count": 2,
+      "max_reconstruction_error_px": 0.00041,
+      "categories": [
+        "shorts",
+        "vest"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 6,
+          "category_name": "shorts",
+          "normalized_yolo": {
+            "x_center": 0.609494,
+            "y_center": 0.740401,
+            "width": 0.45443,
+            "height": 0.196995
+          },
+          "pixel_coordinates": {
+            "x1": 302.0,
+            "y1": 769.0,
+            "x2": 661.0,
+            "y2": 1005.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.00041
+        },
+        {
+          "box_index": 2,
+          "class_id": 4,
+          "category_name": "vest",
+          "normalized_yolo": {
+            "x_center": 0.542405,
+            "y_center": 0.595576,
+            "width": 0.5,
+            "height": 0.366444
+          },
+          "pixel_coordinates": {
+            "x1": 231.0,
+            "y1": 494.0,
+            "x2": 626.0,
+            "y2": 933.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 9e-05
+        }
+      ]
+    },
+    {
+      "image_id": "000392",
+      "dimensions": [
+        640,
+        637
+      ],
+      "aspect_ratio": 1.0047,
+      "box_count": 4,
+      "max_reconstruction_error_px": 0.00036,
+      "categories": [
+        "short sleeve top",
+        "shorts",
+        "short sleeve top",
+        "trousers"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 0,
+          "category_name": "short sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.741406,
+            "y_center": 0.567504,
+            "width": 0.367188,
+            "height": 0.44113
+          },
+          "pixel_coordinates": {
+            "x1": 357.0,
+            "y1": 221.0,
+            "x2": 592.0,
+            "y2": 502.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.00032
+        },
+        {
+          "box_index": 2,
+          "class_id": 6,
+          "category_name": "shorts",
+          "normalized_yolo": {
+            "x_center": 0.338281,
+            "y_center": 0.863422,
+            "width": 0.357812,
+            "height": 0.270016
+          },
+          "pixel_coordinates": {
+            "x1": 102.0,
+            "y1": 464.0,
+            "x2": 331.0,
+            "y2": 636.0
+          },
+          "matched_raw_item": "item3",
+          "reconstruction_pixel_error": 0.00032
+        },
+        {
+          "box_index": 3,
+          "class_id": 0,
+          "category_name": "short sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.338281,
+            "y_center": 0.561224,
+            "width": 0.476562,
+            "height": 0.579278
+          },
+          "pixel_coordinates": {
+            "x1": 64.0,
+            "y1": 173.0,
+            "x2": 369.0,
+            "y2": 542.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00036
+        },
+        {
+          "box_index": 4,
+          "class_id": 7,
+          "category_name": "trousers",
+          "normalized_yolo": {
+            "x_center": 0.686719,
+            "y_center": 0.810047,
+            "width": 0.354687,
+            "height": 0.376766
+          },
+          "pixel_coordinates": {
+            "x1": 326.0,
+            "y1": 396.0,
+            "x2": 553.0,
+            "y2": 636.0
+          },
+          "matched_raw_item": "item4",
+          "reconstruction_pixel_error": 0.00032
+        }
+      ]
+    },
+    {
+      "image_id": "000495",
+      "dimensions": [
+        468,
+        625
+      ],
+      "aspect_ratio": 0.7488,
+      "box_count": 3,
+      "max_reconstruction_error_px": 0.00034,
+      "categories": [
+        "long sleeve top",
+        "long sleeve outwear",
+        "trousers"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 1,
+          "category_name": "long sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.69765,
+            "y_center": 0.3264,
+            "width": 0.600427,
+            "height": 0.592
+          },
+          "pixel_coordinates": {
+            "x1": 186.0,
+            "y1": 19.0,
+            "x2": 467.0,
+            "y2": 389.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.00028
+        },
+        {
+          "box_index": 2,
+          "class_id": 3,
+          "category_name": "long sleeve outwear",
+          "normalized_yolo": {
+            "x_center": 0.307692,
+            "y_center": 0.5392,
+            "width": 0.615385,
+            "height": 0.5664
+          },
+          "pixel_coordinates": {
+            "x1": -0.0,
+            "y1": 160.0,
+            "x2": 288.0,
+            "y2": 514.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00023
+        },
+        {
+          "box_index": 3,
+          "class_id": 7,
+          "category_name": "trousers",
+          "normalized_yolo": {
+            "x_center": 0.887821,
+            "y_center": 0.8008,
+            "width": 0.220085,
+            "height": 0.3952
+          },
+          "pixel_coordinates": {
+            "x1": 364.0,
+            "y1": 377.0,
+            "x2": 467.0,
+            "y2": 624.0
+          },
+          "matched_raw_item": "item3",
+          "reconstruction_pixel_error": 0.00034
+        }
+      ]
+    },
+    {
+      "image_id": "000527",
+      "dimensions": [
+        640,
+        791
+      ],
+      "aspect_ratio": 0.8091,
+      "box_count": 4,
+      "max_reconstruction_error_px": 0.00051,
+      "categories": [
+        "vest",
+        "vest",
+        "trousers",
+        "trousers"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 4,
+          "category_name": "vest",
+          "normalized_yolo": {
+            "x_center": 0.428125,
+            "y_center": 0.440582,
+            "width": 0.21875,
+            "height": 0.178255
+          },
+          "pixel_coordinates": {
+            "x1": 204.0,
+            "y1": 278.0,
+            "x2": 344.0,
+            "y2": 419.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.00051
+        },
+        {
+          "box_index": 2,
+          "class_id": 4,
+          "category_name": "vest",
+          "normalized_yolo": {
+            "x_center": 0.548438,
+            "y_center": 0.430468,
+            "width": 0.06875,
+            "height": 0.064475
+          },
+          "pixel_coordinates": {
+            "x1": 329.0,
+            "y1": 315.0,
+            "x2": 373.0,
+            "y2": 366.0
+          },
+          "matched_raw_item": "item3",
+          "reconstruction_pixel_error": 0.00033
+        },
+        {
+          "box_index": 3,
+          "class_id": 7,
+          "category_name": "trousers",
+          "normalized_yolo": {
+            "x_center": 0.536719,
+            "y_center": 0.686473,
+            "width": 0.276562,
+            "height": 0.391909
+          },
+          "pixel_coordinates": {
+            "x1": 255.0,
+            "y1": 388.0,
+            "x2": 432.0,
+            "y2": 698.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00032
+        },
+        {
+          "box_index": 4,
+          "class_id": 7,
+          "category_name": "trousers",
+          "normalized_yolo": {
+            "x_center": 0.582812,
+            "y_center": 0.505057,
+            "width": 0.096875,
+            "height": 0.115044
+          },
+          "pixel_coordinates": {
+            "x1": 342.0,
+            "y1": 354.0,
+            "x2": 404.0,
+            "y2": 445.0
+          },
+          "matched_raw_item": "item4",
+          "reconstruction_pixel_error": 0.00032
+        }
+      ]
+    },
+    {
+      "image_id": "000667",
+      "dimensions": [
+        468,
+        624
+      ],
+      "aspect_ratio": 0.75,
+      "box_count": 2,
+      "max_reconstruction_error_px": 0.00029,
+      "categories": [
+        "sling dress",
+        "short sleeve top"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 12,
+          "category_name": "sling dress",
+          "normalized_yolo": {
+            "x_center": 0.538462,
+            "y_center": 0.293269,
+            "width": 0.307692,
+            "height": 0.480769
+          },
+          "pixel_coordinates": {
+            "x1": 180.0,
+            "y1": 33.0,
+            "x2": 324.0,
+            "y2": 333.0
+          },
+          "matched_raw_item": "item2",
+          "reconstruction_pixel_error": 0.00029
+        },
+        {
+          "box_index": 2,
+          "class_id": 0,
+          "category_name": "short sleeve top",
+          "normalized_yolo": {
+            "x_center": 0.536325,
+            "y_center": 0.148237,
+            "width": 0.397436,
+            "height": 0.190705
+          },
+          "pixel_coordinates": {
+            "x1": 158.0,
+            "y1": 33.0,
+            "x2": 344.0,
+            "y2": 152.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00015
+        }
+      ]
+    },
+    {
+      "image_id": "000757",
+      "dimensions": [
+        468,
+        624
+      ],
+      "aspect_ratio": 0.75,
+      "box_count": 1,
+      "max_reconstruction_error_px": 0.00034,
+      "categories": [
+        "short sleeve outwear"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 2,
+          "category_name": "short sleeve outwear",
+          "normalized_yolo": {
+            "x_center": 0.512821,
+            "y_center": 0.583333,
+            "width": 0.970085,
+            "height": 0.830128
+          },
+          "pixel_coordinates": {
+            "x1": 13.0,
+            "y1": 105.0,
+            "x2": 467.0,
+            "y2": 623.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00034
+        }
+      ]
+    },
+    {
+      "image_id": "001122",
+      "dimensions": [
+        468,
+        624
+      ],
+      "aspect_ratio": 0.75,
+      "box_count": 1,
+      "max_reconstruction_error_px": 0.00023,
+      "categories": [
+        "sling"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 5,
+          "category_name": "sling",
+          "normalized_yolo": {
+            "x_center": 0.498932,
+            "y_center": 0.59375,
+            "width": 0.997863,
+            "height": 0.809295
+          },
+          "pixel_coordinates": {
+            "x1": 0.0,
+            "y1": 118.0,
+            "x2": 467.0,
+            "y2": 623.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00023
+        }
+      ]
+    },
+    {
+      "image_id": "101338",
+      "dimensions": [
+        750,
+        836
+      ],
+      "aspect_ratio": 0.8971,
+      "box_count": 1,
+      "max_reconstruction_error_px": 0.00038,
+      "categories": [
+        "skirt"
+      ],
+      "boxes": [
+        {
+          "box_index": 1,
+          "class_id": 8,
+          "category_name": "skirt",
+          "normalized_yolo": {
+            "x_center": 0.492667,
+            "y_center": 0.618421,
+            "width": 0.166667,
+            "height": 0.191388
+          },
+          "pixel_coordinates": {
+            "x1": 307.0,
+            "y1": 437.0,
+            "x2": 432.0,
+            "y2": 597.0
+          },
+          "matched_raw_item": "item1",
+          "reconstruction_pixel_error": 0.00038
+        }
+      ]
+    }
+  ]
+}

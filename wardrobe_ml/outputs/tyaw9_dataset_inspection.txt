@@ -1,0 +1,73 @@
+=====================================================================================
+FITLOOP PHASE 13.1: ROBOFLOW 11k DATASET (clothes-detection-tyaw9) INSPECTION REPORT
+=====================================================================================
+Inspection Timestamp : 2026-11-17 17:16:29 UTC
+Archive File Path    : C:\Users\Lenovo\Downloads\Clothes Detection.v9i.yolo26.zip
+Archive Size         : 1,692,627,660 bytes (1.58 GB / 1614.22 MB)
+Integrity Check      : PASSED (zipfile.testzip() verified in 12.56s, 0 CRC errors)
+Roboflow Workspace   : fatihgultekin
+Roboflow Project     : clothes-detection-tyaw9
+Roboflow Version     : 9
+Dataset License      : CC BY 4.0
+
+SECTION 1: SPLIT ARCHITECTURE & FILE COUNTS
+-------------------------------------------------------------------------------------
+Split      | Images Count   | Label Files Count  | Total Instances  | Empty (Background)
+-------------------------------------------------------------------------------------
+train      | 25,044         | 25,044             | 40,414           | 8,739             
+valid      | 2,385          | 2,385              | 4,756            | 619               
+test       | 1,193          | 1,193              | 2,394            | 307               
+-------------------------------------------------------------------------------------
+TOTAL      | 28,622         | 28,622             | 47,564           | 9,665             
+
+SECTION 2: ANNOTATION FORMAT & SAMPLE 50 AUDIT
+-------------------------------------------------------------------------------------
+Sampled Files Count     : 50 label files sampled randomly across splits
+Standard 5-Col BBoxes   : 94 instances in sample (39,166 dataset-wide)
+Segmentation Polygons   : 7 instances in sample (8,398 dataset-wide)
+Empty Files in Sample   : 19 files
+Coordinate Validity     : 100% VALID (normalized [0.0, 1.0], w>0, h>0)
+Annotation Note         : Mixed-format YOLO export (contains both standard 5-col bounding boxes
+                          and YOLO polygon segmentations needing bounding box conversion).
+
+SECTION 3: SOURCE DATASET CLASS SCHEMA & INSTANCE COUNTS
+-------------------------------------------------------------------------------------
+ID   | Source Class Name | Train    | Valid    | Test     | Total    | FitLoop Target Class Mapping
+-------------------------------------------------------------------------------------
+0    | bag              | 3,686    | 442      | 242      | 4,370    | NON-APPAREL (Exclude or Ignore)
+1    | belt             | 243      | 20       | 5        | 268      | NON-APPAREL (Exclude or Ignore)
+2    | boat             | 60       | 2        | 1        | 63       | NOISE / NON-APPAREL (Exclude)
+3    | coat             | 105      | 16       | 9        | 130      | 3: long sleeve outwear
+4    | dress            | 1,278    | 188      | 91       | 1,557    | 9/10: short/long sleeve dress
+5    | glasses          | 60       | 9        | 7        | 76       | NON-APPAREL (Exclude or Ignore)
+6    | hat              | 561      | 103      | 60       | 724      | NON-APPAREL (Exclude or Ignore)
+7    | jacket           | 5,210    | 479      | 264      | 5,953    | 3: long sleeve outwear
+8    | jumper           | 366      | 24       | 15       | 405      | 1: long sleeve top
+9    | pants            | 4,375    | 508      | 252      | 5,135    | 7: trousers
+10   | pocket           | 792      | 31       | 15       | 838      | GARMENT PART (Exclude)
+11   | shirt            | 6,232    | 689      | 366      | 7,287    | 1: long sleeve top
+12   | shoe             | 6,399    | 815      | 457      | 7,671    | FOOTWEAR (Exclude or Separate)
+13   | shoesClassic     | 377      | 81       | 29       | 487      | FOOTWEAR (Exclude or Separate)
+14   | shoesSports      | 1,941    | 152      | 11       | 2,104    | FOOTWEAR (Exclude or Separate)
+15   | shorts           | 1,997    | 204      | 114      | 2,315    | 6: shorts
+16   | skirt            | 2,370    | 319      | 163      | 2,852    | 8: skirt
+17   | sunglass         | 774      | 127      | 47       | 948      | NON-APPAREL (Exclude or Ignore)
+18   | trousers         | 201      | 42       | 6        | 249      | 7: trousers
+19   | tshirt           | 3,357    | 503      | 233      | 4,093    | 0: short sleeve top
+20   | zipper           | 30       | 2        | 7        | 39       | GARMENT PART (Exclude)
+-------------------------------------------------------------------------------------
+
+SECTION 4: KEY FINDINGS & CONVERSION RECOMMENDATIONS
+-------------------------------------------------------------------------------------
+1. Scale: The archive contains 28,622 images total (25,044 train, 2,385 valid, 1,193 test),
+   making it ~10x larger than the previous Phase 3 Roboflow export (v6 had ~1,400 images).
+2. Core Apparel Yield: 28,463 apparel instances across train+valid (25,491 train, 2,972 valid).
+3. Trouser/Pants Enrichment: 5,384 total trouser instances ('pants': 5,135 + 'trousers': 249),
+   providing immense real-world training signal to permanently solidify trouser recall.
+4. Tops & Outerwear: 7,287 'shirt', 4,093 'tshirt', 405 'jumper', 5,953 'jacket', 130 'coat'.
+5. Mixed BBox / Polygon Format: Dataset contains 39,166 standard bounding boxes
+   and 8,398 segmentation polygons. Any conversion script MUST include
+   polygon-to-box bounding rectangle envelope calculation (min/max coordinate extraction).
+6. Non-Apparel Filtering: 11 of the 21 classes (shoes, bags, belts, hats, glasses, zippers, pockets)
+   must be filtered out to map cleanly into FitLoop's 13-class apparel schema.
+=====================================================================================

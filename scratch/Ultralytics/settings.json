@@ -1,0 +1,19 @@
+{
+  "settings_version": "0.0.8",
+  "datasets_dir": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\datasets",
+  "weights_dir": "weights",
+  "runs_dir": "runs",
+  "uuid": "b07d26946d2e50c756eba5646caa0f79f94647630ce8c16c36036fe16c88a592",
+  "sync": true,
+  "api_key": "",
+  "openai_api_key": "",
+  "clearml": true,
+  "comet": true,
+  "dvc": true,
+  "mlflow": true,
+  "raytune": true,
+  "tensorboard": false,
+  "wandb": false,
+  "vscode_msg": true,
+  "openvino_msg": true
+}

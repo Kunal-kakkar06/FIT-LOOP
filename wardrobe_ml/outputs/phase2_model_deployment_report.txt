@@ -1,0 +1,95 @@
+==============================================================================
+FITLOOP PHASE 6.2: PHASE 2 FINE-TUNED YOLO26n DEPLOYMENT & VERIFICATION REPORT
+==============================================================================
+Timestamp           : 2026-11-14 20:50:00 UTC
+Execution Target    : wardrobe_ml/models/best.pt & wardrobe_ml/src/test_api.py
+Python Environment  : C:\Users\Lenovo\Downloads\Fitloop\fitloop_yolo_env
+
+1. BACKUP & DEPLOYMENT SUMMARY
+------------------------------------------------------------------------------
+Phase 1 Backup      : wardrobe_ml/models/best_phase1.pt
+                      - Size: 5,446,469 bytes
+                      - Source: Phase 1 fine-tuned weights (14-11-2026 18:32:58)
+                      - Status: Preserved intact
+
+Phase 2 Source      : C:\Users\Lenovo\Downloads\best (1).zip
+                      - Size: 5,449,157 bytes (~5.19 MB)
+                      - Format: PyTorch Checkpoint Zip ('best/data.pkl', etc.)
+                      - Download Timestamp: 15-11-2026 02:13:02
+
+Phase 2 Target      : wardrobe_ml/models/best.pt
+                      - Size: 5,449,157 bytes
+                      - Status: Successfully deployed
+
+Base Fallback       : wardrobe_ml/models/yolo26n.pt
+                      - Size: 5,366,078 bytes
+                      - Status: Preserved intact
+
+2. PYTORCH & ULTRALYTICS CHECKPOINT VERIFICATION
+------------------------------------------------------------------------------
+Architecture        : YOLO26n (DeepFashion2 Fine-Tuned Phase 2)
+Training Parameters : 35,000 images, 25 epochs
+Checkpoint Epochs   : epochs=25
+Base Model Path     : /kaggle/input/datasets/spoortimorabad/fitloop-pahse1-weights/best.pt
+Training Date       : 2026-11-14T17:42:33.069379+00:00
+Ultralytics Loading : ZERO ERRORS (Clean load via YOLO('wardrobe_ml/models/best.pt'))
+Class Count         : 13
+Class Names         :
+  0: short sleeve top
+  1: long sleeve top
+  2: short sleeve outwear
+  3: long sleeve outwear
+  4: vest
+  5: sling
+  6: shorts
+  7: trousers
+  8: skirt
+  9: short sleeve dress
+  10: long sleeve dress
+  11: vest dress
+  12: sling dress
+
+3. FASTAPI INTEGRATION & CLASS-AGNOSTIC NMS
+------------------------------------------------------------------------------
+API Script          : wardrobe_ml/src/app.py (UNMODIFIED)
+GarmentDetector     :
+  - Primary Model   : wardrobe_ml/models/best.pt (Phase 2 Checkpoint)
+  - Loaded Status   : True
+  - Device          : cpu
+  - Agnostic NMS    : True
+  - IoU Threshold   : 0.45
+  - Conf Threshold  : 0.25
+
+4. AUTOMATED TEST SUITE (wardrobe_ml/src/test_api.py)
+------------------------------------------------------------------------------
+Total Test Cases    : 13
+Passed              : 13
+Failed              : 0
+Overall Status      : SUCCESS
+Total Runtime       : 7,112.12 ms
+
+Test Breakdown:
+- 1. Health Check Endpoint                 : PASS (Status 200, Arch: YOLO26n, Model Loaded: True)
+- 2a. Create User Alice                    : PASS (Status 201, User ID=1, Email=alice.green@fitloop.test)
+- 2b. Duplicate Email Conflict             : PASS (Status 400 caught duplicate email)
+- 2c. Create User Bob                      : PASS (Status 201, User ID=2, Bob registered for isolation testing)
+- 3a. Upload Scan & Color Extraction       : PASS (Status 201, Scan ID=1, Detected=Navy Blue (#111C30))
+- 3b. Scan Unknown User ID                 : PASS (Status 404 caught missing user_id=999999 cleanly)
+- 3c. Scan Invalid Image File              : PASS (Status 400 rejected corrupted file payload)
+- 4a. Query Alice Wardrobe Inventory       : PASS (Status 200, Items Count=1)
+- 4b. Strict User Isolation (Bob)          : PASS (Status 200, Bob items=0, Alice items hidden, 0 leaks)
+- 4c. Query Unknown Wardrobe ID            : PASS (Status 404 caught non-existent user 888888)
+- 5a. Check Before Buy: Duplicate Detected : PASS (Verdict=DUPLICATE, Score=1.00, Rec: DUPLICATE DETECTED...)
+- 5b. Check Before Buy: Unique Garment     : PASS (Verdict=UNIQUE, Score=0.00, Rec: UNIQUE ADDITION...)
+- 5c. Check Before Buy Unknown User        : PASS (Status 404 caught non-existent user 777777)
+
+5. SAFETY CONSTRAINTS & INVARIANTS
+------------------------------------------------------------------------------
+- wardrobe_ml/src/app.py                   : UNTOUCHED
+- wardrobe_ml/src/color_extractor.py       : UNTOUCHED
+- wardrobe_ml/src/duplicate_detector.py    : UNTOUCHED
+- wardrobe_ml/src/database.py              : UNTOUCHED
+- wardrobe_ml/models/best_phase1.pt        : Preserved intact (5,446,469 bytes)
+- wardrobe_ml/models/yolo26n.pt            : Preserved intact (5,366,078 bytes)
+- Temporary SQLite Database                : Cleanly unlinked (fitloop_api_test.db)
+==============================================================================

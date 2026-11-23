@@ -1,0 +1,198 @@
+{
+  "stage": "6.4C.2",
+  "title": "False-Negative Risk Audit and Training Exclusion Manifest",
+  "audit_objective": "Determine false-negative supervision risks of images containing rejected garment annotations in YOLO training",
+  "summary": {
+    "total_images_audited": 3,
+    "total_annotated_garments_in_json": 5,
+    "total_valid_yolo_labels": 2,
+    "total_missing_unannotated_garments": 3,
+    "images_recommended_for_exclusion": 3,
+    "images_safe_for_unmodified_training": 0
+  },
+  "audit_details": {
+    "028225": {
+      "image_id": "028225",
+      "image_filename": "028225.jpg",
+      "split": "train",
+      "dimensions": {
+        "width": 468,
+        "height": 624
+      },
+      "total_annotated_garments": 2,
+      "valid_yolo_labels_count": 1,
+      "valid_items": [
+        {
+          "item_key": "item1",
+          "category_id": 1,
+          "category_name": "short sleeve top",
+          "raw_bbox": [
+            40,
+            0,
+            399,
+            381
+          ],
+          "yolo_class_id": 0
+        }
+      ],
+      "rejected_garments_count": 1,
+      "rejected_items": [
+        {
+          "item_key": "item2",
+          "category_id": 8,
+          "category_name": "trousers",
+          "raw_bbox": [
+            1,
+            198,
+            422,
+            626
+          ],
+          "reason": "out_of_bounds_coordinates",
+          "violation_details": "Coordinates exceed boundaries: y2=626 not in [0, 624]",
+          "segmentation_present": true,
+          "segmentation_bounds": {
+            "min_x": 3,
+            "max_x": 412,
+            "min_y": 202,
+            "max_y": 625
+          },
+          "visible_in_image": true
+        }
+      ],
+      "yolo_txt_lines": [
+        "0 0.469017 0.305288 0.767094 0.610577"
+      ]
+    },
+    "115063": {
+      "image_id": "115063",
+      "image_filename": "115063.jpg",
+      "split": "train",
+      "dimensions": {
+        "width": 468,
+        "height": 702
+      },
+      "total_annotated_garments": 1,
+      "valid_yolo_labels_count": 0,
+      "valid_items": [],
+      "rejected_garments_count": 1,
+      "rejected_items": [
+        {
+          "item_key": "item1",
+          "category_id": 1,
+          "category_name": "short sleeve top",
+          "raw_bbox": [
+            15,
+            195,
+            466,
+            829
+          ],
+          "reason": "out_of_bounds_coordinates",
+          "violation_details": "Coordinates exceed boundaries: y2=829 not in [0, 702]",
+          "segmentation_present": true,
+          "segmentation_bounds": {
+            "min_x": 26,
+            "max_x": 377,
+            "min_y": 226,
+            "max_y": 641
+          },
+          "visible_in_image": true
+        }
+      ],
+      "yolo_txt_lines": []
+    },
+    "101338": {
+      "image_id": "101338",
+      "image_filename": "101338.jpg",
+      "split": "train",
+      "dimensions": {
+        "width": 750,
+        "height": 836
+      },
+      "total_annotated_garments": 2,
+      "valid_yolo_labels_count": 1,
+      "valid_items": [
+        {
+          "item_key": "item1",
+          "category_id": 9,
+          "category_name": "skirt",
+          "raw_bbox": [
+            307,
+            437,
+            432,
+            597
+          ],
+          "yolo_class_id": 8
+        }
+      ],
+      "rejected_garments_count": 1,
+      "rejected_items": [
+        {
+          "item_key": "item2",
+          "category_id": 1,
+          "category_name": "short sleeve top",
+          "raw_bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "reason": "zero_or_negative_area",
+          "violation_details": "Bounding box [x1=0, y1=0, x2=0, y2=0] has dx=0, dy=0, area=0",
+          "segmentation_present": true,
+          "segmentation_bounds": {
+            "min_x": 338,
+            "max_x": 446,
+            "min_y": 332,
+            "max_y": 448
+          },
+          "visible_in_image": true
+        }
+      ],
+      "yolo_txt_lines": [
+        "8 0.492667 0.618421 0.166667 0.191388"
+      ]
+    }
+  },
+  "risk_assessments": {
+    "028225": {
+      "image_filename": "028225.jpg",
+      "garment_inventory": "2 visible annotated garments: item1 (short sleeve top) and item2 (trousers)",
+      "yolo_status": "1 valid label row in 028225.txt (item1 top only). Missing: item2 trousers",
+      "physical_presence": "Confirmed. Visible dark trousers on lower body. Segmentation mask spans X=[3, 412], Y=[202, 625]",
+      "false_negative_risk_mechanism": "Partial-annotation false-negative supervision: In YOLO loss, any prediction with IoU > background threshold on the unannotated trousers will be treated as an unassigned anchor / false positive. The objectness branch will penalize confidence toward 0 and classification loss will suppress class 7 (trousers), teaching the network to ignore real trousers in similar compositions.",
+      "severity": "HIGH (Incomplete multi-garment outfit supervision)",
+      "recommendation": "EXCLUDE_UNTIL_REPAIRED",
+      "repair_protocol": "Manually verified bounding box recovery: Clip bottom coordinate from y2=626 to image boundary y2=624 ([1, 198, 422, 624]), or re-derive tighter bounding box from segmentation bounds ([3, 202, 412, 624]). Do not include in training partition until repaired."
+    },
+    "115063": {
+      "image_filename": "115063.jpg",
+      "garment_inventory": "1 visible annotated garment: item1 (short sleeve top)",
+      "yolo_status": "0 valid label rows in 115063.txt (empty file). Missing: item1 top",
+      "physical_presence": "Confirmed. Salient patterned short-sleeve top covering central frame. Segmentation spans X=[26, 377], Y=[226, 641]",
+      "false_negative_risk_mechanism": "Pure-negative false-negative supervision (CRITICAL): An empty label file causes YOLO to treat the ENTIRE image as background. Every single anchor across all pyramid levels matching the prominent, centered short-sleeve top is penalized with target objectness = 0. This directly poisons the model's confidence calibration for the most common garment class (short sleeve top, 22.95% of dataset), actively teaching the network NOT to detect tops.",
+      "severity": "CRITICAL (Toxic false-negative supervision on prominent centered subject)",
+      "recommendation": "EXCLUDE_UNTIL_REPAIRED",
+      "repair_protocol": "Manually verified bounding box recovery: Recompute bounding box from verified segmentation mask ([26, 226, 377, 641]) or re-annotate torso box manually. Under NO circumstances should this image be retained in training as an empty/background sample."
+    },
+    "101338": {
+      "image_filename": "101338.jpg",
+      "garment_inventory": "2 visible annotated garments: item1 (skirt) and item2 (short sleeve top)",
+      "yolo_status": "1 valid label row in 101338.txt (item1 skirt only). Missing: item2 top",
+      "physical_presence": "Confirmed. Model clearly wears a white/light short-sleeve top above the skirt. Segmentation spans X=[338, 446], Y=[332, 448]",
+      "false_negative_risk_mechanism": "Partial-annotation false-negative supervision: The upper torso containing the visible short-sleeve top has no label. Any candidate box predicted by the model on this shirt is penalized as a false positive, degrading model recall specifically on tops paired with skirts.",
+      "severity": "HIGH (Incomplete multi-garment outfit supervision)",
+      "recommendation": "EXCLUDE_UNTIL_REPAIRED",
+      "repair_protocol": "Manually verified bounding box recovery: Derive bounding box from verified segmentation bounds ([338, 332, 446, 448]) with human verification, or re-annotate top manually. Exclude from training until repaired."
+    }
+  },
+  "yolo_training_supervision_impact": {
+    "objectness_loss_penalty": "In YOLO loss formulations (BCE/Focal loss on objectness), unannotated foreground objects receive target = 0. Correct detections generate high loss and negative gradients, actively suppressing detector recall.",
+    "classification_loss_penalty": "Unannotated foreground objects prevent true class gradient updates and induce class ambiguity.",
+    "background_sample_misrepresentation": "Image 115063.jpg currently has an empty YOLO label file. In object detection, empty files are treated as true negatives (background scenes without garments). However, 115063 contains a prominent short-sleeve top. Retaining it as background constitutes severe label noise."
+  },
+  "final_recommendations": {
+    "028225.jpg": "EXCLUDE from training splits until manually repaired. (Repair candidate: clip y2 to 624 or use seg bounds).",
+    "115063.jpg": "STRICTLY EXCLUDE from training splits until manually repaired. Do NOT use as background image. (Repair candidate: use seg bounds [26, 226, 377, 641]).",
+    "101338.jpg": "EXCLUDE from training splits until manually repaired. (Repair candidate: use seg bounds [338, 332, 446, 448])."
+  }
+}

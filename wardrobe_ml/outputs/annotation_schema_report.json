@@ -1,0 +1,229 @@
+{
+  "dataset": "DeepFashion2",
+  "split_audited": "train",
+  "top_level_fields": {
+    "source": {
+      "type": "str",
+      "description": "Image source type ('shop' catalog photo or 'user' consumer selfie)",
+      "distribution": {
+        "user": 59804,
+        "shop": 132157
+      }
+    },
+    "pair_id": {
+      "type": "int",
+      "description": "Grouping identifier linking commercial shop items with consumer photos"
+    },
+    "itemX": {
+      "type": "dict",
+      "description": "Numbered garment dictionary (item1, item2, ...) for each detected piece"
+    }
+  },
+  "garment_item_fields": {
+    "category_id": {
+      "type": "int",
+      "values": "1 to 13",
+      "description": "Identifier corresponding to one of 13 DeepFashion2 clothing categories"
+    },
+    "category_name": {
+      "type": "str",
+      "values": [
+        "short sleeve top",
+        "long sleeve top",
+        "short sleeve outwear",
+        "long sleeve outwear",
+        "vest",
+        "sling",
+        "shorts",
+        "trousers",
+        "skirt",
+        "short sleeve dress",
+        "long sleeve dress",
+        "vest dress",
+        "sling dress"
+      ],
+      "description": "Human-readable category label"
+    },
+    "bounding_box": {
+      "type": "list[int]",
+      "format": "[x1, y1, x2, y2]",
+      "coordinate_system": "Absolute pixel coordinates of top-left and bottom-right corners"
+    },
+    "segmentation": {
+      "type": "list[list[float]]",
+      "format": "[[x1, y1, x2, y2, ...], [polygon2...]]",
+      "description": "Polygon coordinates enclosing garment boundary, supporting multi-polygon masks"
+    },
+    "landmarks": {
+      "type": "list[int]",
+      "format": "[x1, y1, v1, x2, y2, v2, ...]",
+      "description": "Dense garment landmark coordinates where v in {0: not labeled/invisible, 1: occluded, 2: visible}"
+    },
+    "occlusion": {
+      "type": "int",
+      "values": {
+        "1": "Slight occlusion",
+        "2": "Medium occlusion",
+        "3": "Heavy occlusion"
+      },
+      "distribution": {
+        "2": 147102,
+        "1": 145379,
+        "3": 19705
+      }
+    },
+    "zoom_in": {
+      "type": "int",
+      "values": {
+        "1": "No zoom (full body / standard framing)",
+        "2": "Zoom in (close-up framing)",
+        "3": "Extreme zoom / partial crop"
+      },
+      "distribution": {
+        "3": 33649,
+        "2": 66643,
+        "1": 211894
+      }
+    },
+    "viewpoint": {
+      "type": "int",
+      "values": {
+        "1": "Front viewpoint (no flip)",
+        "2": "Side / non-standard viewpoint",
+        "3": "Back viewpoint"
+      },
+      "distribution": {
+        "2": 244459,
+        "3": 45052,
+        "1": 22675
+      }
+    },
+    "scale": {
+      "type": "int",
+      "values": {
+        "1": "Small scale garment",
+        "2": "Moderate scale garment",
+        "3": "Large scale garment"
+      },
+      "distribution": {
+        "2": 157021,
+        "3": 76430,
+        "1": 78735
+      }
+    },
+    "style": {
+      "type": "int",
+      "description": "Re-identification pairing integer (matches identical garment across shop/consumer photos within a pair_id). NOT an aesthetic style label."
+    }
+  },
+  "garments_per_image_distribution": {
+    "1": 76107,
+    "2": 112530,
+    "3": 2296,
+    "4": 1018,
+    "5": 3,
+    "6": 6,
+    "8": 1
+  },
+  "samples": [
+    {
+      "file": "000001.json",
+      "item_key": "item2",
+      "fields": {
+        "segmentation": "list",
+        "scale": "int",
+        "viewpoint": "int",
+        "zoom_in": "int",
+        "landmarks": "list",
+        "style": "int",
+        "bounding_box": "list",
+        "category_id": "int",
+        "occlusion": "int",
+        "category_name": "str"
+      },
+      "sample_values": {
+        "category_id": 8,
+        "category_name": "trousers",
+        "bounding_box": [
+          249,
+          423,
+          466,
+          623
+        ],
+        "segmentation_num_polys": 3,
+        "landmarks_len": 42,
+        "occlusion": 2,
+        "zoom_in": 3,
+        "viewpoint": 2,
+        "scale": 2,
+        "style": 0
+      }
+    },
+    {
+      "file": "000001.json",
+      "item_key": "item1",
+      "fields": {
+        "segmentation": "list",
+        "scale": "int",
+        "viewpoint": "int",
+        "zoom_in": "int",
+        "landmarks": "list",
+        "style": "int",
+        "bounding_box": "list",
+        "category_id": "int",
+        "occlusion": "int",
+        "category_name": "str"
+      },
+      "sample_values": {
+        "category_id": 1,
+        "category_name": "short sleeve top",
+        "bounding_box": [
+          0,
+          29,
+          466,
+          622
+        ],
+        "segmentation_num_polys": 3,
+        "landmarks_len": 75,
+        "occlusion": 2,
+        "zoom_in": 2,
+        "viewpoint": 2,
+        "scale": 3,
+        "style": 1
+      }
+    },
+    {
+      "file": "000002.json",
+      "item_key": "item2",
+      "fields": {
+        "segmentation": "list",
+        "scale": "int",
+        "viewpoint": "int",
+        "zoom_in": "int",
+        "landmarks": "list",
+        "style": "int",
+        "bounding_box": "list",
+        "category_id": "int",
+        "occlusion": "int",
+        "category_name": "str"
+      },
+      "sample_values": {
+        "category_id": 1,
+        "category_name": "short sleeve top",
+        "bounding_box": [
+          165,
+          133,
+          466,
+          572
+        ],
+        "segmentation_num_polys": 1,
+        "landmarks_len": 75,
+        "occlusion": 2,
+        "zoom_in": 1,
+        "viewpoint": 3,
+        "scale": 3,
+        "style": 2
+      }
+    }
+  ]
+}

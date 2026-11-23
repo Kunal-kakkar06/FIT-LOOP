@@ -1,0 +1,63 @@
+FITLOOP DUPLICATE DETECTOR VERIFICATION REPORT
+===========================================================================
+Test Execution Timestamp: 2026-11-18 02:25:12 UTC
+Python Environment:      C:\Users\Lenovo\Downloads\Fitloop\fitloop_yolo_env\Scripts\python.exe
+Wardrobe Inventory Size: 8 items
+Thresholds Configured:   DUPLICATE >= 0.85, SIMILAR >= 0.65
+
+SECTION 1: MOCK USER WARDROBE INVENTORY
+---------------------------------------------------------------------------
+garment_01 | Navy Blue Short Sleeve Top   | short sleeve top     | Navy Blue (#1B263B) | Purchased: Oct 12, 2026
+garment_02 | Black Trousers               | trousers             | Black (#111111) | Purchased: Sep 15, 2026
+garment_03 | Ruby Red Short Sleeve Dress  | short sleeve dress   | Red (#FF0000) | Purchased: Aug 20, 2026
+garment_04 | Olive Green Outwear Jacket   | short sleeve outwear | Olive Green (#556B2F) | Purchased: Oct 01, 2026
+garment_05 | White Long Sleeve Top        | long sleeve top      | White (#FFFFFF) | Purchased: Oct 25, 2026
+garment_06 | Charcoal Gray Shorts         | shorts               | Charcoal (#36454F) | Purchased: Jul 14, 2026
+garment_07 | Burgundy Vest Dress          | vest dress           | Burgundy (#800020) | Purchased: Sep 30, 2026
+garment_08 | Beige Khaki Trousers         | trousers             | Beige (#F5F5DC) | Purchased: Aug 11, 2026
+
+SECTION 2: CORE BENCHMARK TEST CASES EVALUATION
+---------------------------------------------------------------------------
+Test Case:    Case 1: Exact Duplicate (Navy Top vs Navy Top)
+Candidate:    Navy Top (short sleeve top, Navy Blue #1B263B)
+Top Match:    Navy Blue Short Sleeve Top
+Score:        1.000 [Expected: 0.85 - 1.00]
+Verdict:      [DUPLICATE] [Expected: DUPLICATE] -> [PASS]
+Explanation:  DUPLICATE DETECTED: You already own an identical or near-identical Navy Blue Short Sleeve Top on Oct 12, 2026 (similarity: 100%). We recommend skipping this purchase or selecting an alternative color.
+---------------------------------------------------------------------------
+Test Case:    Case 2: Close Variant (Midnight Blue Top vs Navy Top)
+Candidate:    Midnight Blue Top (short sleeve top, Midnight Blue #101820)
+Top Match:    Navy Blue Short Sleeve Top
+Score:        0.808 [Expected: 0.65 - 0.84]
+Verdict:      [SIMILAR] [Expected: SIMILAR] -> [PASS]
+Explanation:  SIMILAR ITEM OWNED: You already own a very similar Navy Blue Short Sleeve Top (purchased on Oct 12, 2026) (similarity: 81%). This candidate item shares the same color family and category.
+---------------------------------------------------------------------------
+Test Case:    Case 3: Same Color, Different Category (Navy Trousers vs Navy Top)
+Candidate:    Navy Trousers (trousers, Navy Blue #1B263B)
+Top Match:    Black Trousers
+Score:        0.617 [Expected: 0.00 - 0.64]
+Verdict:      [UNIQUE] [Expected: UNIQUE] -> [PASS]
+Explanation:  UNIQUE ADDITION: This Navy Blue Navy Trousers is distinct from your existing wardrobe (highest match: 62%). Safe to add to your collection!
+---------------------------------------------------------------------------
+Test Case:    Case 4: Completely Distinct Item (Yellow Skirt vs Wardrobe)
+Candidate:    Yellow Skirt (skirt, Yellow #FFFF00)
+Top Match:    Navy Blue Short Sleeve Top
+Score:        0.000 [Expected: 0.00 - 0.64]
+Verdict:      [UNIQUE] [Expected: UNIQUE] -> [PASS]
+Explanation:  UNIQUE ADDITION: This Yellow Skirt is distinct from your existing wardrobe (highest match: 0%). Safe to add to your collection!
+---------------------------------------------------------------------------
+Direct Pairwise: Navy Trousers vs Navy Top
+Category Sim:    0.00 (Cross-Category: Tops vs Bottoms)
+Color Sim:       1.00 (Both Navy Blue #1B263B)
+Composite Score: 0.300 -> Verdict: [UNIQUE] [PASS]
+---------------------------------------------------------------------------
+
+SECTION 3: VERIFICATION SUMMARY & INVARIANTS
+---------------------------------------------------------------------------
+Total Test Cases:       4/4 PASSED
+Score Math Bounds:      100% within [0.0, 1.0]
+Verdict Precision:      100% Exact Agreement
+Recommendation Engine:  100% Valid Explanations Generated
+Execution Speed:        318.37 ms total on CPU
+OVERALL STATUS:         VERIFIED_PASS
+===========================================================================

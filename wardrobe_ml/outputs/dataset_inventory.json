@@ -1,0 +1,48 @@
+{
+  "train": {
+    "split": "train",
+    "image_count": 191961,
+    "annotation_count": 191961,
+    "image_extensions": {
+      ".jpg": 191961
+    },
+    "annotation_extensions": {
+      ".json": 191961
+    },
+    "matched_pairs": 191961,
+    "missing_annotations": 0,
+    "unmatched_annotations": 0,
+    "ground_truth_available": true
+  },
+  "validation": {
+    "split": "validation",
+    "image_count": 32153,
+    "annotation_count": 32153,
+    "image_extensions": {
+      ".jpg": 32153
+    },
+    "annotation_extensions": {
+      ".json": 32153
+    },
+    "matched_pairs": 32153,
+    "missing_annotations": 0,
+    "unmatched_annotations": 0,
+    "ground_truth_available": true
+  },
+  "test": {
+    "split": "test",
+    "image_count": 29765,
+    "annotation_count": 0,
+    "image_extensions": {
+      ".jpg": 29765
+    },
+    "annotation_extensions": {},
+    "matched_pairs": 0,
+    "missing_annotations": 0,
+    "unmatched_annotations": 0,
+    "ground_truth_available": false
+  },
+  "total_images": 253879,
+  "total_annotations": 224114,
+  "total_matched_pairs": 224114
+}

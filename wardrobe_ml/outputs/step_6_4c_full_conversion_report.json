@@ -1,0 +1,242 @@
+{
+  "stage": "6.4C",
+  "timestamp": "2026-11-06T22:35:00+05:30",
+  "description": "Full DeepFashion2 to YOLO Annotation Conversion Report",
+  "output_directory": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\data\\processed\\deepfashion2_yolo",
+  "split_paths": {
+    "train_labels": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\data\\processed\\deepfashion2_yolo\\labels\\train",
+    "val_labels": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\data\\processed\\deepfashion2_yolo\\labels\\val"
+  },
+  "dataset_inventory": {
+    "train_images_expected": 191961,
+    "train_images_converted": 191961,
+    "val_images_expected": 32153,
+    "val_images_converted": 32153,
+    "test_images_withheld": 29765,
+    "total_labeled_images_converted": 224114
+  },
+  "ground_truth_reconciliation": {
+    "phase1_audited_train_instances": 312186,
+    "train_total_instances_inspected": 312186,
+    "train_valid_instances": 312183,
+    "train_rejected_instances": 3,
+    "reconciliation_status": "EXACT_MATCH",
+    "val_total_instances_inspected": 52490,
+    "val_valid_instances": 52490,
+    "val_rejected_instances": 0
+  },
+  "train_conversion_summary": {
+    "image_count": 191961,
+    "valid_instance_count": 312183,
+    "invalid_instance_count": 3,
+    "invalid_instances_by_reason": {
+      "out_of_bounds_coordinates": 2,
+      "zero_or_negative_area": 1
+    },
+    "invalid_records": [
+      {
+        "image_id": "028225",
+        "item_key": "item2",
+        "reason": "out_of_bounds_coordinates",
+        "raw_bbox": [
+          1,
+          198,
+          422,
+          626
+        ],
+        "category_id": 8,
+        "details": "[x1=1.0, y1=198.0, x2=422.0, y2=626.0] outside bounds for image size (468, 624)"
+      },
+      {
+        "image_id": "101338",
+        "item_key": "item2",
+        "reason": "zero_or_negative_area",
+        "raw_bbox": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "category_id": 1,
+        "details": "[x1=0.0, y1=0.0, x2=0.0, y2=0.0] -> dx=0.0, dy=0.0"
+      },
+      {
+        "image_id": "115063",
+        "item_key": "item1",
+        "reason": "out_of_bounds_coordinates",
+        "raw_bbox": [
+          15,
+          195,
+          466,
+          829
+        ],
+        "category_id": 1,
+        "details": "[x1=15.0, y1=195.0, x2=466.0, y2=829.0] outside bounds for image size (468, 702)"
+      }
+    ],
+    "empty_label_files_count": 1,
+    "category_counts_by_name": {
+      "short sleeve top": 71643,
+      "long sleeve top": 36064,
+      "short sleeve outwear": 543,
+      "long sleeve outwear": 13457,
+      "vest": 16095,
+      "sling": 1985,
+      "shorts": 36616,
+      "trousers": 55386,
+      "skirt": 30835,
+      "short sleeve dress": 17211,
+      "long sleeve dress": 7907,
+      "vest dress": 17949,
+      "sling dress": 6492
+    },
+    "category_counts_by_class_id": {
+      "0": 71643,
+      "1": 36064,
+      "2": 543,
+      "3": 13457,
+      "4": 16095,
+      "5": 1985,
+      "6": 36616,
+      "7": 55386,
+      "8": 30835,
+      "9": 17211,
+      "10": 7907,
+      "11": 17949,
+      "12": 6492
+    },
+    "multi_garment_image_counts": {
+      "0_instances": 1,
+      "1_instance": 76108,
+      "2_instances": 112528,
+      "3_or_more_instances": 3324
+    },
+    "elapsed_seconds": 129.69,
+    "throughput_images_per_second": 1480.13
+  },
+  "val_conversion_summary": {
+    "image_count": 32153,
+    "valid_instance_count": 52490,
+    "invalid_instance_count": 0,
+    "invalid_instances_by_reason": {},
+    "invalid_records": [],
+    "empty_label_files_count": 0,
+    "category_counts_by_name": {
+      "short sleeve top": 12556,
+      "long sleeve top": 5966,
+      "short sleeve outwear": 142,
+      "long sleeve outwear": 2011,
+      "vest": 2113,
+      "sling": 322,
+      "shorts": 4167,
+      "trousers": 9586,
+      "skirt": 6522,
+      "short sleeve dress": 3127,
+      "long sleeve dress": 1477,
+      "vest dress": 3352,
+      "sling dress": 1149
+    },
+    "category_counts_by_class_id": {
+      "0": 12556,
+      "1": 5966,
+      "2": 142,
+      "3": 2011,
+      "4": 2113,
+      "5": 322,
+      "6": 4167,
+      "7": 9586,
+      "8": 6522,
+      "9": 3127,
+      "10": 1477,
+      "11": 3352,
+      "12": 1149
+    },
+    "multi_garment_image_counts": {
+      "0_instances": 0,
+      "1_instance": 12684,
+      "2_instances": 18787,
+      "3_or_more_instances": 682
+    },
+    "elapsed_seconds": 23.31,
+    "throughput_images_per_second": 1379.22
+  },
+  "integrity_checks": {
+    "train": {
+      "split": "train",
+      "label_files_count": 191961,
+      "expected_image_count": 191961,
+      "file_count_matches": true,
+      "total_valid_label_rows": 312183,
+      "expected_valid_instances": 312183,
+      "instance_count_matches": true,
+      "empty_files_count": 1,
+      "single_garment_files_count": 76108,
+      "multi_garment_files_count": 115852,
+      "distinct_class_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "all_class_ids_in_range_0_12": true,
+      "all_coordinates_normalized_and_finite": true,
+      "all_widths_heights_positive": true,
+      "verification_status": "PASS",
+      "verification_time_seconds": 39.66
+    },
+    "val": {
+      "split": "val",
+      "label_files_count": 32153,
+      "expected_image_count": 32153,
+      "file_count_matches": true,
+      "total_valid_label_rows": 52490,
+      "expected_valid_instances": 52490,
+      "instance_count_matches": true,
+      "empty_files_count": 0,
+      "single_garment_files_count": 12684,
+      "multi_garment_files_count": 19469,
+      "distinct_class_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "all_class_ids_in_range_0_12": true,
+      "all_coordinates_normalized_and_finite": true,
+      "all_widths_heights_positive": true,
+      "verification_status": "PASS",
+      "verification_time_seconds": 3.41
+    }
+  },
+  "performance_and_storage": {
+    "total_runtime_seconds": 206.13,
+    "total_runtime_minutes": 3.44,
+    "train_labels_file_count": 191961,
+    "train_labels_size_mb": 11.64,
+    "val_labels_file_count": 32153,
+    "val_labels_size_mb": 1.96,
+    "total_output_size_mb": 13.6,
+    "ram_start_gb": 12.36,
+    "ram_end_gb": 13.99,
+    "ram_percent": 88.9
+  },
+  "overall_status": "SUCCESS"
+}

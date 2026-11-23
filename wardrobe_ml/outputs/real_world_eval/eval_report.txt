@@ -1,0 +1,48 @@
+==============================================================================
+FITLOOP REAL-WORLD WARDROBE EVALUATION DIAGNOSTIC REPORT
+==============================================================================
+Execution Timestamp : 2026-11-14 21:16:35 UTC
+Model Checkpoint    : C:\Users\Lenovo\Downloads\Fitloop\wardrobe_ml\models\best.pt
+Inference Parameters: conf=0.25, iou=0.45, agnostic_nms=True
+Total Runtime       : 15.45 s
+------------------------------------------------------------------------------
+OVERALL SUMMARY
+------------------------------------------------------------------------------
+Total Images Evaluated   : 3
+Total Garments Detected  : 5
+Average Confidence       : 55.08%
+Low-Confidence (< 0.45)  : 2
+Zero-Detection Images    : 0
+------------------------------------------------------------------------------
+PER-FOLDER BREAKDOWN
+------------------------------------------------------------------------------
+
+Context: [CLOSET]
+  Images Found        : 1
+  Garments Detected   : 2
+  Average Confidence  : 61.52%
+  Low-Confidence (<45): 1
+  Zero Detections     : 0
+  Category Distribution:
+    - long sleeve outwear     : 2
+
+Context: [FLAT_LAY]
+  Images Found        : 1
+  Garments Detected   : 1
+  Average Confidence  : 57.50%
+  Low-Confidence (<45): 0
+  Zero Detections     : 0
+  Category Distribution:
+    - short sleeve top        : 1
+
+Context: [SINGLE_GARMENT]
+  Images Found        : 1
+  Garments Detected   : 2
+  Average Confidence  : 47.43%
+  Low-Confidence (<45): 1
+  Zero Detections     : 0
+  Category Distribution:
+    - long sleeve top         : 1
+    - trousers                : 1
+
+==============================================================================

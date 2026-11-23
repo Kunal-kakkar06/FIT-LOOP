@@ -1,0 +1,13 @@
+# Runtime generated
+backend/fitloop.db
+backend/uploads/
+
+# Node
+frontend/node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.env.local

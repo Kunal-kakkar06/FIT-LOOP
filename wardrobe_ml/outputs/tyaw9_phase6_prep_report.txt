@@ -1,0 +1,71 @@
+=====================================================================================
+FITLOOP PHASE 13.2: tyaw9 APPAREL DATASET CONVERSION & PACKAGING REPORT
+=====================================================================================
+Execution Timestamp : 2026-11-17 18:05:16 UTC
+Source Archive      : C:\Users\Lenovo\Downloads\Clothes Detection.v9i.yolo26.zip
+Source Size         : 1,692,627,660 bytes
+Output Directory    : C:\Users\Lenovo\Downloads\Fitloop\wardrobe_ml\outputs\kaggle_phase6_tyaw9
+Execution Runtime   : 248.74s
+
+SECTION 1: CONVERTED SPLIT ARCHITECTURE & IMAGE COUNTS
+-------------------------------------------------------------------------------------
+Split      | Images Count   | Label Files Count  | Apparel Instances 
+-------------------------------------------------------------------------------------
+train      | 14,403         | 14,403             | 25,491            
+val        | 1,638          | 1,638              | 2,972             
+test       | 837            | 837                | 1,513             
+-------------------------------------------------------------------------------------
+TOTAL      | 16,878         | 16,878             | 29,976            
+
+SECTION 2: CLASS REMAPPING AUDIT (FITLOOP 13-CLASS SCHEMA)
+-------------------------------------------------------------------------------------
+FitLoop ID  | FitLoop Class Name     | Train    | Val      | Test     | Total Instances
+-------------------------------------------------------------------------------------
+0           | short sleeve top       | 3,357    | 503      | 233      | 4,093   
+1           | long sleeve top        | 6,598    | 713      | 381      | 7,692   
+2           | short sleeve outwear   | 0        | 0        | 0        | 0       
+3           | long sleeve outwear    | 5,315    | 495      | 273      | 6,083   
+4           | vest                   | 0        | 0        | 0        | 0       
+5           | sling                  | 0        | 0        | 0        | 0       
+6           | shorts                 | 1,997    | 204      | 114      | 2,315   
+7           | trousers               | 4,576    | 550      | 258      | 5,384   
+8           | skirt                  | 2,370    | 319      | 163      | 2,852   
+9           | short sleeve dress     | 1,278    | 188      | 91       | 1,557   
+10          | long sleeve dress      | 0        | 0        | 0        | 0       
+11          | vest dress             | 0        | 0        | 0        | 0       
+12          | sling dress            | 0        | 0        | 0        | 0       
+-------------------------------------------------------------------------------------
+ALL         | Total Apparel Instances | 25,491   | 2,972    | 1,513    | 29,976  
+
+SECTION 3: DROPPED NON-APPAREL & HARDWARE CATEGORIES
+-------------------------------------------------------------------------------------
+Source ID  0: bag              -> DROPPED (4,370 instances excluded)
+Source ID  1: belt             -> DROPPED (268 instances excluded)
+Source ID  2: boat             -> DROPPED (63 instances excluded)
+Source ID  5: glasses          -> DROPPED (76 instances excluded)
+Source ID  6: hat              -> DROPPED (724 instances excluded)
+Source ID 10: pocket           -> DROPPED (838 instances excluded)
+Source ID 12: shoe             -> DROPPED (7,671 instances excluded)
+Source ID 13: shoesClassic     -> DROPPED (487 instances excluded)
+Source ID 14: shoesSports      -> DROPPED (2,104 instances excluded)
+Source ID 17: sunglass         -> DROPPED (948 instances excluded)
+Source ID 20: zipper           -> DROPPED (39 instances excluded)
+Empty After Filter Images Excluded : 2,079 images (dilution prevented)
+
+SECTION 4: PACKAGED PARTITION ARCHIVES
+-------------------------------------------------------------------------------------
+Partition ZIP Archive Name                 | File Size (Bytes)  | Size (MB)  | testzip() Status
+-------------------------------------------------------------------------------------
+fitloop_phase6_tyaw9_part_1.zip            | 452,127,905        | 431.18     | PASSED (0 errors)
+fitloop_phase6_tyaw9_part_2.zip            | 447,426,016        | 426.70     | PASSED (0 errors)
+-------------------------------------------------------------------------------------
+
+SECTION 5: VERIFICATION CRITERIA & CONCLUSION
+-------------------------------------------------------------------------------------
+1. 100% of converted labels validated: 5 tokens, class IDs in [0, 12], coordinates in [0.0, 1.0].
+2. All polygons converted to standard YOLO 5-column bounding boxes (w > 0, h > 0).
+3. Zero empty-after-filter images retained (every image has >= 1 valid apparel annotation).
+4. Image and label pairs co-located in identical partition ZIPs with data.yaml.
+5. Every partition ZIP is strictly < 850 MB and passes testzip() integrity verification.
+6. Final Status: KAGGLE PHASE 6 DATASET SUCCESSFULLY PREPARED & PACKAGED.
+=====================================================================================

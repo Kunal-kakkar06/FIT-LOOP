@@ -1,0 +1,75 @@
+# FitLoop — wardrobe_ml: Production Runtime & Training Environment Requirements
+# Environment: fitloop_yolo_env (Python 3.11.6, Windows x64)
+# Hardware: Intel i5-12450H CPU (CPU-optimized, CUDA optional)
+# Last Updated: Phase 12 Final Repository Preparation
+
+# ── Web API, Serving & Persistence (FastAPI Service Layer) ────────────────────
+fastapi==0.162.4               # Modern, high-performance web framework for FitLoop REST APIs
+uvicorn==0.54.0                # Lightning-fast ASGI production web server
+python-multipart==0.0.33       # Streaming multipart form-data parsing for wardrobe photo uploads
+sqlalchemy==2.1.8              # Relational database ORM, session management & SQLite persistence
+pydantic==2.14.3               # Strict schema validation & serialization for API request/response
+
+# ── PyTorch CPU & Torchvision (CPU wheelhouse: https://download.pytorch.org/whl/cpu) ──
+torch==2.5.1+cpu              # Core deep learning tensor compute engine (CPU build)
+torchvision==0.20.1+cpu        # Vision primitives, MobileNetV3-Small embeddings & transforms
+
+# ── Ultralytics & Detection Framework ─────────────────────────────────────────
+ultralytics==8.4.203           # YOLO object detection framework (includes YOLO26 architecture support)
+ultralytics-thop==2.2.5        # Model FLOPs / compute profiler for Ultralytics
+ultralytics-platform==0.1.104  # Platform integrations for Ultralytics
+
+# ── Computer Vision & Image Handling ──────────────────────────────────────────
+opencv-python==4.11.0.86       # Computer vision, CIE LAB conversions, K-Means clustering & drawing
+pillow==13.0.0                 # Image decoding and PIL format conversions for dataset loaders
+
+# ── Numerical & Data Processing ───────────────────────────────────────────────
+numpy==1.26.4                  # Conservative NumPy baseline; verified stable with torch 2.5.1 & opencv
+pandas==3.0.6                  # Tabular data manipulation for annotation tables & manifests
+scipy==1.17.1                  # Scientific computing, statistics, and spatial distance utilities
+scikit-learn==1.9.1            # Evaluation metrics, dataset splitting helpers
+
+# ── Plotting & Visualization ──────────────────────────────────────────────────
+matplotlib==3.11.2             # Bounding box & training curve plotting
+contourpy==1.3.3               # Matplotlib contour computation dependency
+cycler==0.12.1                 # Matplotlib color cycle dependency
+fonttools==4.68.0              # Matplotlib font rendering dependency
+kiwisolver==1.5.1              # Matplotlib layout solver dependency
+pyparsing==3.3.3               # Expression parsing dependency for matplotlib
+
+# ── Deep Learning & Framework Dependencies ────────────────────────────────────
+sympy==1.13.1                  # Symbolic mathematics engine required specifically by torch 2.5.1
+mpmath==1.3.0                  # Arbitrary-precision floating-point arithmetic for sympy
+filelock==4.2.9                # File locking mechanism for model weights and dataset caching
+fsspec==2026.9.0               # Filesystem specification for remote and local resource loading
+jinja2==3.1.6                  # Template engine dependency for PyTorch code generation
+MarkupSafe==3.0.4              # HTML/string escaping dependency for Jinja2
+networkx==3.6.1                # Graph computation library used in neural network graph tracing
+typing_extensions==4.16.0      # Backported type hints for Python 3.11 compatibility
+
+# ── Data Formats & Utilities ──────────────────────────────────────────────────
+pyyaml==6.0.3                  # YAML parser for dataset configurations and model graphs
+tqdm==4.70.1                   # Progress bars for training and annotation conversions
+colorama==0.4.6                # Terminal color styling for tqdm progress reporting
+psutil==7.2.2                  # Process and system memory monitoring during training
+polars==2.1.0                  # High-performance dataframe engine used by Ultralytics
+polars-runtime-32==2.1.0       # Polars engine runtime component
+joblib==1.6.0                  # Lightweight pipelining and parallel processing
+threadpoolctl==3.8.0           # Thread pool controller for native BLAS/OpenMP CPU threads
+cloudpickle==3.1.2             # Extended object serialization
+narwhals==2.28.0               # Lightweight compatibility layer for dataframes
+python-dateutil==4.0.0         # Date handling utility
+tzdata==2026.6                 # Timezone database
+packaging==26.3                # Version requirement comparison and validation
+
+# ── Networking & Platform (Ultralytics optional utilities) ─────────────────────
+requests==2.34.2               # HTTP client library
+urllib3==2.8.0                 # HTTP transport library
+certifi==2026.10.23            # CA certificate bundle
+charset-normalizer==3.5.2      # Charset detection library
+idna==3.20                     # Internationalized domain names library
+httpx==0.28.1                  # Modern HTTP client
+httpcore==1.0.9                # Low-level HTTP transport
+h11==0.16.0                    # HTTP/1.1 protocol parser
+anyio==4.16.0                  # Asynchronous networking event loop
+nvidia-ml-py==13.615.71        # System GPU telemetry interface (gracefully reports 0 GPUs on CPU)

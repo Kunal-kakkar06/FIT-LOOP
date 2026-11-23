@@ -1,0 +1,103 @@
+==============================================================================
+FITLOOP ROBOFLOW DATASET INSPECTION REPORT
+==============================================================================
+Archive Path     : C:\Users\Lenovo\Downloads\Clothes detection.v6i.yolo26.zip
+Archive Size     : 75.71 MB (79,382,778 bytes)
+Archive Integrity: PASSED testzip() (0 corrupted files)
+Total Entries    : 3,607
+
+==============================================================================
+SECTION 1: data.yaml CONTENTS
+==============================================================================
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 8
+names: ['Tshirt', 'dress', 'jacket', 'pants', 'shirt', 'short', 'skirt', 'sweater']
+
+roboflow:
+  workspace: faculdade-xuvm9
+  project: clothes-detection-nnwwn
+  version: 6
+  license: MIT
+  url: https://universe.roboflow.com/faculdade-xuvm9/clothes-detection-nnwwn/dataset/6
+
+Parsed Class Count (nc): 8
+Classes Mapping:
+  Class  0: Tshirt
+  Class  1: dress
+  Class  2: jacket
+  Class  3: pants
+  Class  4: shirt
+  Class  5: short
+  Class  6: skirt
+  Class  7: sweater
+
+==============================================================================
+SECTION 2: SPLIT IMAGE & LABEL COUNTS
+==============================================================================
+  Split 'train': 1,404 images | 1,404 label files
+  Split 'valid':   254 images |   254 label files
+  Split 'test ':   143 images |   143 label files
+  TOTAL       : 1,801 images | 1,801 label files
+
+==============================================================================
+SECTION 3: LABEL FORMAT VERIFICATION & TOKEN ANALYSIS
+==============================================================================
+Label Format Determined: Polygon Segmentation Coordinates (primarily 11-column 5-vertex closed bounding polygons)
+Standard 5-column YOLO Bounding Box: NO
+Polygon Segmentation Format Detected: YES
+
+Token Count Distribution Across All Label Lines:
+   11 tokens per line: 2,835 lines ( 99.9%)
+  149 tokens per line:     1 lines (  0.0%)
+  153 tokens per line:     1 lines (  0.0%)
+  141 tokens per line:     1 lines (  0.0%)
+
+Format Anatomy of 11-token lines:
+  Structure: <class_id> <x1> <y1> <x2> <y2> <x3> <y3> <x4> <y4> <x5> <y5>
+  Meaning  : 1 class index + 5 (x, y) vertices representing a closed bounding polygon
+             where vertex 5 (x5, y5) closes the loop by repeating vertex 1 (x1, y1).
+  Conversion: Computable to standard YOLO bbox (class, cx, cy, w, h) via:
+              cx = (min(x) + max(x)) / 2,  cy = (min(y) + max(y)) / 2
+              w  = max(x) - min(x),         h  = max(y) - min(y)
+
+Sample File Breakdown (20 Files Sampled from 'train'):
+  aa7c2d39a4599279ded83c5c7f90df098b9e35ea_jpg.rf.acbc92425512152f7212e7b2ea39925f.txt |  1 instances | cols: {11} | sample: 1 0.8618143453125 0.1609632453125 0.0896
+  Jimage18172_jpg.rf.b1a89ad53ed760ac616b3df298091522.txt |  2 instances | cols: {11} | sample: 2 0.9911111109374999 0.26 0.6 0.26 0.6 0
+  20230514_210742_jpg.rf.e41199af4aab1f4bd866696b21189306.txt |  2 instances | cols: {11} | sample: 7 0.5776143796875 0.346446078125 0.02260
+  images938_jpg.rf.10524c0168413ac7a3e02c755b28ab86.txt |  1 instances | cols: {11} | sample: 6 0.877777778125 0.0511111109375 0.10444
+  1603458756713_kn8scqyws5a_jpg.rf.f15eb7c011d2b0031783692a9a970521.txt |  2 instances | cols: {11} | sample: 0 0.55375 0.1925 0.03625 0.1925 0.03625 
+  Himage941_jpg.rf.3ea374110e36d2ad37577de6ba6c5d37.txt |  1 instances | cols: {11} | sample: 7 0.8400000000000001 0.02444444375 0.168
+  8f5c4c73c8fbf6b9ed1ab6a09dbabb4a7fc4561c_jpg.rf.36ff5edb7f3900fb7d412083ad4787de.txt |  1 instances | cols: {11} | sample: 0 0.8818565406250001 0.09388185624999999
+  Jimage18420_jpg.rf.ab949e1ec5e5cf3fb26c035a419b1e71.txt |  1 instances | cols: {11} | sample: 2 0.8755555562499999 0.08444444375 0.124
+  Dimage3146_jpg.rf.44c247b4f2ec65bcddff81f34310ea02.txt |  3 instances | cols: {11} | sample: 1 0.2888888890625 0.35111111093749997 0.
+  Himage97_jpg.rf.6e84efe860df9cb67fb9ee9e0e03d6e1.txt |  1 instances | cols: {11} | sample: 7 0.7755555562499999 0.13555555625 0.157
+  images636_jpg.rf.48062911784179cca630c642b5867953.txt |  2 instances | cols: {11} | sample: 0 0.6555555562500001 0.22444444375 0.317
+  img_0098_jpeg_jpg.rf.fb4d03edb1fded452d72fb17ed1efb11.txt |  2 instances | cols: {11} | sample: 7 0.7254545453125 0.2096969703125 0.2 0.
+  8544183afbd3d48f1c898b4893079cc2da323610_jpg.rf.c6631eb17f6a8efe00585dfe01c13627.txt |  1 instances | cols: {11} | sample: 4 0.7278481015625 0.234939759375 0.09915
+  152_jpg.rf.768ff93d59ca733df507d5a997cf2cea.txt |  1 instances | cols: {11} | sample: 0 0.9289617484375 0.250909090625 0.16939
+  Jimage18179_jpg.rf.d54d72c516536c12da3b1469c0933e9e.txt |  1 instances | cols: {11} | sample: 2 1 0.04444444375 0.37333333281250003 0.
+  b9a013b20aa62bf28afc70df8b4dbbb5280b9403_jpg.rf.598aa196484cfd6298e8c0d9d9bcdb41.txt |  1 instances | cols: {11} | sample: 5 0 0.768635725 0.97468354375 0.76863572
+  18_jpg.rf.b51dd1b17296becf488ba40c6d428d64.txt |  6 instances | cols: {11} | sample: 7 0.6466666671875 0.06444444375 0.033333
+  images889_jpg.rf.87ab4a1ffe26f83c1bae374a1c1de7ae.txt |  2 instances | cols: {11} | sample: 6 0.36444444374999996 0.2088888890624999
+  08c4516d15a0a0306492d9c4d751824f022654ae_jpg.rf.19e088c64c26161bc8623a6aa889c7c7.txt |  1 instances | cols: {11} | sample: 3 0.7721518984375 0.0168776375 0.2700421
+  57_jpg.rf.0a3e9ef1f3d61000df233d9c9e19a74c.txt |  2 instances | cols: {11} | sample: 0 0.4908088234375 1 0.4908088234375 0.44
+
+==============================================================================
+SECTION 4: PER-CLASS INSTANCE COUNTS ACROSS TRAIN & VALID
+==============================================================================
+ID   | Class Name                   | Train Instances | Valid Instances | Total     
+------------------------------------------------------------------------------
+0    | Tshirt                       |             565 |              76 |        641
+1    | dress                        |             283 |              62 |        345
+2    | jacket                       |             105 |              22 |        127
+3    | pants                        |             342 |              60 |        402
+4    | shirt                        |              79 |              34 |        113
+5    | short                        |             108 |               9 |        117
+6    | skirt                        |             295 |             104 |        399
+7    | sweater                      |             376 |              80 |        456
+------------------------------------------------------------------------------
+ALL  | TOTAL INSTANCES              |           2,153 |             447 |      2,600
+==============================================================================

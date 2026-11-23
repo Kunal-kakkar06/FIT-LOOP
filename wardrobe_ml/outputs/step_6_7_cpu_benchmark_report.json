@@ -1,0 +1,150 @@
+{
+  "stage": "6.7",
+  "timestamp": "2026-11-07T11:30:00+05:30",
+  "title": "YOLO26n CPU Training Benchmark and Feasibility Report",
+  "hardware_and_environment": {
+    "cpu_model": "Intel Core i5-12450H",
+    "physical_cores": 8,
+    "logical_cores": 12,
+    "total_ram_gb": 15.73,
+    "available_ram_start_gb": 3.06,
+    "ram_percent_used_start": 80.5,
+    "pytorch_version": "2.5.1+cpu",
+    "cuda_available": false,
+    "ultralytics_version": "8.4.203",
+    "disk_free_gb": 581.97
+  },
+  "benchmark_execution": {
+    "model_architecture": "YOLO26n (from scratch)",
+    "parameter_count": 2572280,
+    "dataset_yaml": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\data\\processed\\deepfashion2_yolo\\data.yaml",
+    "batch_size": 2,
+    "image_size": 640,
+    "device": "cpu",
+    "workers": 0,
+    "benchmark_fraction": [
+      0.002,
+      0.005
+    ],
+    "num_train_images": 384,
+    "num_train_batches": 192,
+    "training_epoch_duration_seconds": 129.29,
+    "validation_duration_seconds": 10.37,
+    "total_benchmark_time_seconds": 161.28,
+    "time_per_batch_seconds": 0.6489,
+    "time_per_batch_ms": 648.9,
+    "median_batch_time_ms": 642.1,
+    "throughput_images_per_second": 2.97,
+    "resource_consumption": {
+      "avg_cpu_percent": 40.4,
+      "max_cpu_percent": 76.9,
+      "peak_system_ram_gb": 13.96,
+      "min_system_ram_available_gb": 1.77,
+      "peak_process_ram_gb": 1.28
+    },
+    "losses": {
+      "box_loss": 3.2591,
+      "cls_loss": 15.3771,
+      "dfl_loss": 0.0
+    },
+    "validation_metrics": {
+      "precision_B": 0.09167,
+      "recall_B": 0.00682,
+      "mAP50_B": 9e-05,
+      "mAP50_95_B": 3e-05
+    },
+    "checkpoint_paths": {
+      "best_pt": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\outputs\\step_6_7_cpu_benchmark\\run\\weights\\best.pt",
+      "last_pt": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\outputs\\step_6_7_cpu_benchmark\\run\\weights\\last.pt",
+      "results_csv": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\outputs\\step_6_7_cpu_benchmark\\run\\results.csv"
+    },
+    "raw_results_row": {
+      "epoch": 1.0,
+      "time": 145.037,
+      "train/box_loss": 3.2591,
+      "train/cls_loss": 15.3771,
+      "train/l1_loss": 0.08351,
+      "metrics/precision(B)": 0.09167,
+      "metrics/recall(B)": 0.00682,
+      "metrics/mAP50(B)": 9e-05,
+      "metrics/mAP50-95(B)": 3e-05,
+      "val/box_loss": 3.74895,
+      "val/cls_loss": 27.5094,
+      "val/l1_loss": 0.12511,
+      "lr/pg0": 0.000588,
+      "lr/pg1": 0.000588,
+      "lr/pg2": 0.000588
+    }
+  },
+  "feasibility_extrapolations": {
+    "baseline_assumptions": {
+      "clean_training_images": 191958,
+      "total_val_images": 32153,
+      "batch_size": 2,
+      "batches_per_epoch": 95979,
+      "measured_time_per_batch_seconds": 0.6489,
+      "measured_throughput_images_per_second": 2.97
+    },
+    "epoch_extrapolations": {
+      "1_epochs": {
+        "training_hours": 17.3,
+        "validation_hours": 1.3,
+        "total_estimated_hours": 18.6,
+        "total_estimated_days": 0.78
+      },
+      "10_epochs": {
+        "training_hours": 173.0,
+        "validation_hours": 13.3,
+        "total_estimated_hours": 186.3,
+        "total_estimated_days": 7.76
+      },
+      "30_epochs": {
+        "training_hours": 519.0,
+        "validation_hours": 39.9,
+        "total_estimated_hours": 558.9,
+        "total_estimated_days": 23.29
+      },
+      "50_epochs": {
+        "training_hours": 865.0,
+        "validation_hours": 66.5,
+        "total_estimated_hours": 931.5,
+        "total_estimated_days": 38.81
+      },
+      "100_epochs": {
+        "training_hours": 1730.0,
+        "validation_hours": 133.0,
+        "total_estimated_hours": 1863.0,
+        "total_estimated_days": 77.63
+      }
+    },
+    "recommendation": {
+      "verdict": "FULL_DATASET_CPU_TRAINING_NOT_FEASIBLE",
+      "primary_bottleneck": "At 2.97 images/s, 1 single epoch on all 191,958 images requires ~17.3 hours (~0.7 days). A standard 50-epoch training run would require approximately 38.81 continuous days on CPU.",
+      "recommended_configurations": [
+        {
+          "strategy": "Cloud / Local GPU Acceleration (Primary Recommendation for Full Convergence)",
+          "details": "Train YOLO26n on an NVIDIA GPU (RTX 3060/4060 or T4/A100). On GPU, throughput reaches 150-300 img/s, reducing 50 epochs from 40+ days down to ~8-12 hours."
+        },
+        {
+          "strategy": "Stratified Pair-Clustered Benchmark Subset (Recommended for Local CPU Prototyping)",
+          "details": "Train on a 1% to 2% stratified subset (~2,000 to 4,000 images, maintaining pair clustering to prevent leakage). A 10-epoch run on 2,000 images requires ~5.5 hours on CPU."
+        },
+        {
+          "strategy": "Batch Size & Thread Tuning",
+          "details": "Evaluate batch size 4 or 8 with torch.set_num_threads(8) on CPU to maximize Intel i5-12450H AVX2 throughput before local runs."
+        }
+      ]
+    }
+  },
+  "safety_rules_compliance": {
+    "original_dataset_untouched": true,
+    "labels_untouched": true,
+    "manifests_untouched": true,
+    "weights_download_avoided": true,
+    "device_kept_cpu": true,
+    "epochs_limited_to_one": true,
+    "separate_output_dir_used": true,
+    "status": "PASS"
+  },
+  "overall_status": "SUCCESS"
+}

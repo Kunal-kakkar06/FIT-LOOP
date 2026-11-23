@@ -1,0 +1,51 @@
+FITLOOP DATABASE & PERSISTENCE LAYER VERIFICATION REPORT
+===========================================================================
+Test Execution Timestamp: 2026-11-18 02:25:24 UTC
+Python Environment:      C:\Users\Lenovo\Downloads\Fitloop\fitloop_yolo_env\Scripts\python.exe
+Database Backend:        SQLite (WAL / Foreign Keys Enforced)
+Database File:           fitloop_test.db
+
+SECTION 1: SCHEMA INITIALIZATION & REPOSITORY BINDING
+---------------------------------------------------------------------------
+Tables Created: users, wardrobe_scans, wardrobe_items, duplicate_checks -> [PASS]
+User A Created: ID=1, Name='Alice Fashionista', Email='alice@fitloop.ai' -> [PASS]
+User B Created: ID=2, Name='Bob Minimalist', Email='bob@fitloop.ai' -> [PASS]
+Scan #1 Persisted: Input Type='flat_lay', Total Items=3 -> [PASS]
+     Item #1: Category='short sleeve top', Color='Navy Blue' (#1B263B), Confidence=0.96
+     Item #2: Category='short sleeve outwear', Color='Olive Green' (#556B2F), Confidence=0.94
+     Item #3: Category='short sleeve dress', Color='Red' (#FF0000), Confidence=0.98
+ItemEmbedding Attached: Item #1, 576-dim -> [PASS]
+
+SECTION 2: USER DATA ISOLATION AUDIT
+---------------------------------------------------------------------------
+User A (Alice) Wardrobe Items: 3
+User B (Bob) Wardrobe Items:   1
+Cross-User Visibility:         0 items leaked -> [PASS]
+
+SECTION 3: DUPLICATE DETECTOR INTEROPERABILITY
+---------------------------------------------------------------------------
+Candidate:           Navy Blue Short Sleeve Top (#1B263B)
+User A (Has Item):   Verdict=[DUPLICATE], Score=1.00 -> [PASS]
+User B (No Top):     Verdict=[UNIQUE], Score=0.04 -> [PASS]
+
+SECTION 4: AUDIT LOG & CHECK RECORD PERSISTENCE
+---------------------------------------------------------------------------
+Check ID:            #1
+User ID:             1
+Candidate Category:  short sleeve top
+Candidate Color:     Navy Blue
+Matched Item ID:     #1
+Similarity Score:    1.00
+Verdict:             [DUPLICATE]
+Persisted & Queried: 1 record confirmed -> [PASS]
+Foreign Key Protection: Non-existent user reference rejected -> [PASS]
+
+SECTION 5: VERIFICATION SUMMARY & INVARIANTS
+---------------------------------------------------------------------------
+Database Engine:         SQLAlchemy 2.0 ORM with SQLite backend
+Foreign Key Constraints: 100% Enforced (PRAGMA foreign_keys=ON)
+User Data Isolation:     100% Verified (0 cross-tenant leaks)
+DuplicateDetector Interop: 100% Verified with to_detector_dict()
+Total Test Time:         695.09 ms on CPU
+FINAL VERIFICATION STATUS: VERIFIED_PASS
+===========================================================================

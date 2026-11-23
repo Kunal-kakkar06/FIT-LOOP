@@ -1,0 +1,498 @@
+{
+  "stage": "6.4A",
+  "timestamp": "2026-11-06T22:15:00+05:30",
+  "description": "DeepFashion2 to YOLO Annotation Converter Sample Verification Report",
+  "output_directory": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\data\\processed\\yolo_conversion_test",
+  "output_images_directory": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\data\\processed\\yolo_conversion_test\\images",
+  "output_labels_directory": "C:\\Users\\Lenovo\\Downloads\\Fitloop\\wardrobe_ml\\data\\processed\\yolo_conversion_test\\labels",
+  "sample_image_count": 20,
+  "total_instances_inspected": 38,
+  "valid_garment_instance_count": 37,
+  "invalid_instance_count_by_reason": {
+    "zero_or_negative_area": 1
+  },
+  "total_invalid_instances": 1,
+  "category_counts_by_name": {
+    "short sleeve top": 6,
+    "long sleeve top": 6,
+    "short sleeve outwear": 1,
+    "long sleeve outwear": 2,
+    "vest": 3,
+    "sling": 1,
+    "shorts": 3,
+    "trousers": 8,
+    "skirt": 3,
+    "short sleeve dress": 1,
+    "long sleeve dress": 1,
+    "vest dress": 1,
+    "sling dress": 1
+  },
+  "category_counts_by_df2_id": {
+    "1": 6,
+    "2": 6,
+    "3": 1,
+    "4": 2,
+    "5": 3,
+    "6": 1,
+    "7": 3,
+    "8": 8,
+    "9": 3,
+    "10": 1,
+    "11": 1,
+    "12": 1,
+    "13": 1
+  },
+  "category_counts_by_yolo_class_id": {
+    "0": 6,
+    "1": 6,
+    "2": 1,
+    "3": 2,
+    "4": 3,
+    "5": 1,
+    "6": 3,
+    "7": 8,
+    "8": 3,
+    "9": 1,
+    "10": 1,
+    "11": 1,
+    "12": 1
+  },
+  "multi_garment_image_counts": {
+    "0_instances": 0,
+    "1_instance": 8,
+    "2_instances": 9,
+    "3_or_more_instances": 3
+  },
+  "known_degenerate_audit": {
+    "image_id": "101338",
+    "status": "partial_success",
+    "valid_instances_count": 1,
+    "invalid_instances_count": 1,
+    "valid_instances": [
+      {
+        "item_key": "item1",
+        "category_id": 9,
+        "category_name": "skirt",
+        "class_id": 8,
+        "raw_bbox": [
+          307,
+          437,
+          432,
+          597
+        ],
+        "yolo_line": "8 0.492667 0.618421 0.166667 0.191388"
+      }
+    ],
+    "invalid_instances": [
+      {
+        "item_key": "item2",
+        "reason": "zero_or_negative_area",
+        "raw_bbox": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "category_id": 1,
+        "details": "[x1=0.0, y1=0.0, x2=0.0, y2=0.0] -> dx=0.0, dy=0.0"
+      }
+    ],
+    "degenerate_box_correctly_rejected": true,
+    "valid_item_preserved": true
+  },
+  "normalization_validation_results": {
+    "output_label_files_count": 20,
+    "output_image_files_count": 20,
+    "all_class_ids_in_range_0_to_12": true,
+    "distinct_class_ids_observed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "distinct_class_ids_count": 13,
+    "all_coordinates_within_0_1": true,
+    "all_widths_heights_positive": true,
+    "all_coordinates_finite": true,
+    "total_yolo_label_lines_written": 37,
+    "label_rows_match_valid_instances": true,
+    "multi_garment_lines_match": true,
+    "known_degenerate_box_rejected": true,
+    "known_degenerate_valid_item_preserved": true,
+    "distinct_resolutions_count": 13,
+    "distinct_resolutions": [
+      [
+        291,
+        516
+      ],
+      [
+        468,
+        623
+      ],
+      [
+        468,
+        624
+      ],
+      [
+        468,
+        625
+      ],
+      [
+        468,
+        702
+      ],
+      [
+        468,
+        832
+      ],
+      [
+        640,
+        529
+      ],
+      [
+        640,
+        637
+      ],
+      [
+        640,
+        791
+      ],
+      [
+        750,
+        836
+      ],
+      [
+        750,
+        961
+      ],
+      [
+        750,
+        1125
+      ],
+      [
+        790,
+        1198
+      ]
+    ]
+  },
+  "conversion_errors": [],
+  "sample_manifest": [
+    {
+      "image_id": "101338",
+      "status": "partial_success",
+      "dimensions": [
+        750,
+        836
+      ],
+      "valid_count": 1,
+      "invalid_count": 1,
+      "yolo_lines": [
+        "8 0.492667 0.618421 0.166667 0.191388"
+      ],
+      "invalid_details": [
+        {
+          "item": "item2",
+          "reason": "zero_or_negative_area",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "image_id": "000001",
+      "status": "success",
+      "dimensions": [
+        468,
+        624
+      ],
+      "valid_count": 2,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "7 0.763889 0.838141 0.463675 0.320513",
+        "0 0.497863 0.521635 0.995726 0.950321"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000002",
+      "status": "success",
+      "dimensions": [
+        468,
+        702
+      ],
+      "valid_count": 2,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "0 0.674145 0.502137 0.643162 0.625356",
+        "0 0.393162 0.712963 0.782051 0.571225"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000003",
+      "status": "success",
+      "dimensions": [
+        468,
+        832
+      ],
+      "valid_count": 1,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "10 0.500000 0.530649 0.995726 0.936298"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000009",
+      "status": "success",
+      "dimensions": [
+        468,
+        623
+      ],
+      "valid_count": 1,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "1 0.420940 0.657303 0.841880 0.682183"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000011",
+      "status": "success",
+      "dimensions": [
+        750,
+        961
+      ],
+      "valid_count": 2,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "7 0.494667 0.727888 0.232000 0.315297",
+        "1 0.416667 0.520812 0.150667 0.223725"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000013",
+      "status": "success",
+      "dimensions": [
+        468,
+        702
+      ],
+      "valid_count": 2,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "8 0.401709 0.841880 0.666667 0.313390",
+        "1 0.523504 0.505698 0.833333 0.669516"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000016",
+      "status": "success",
+      "dimensions": [
+        640,
+        529
+      ],
+      "valid_count": 2,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "7 0.364063 0.666352 0.278125 0.232514",
+        "1 0.369531 0.517958 0.329688 0.344045"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000019",
+      "status": "success",
+      "dimensions": [
+        750,
+        1125
+      ],
+      "valid_count": 2,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "8 0.591333 0.776889 0.446667 0.133333",
+        "1 0.517333 0.566222 0.528000 0.312889"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000033",
+      "status": "success",
+      "dimensions": [
+        468,
+        624
+      ],
+      "valid_count": 1,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "6 0.434829 0.523237 0.865385 0.472756"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000091",
+      "status": "success",
+      "dimensions": [
+        291,
+        516
+      ],
+      "valid_count": 1,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "3 0.525773 0.525194 0.941581 0.728682"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000143",
+      "status": "success",
+      "dimensions": [
+        468,
+        624
+      ],
+      "valid_count": 1,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "11 0.403846 0.499199 0.807692 0.998397"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000278",
+      "status": "success",
+      "dimensions": [
+        468,
+        624
+      ],
+      "valid_count": 2,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "7 0.473291 0.650641 0.301282 0.509615",
+        "9 0.459402 0.346955 0.525641 0.693910"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000332",
+      "status": "success",
+      "dimensions": [
+        790,
+        1198
+      ],
+      "valid_count": 2,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "6 0.609494 0.740401 0.454430 0.196995",
+        "4 0.542405 0.595576 0.500000 0.366444"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000392",
+      "status": "success",
+      "dimensions": [
+        640,
+        637
+      ],
+      "valid_count": 4,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "0 0.741406 0.567504 0.367188 0.441130",
+        "6 0.338281 0.863422 0.357812 0.270016",
+        "0 0.338281 0.561224 0.476562 0.579278",
+        "7 0.686719 0.810047 0.354687 0.376766"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000495",
+      "status": "success",
+      "dimensions": [
+        468,
+        625
+      ],
+      "valid_count": 3,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "1 0.697650 0.326400 0.600427 0.592000",
+        "3 0.307692 0.539200 0.615385 0.566400",
+        "7 0.887821 0.800800 0.220085 0.395200"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000527",
+      "status": "success",
+      "dimensions": [
+        640,
+        791
+      ],
+      "valid_count": 4,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "4 0.428125 0.440582 0.218750 0.178255",
+        "4 0.548438 0.430468 0.068750 0.064475",
+        "7 0.536719 0.686473 0.276562 0.391909",
+        "7 0.582812 0.505057 0.096875 0.115044"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000667",
+      "status": "success",
+      "dimensions": [
+        468,
+        624
+      ],
+      "valid_count": 2,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "12 0.538462 0.293269 0.307692 0.480769",
+        "0 0.536325 0.148237 0.397436 0.190705"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "000757",
+      "status": "success",
+      "dimensions": [
+        468,
+        624
+      ],
+      "valid_count": 1,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "2 0.512821 0.583333 0.970085 0.830128"
+      ],
+      "invalid_details": []
+    },
+    {
+      "image_id": "001122",
+      "status": "success",
+      "dimensions": [
+        468,
+        624
+      ],
+      "valid_count": 1,
+      "invalid_count": 0,
+      "yolo_lines": [
+        "5 0.498932 0.593750 0.997863 0.809295"
+      ],
+      "invalid_details": []
+    }
+  ]
+}

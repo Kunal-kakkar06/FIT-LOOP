@@ -1,0 +1,23 @@
+# FitLoop - Phase 1: Dataset Acquisition & Initial Exploration Requirements
+
+# Data Manipulation & Analysis
+numpy>=1.24.0,<2.0.0
+pandas>=2.0.0,<3.0.0
+
+# Image Processing & Inspection
+pillow>=10.0.0
+opencv-python-headless>=4.8.0
+
+# Data Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Interactive Exploration & Notebooks
+jupyterlab>=4.0.0
+notebook>=7.0.0
+ipywidgets>=8.0.0
+
+# Utilities
+tqdm>=4.65.0
+pyyaml>=6.0.0
+scikit-learn>=1.3.0

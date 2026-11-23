@@ -1,0 +1,85 @@
+================================================================================
+FITLOOP PHASE 14: FINAL PRODUCTION MODEL EVALUATION SCORECARD (PHASE 6)
+================================================================================
+Evaluation Timestamp : 2026-11-18 02:24:26 UTC
+Model Checkpoint     : wardrobe_ml/models/best.pt (Phase 6)
+Model Architecture   : YOLO26n (DeepFashion2 + Roboflow + Folded/Angled + tyaw9 11.8k)
+Model File Size      : 5,461,189 bytes
+Class Schema         : 13 FitLoop Garment Classes
+Compute Device       : Intel 12th Gen Core i5 CPU (torch cpu)
+Total Eval Runtime   : 68.75 s
+
+SECTION 1: MASSIVE APPAREL BENCHMARK (837 UNSEEN TYAW9 TEST IMAGES)
+--------------------------------------------------------------------------------
+Dataset Split        : wardrobe_ml/outputs/kaggle_phase6_tyaw9/images/test
+Evaluated Images     : 837 unseen casual & retail apparel photographs
+Ground-Truth BBoxes  : 1,513 garment instances across 7 active categories
+
+  Overall Precision  (P)       :  73.07%
+  Overall Recall     (R)       :  67.67%
+  Overall mAP@50     (mAP50)   :  71.25%
+  Overall mAP@50-95  (mAP50-95):  53.08%
+
+  Speed Latency Benchmarks (CPU Inference):
+    Pre-process      : 1.10 ms / image
+    Inference        : 50.38 ms / image
+    Post-process     : 0.74 ms / image
+    Total Per-Image  : 52.22 ms / image (~19.2 FPS)
+
+Itemized Per-Class Performance (tyaw9 837 Images):
+Class ID | Class Name             | Instances | Precision | Recall   | mAP@50   | mAP@50-95
+--------------------------------------------------------------------------------
+0        | short sleeve top       | 233       |    80.71% |   89.70% |   92.43% |    83.37%
+1        | long sleeve top        | 381       |    66.10% |   63.52% |   64.40% |    43.03%
+3        | long sleeve outwear    | 273       |    74.51% |   55.31% |   59.32% |    42.76%
+6        | shorts                 | 114       |    73.86% |   50.00% |   51.28% |    30.10%
+7        | trousers               | 258       |    68.73% |   64.74% |   70.85% |    56.45%
+8        | skirt                  | 163       |    75.66% |   72.39% |   78.49% |    55.97%
+9        | short sleeve dress     | 91        |    71.94% |   78.02% |   81.96% |    59.91%
+--------------------------------------------------------------------------------
+ALL      | Combined Aggregate     | 1513      |    73.07% |   67.67% |   71.25% |    53.08%
+
+Untested Classes in Split (0 ground-truth occurrences):
+  2: short sleeve outwear, 4: vest, 5: sling, 10: long sleeve dress, 11: vest dress, 12: sling dress
+
+SECTION 2: ROBOFLOW BENCHMARK (143 UNSEEN REAL-WORLD TEST IMAGES)
+--------------------------------------------------------------------------------
+Dataset Split        : wardrobe_ml/outputs/kaggle_phase3_roboflow/dataset (test)
+Evaluated Images     : 143 unseen real-world garment photographs
+Ground-Truth BBoxes  : 238 garment instances
+
+  Overall Precision  (P)       :  75.54%
+  Overall Recall     (R)       :  73.95%
+  Overall mAP@50     (mAP50)   :  77.19%
+  Overall mAP@50-95  (mAP50-95):  62.95%
+
+  Speed Latency Benchmarks (CPU Inference):
+    Pre-process      : 1.05 ms / image
+    Inference        : 50.96 ms / image
+    Post-process     : 0.67 ms / image
+    Total Per-Image  : 52.68 ms / image (~19.0 FPS)
+
+Itemized Per-Class Performance (Roboflow 143 Images):
+Class ID | Class Name             | Instances | Precision | Recall   | mAP@50   | mAP@50-95
+--------------------------------------------------------------------------------
+0        | short sleeve top       | 30        |    66.13% |   58.61% |   64.94% |    51.11%
+1        | long sleeve top        | 66        |    73.62% |   63.64% |   71.19% |    55.00%
+3        | long sleeve outwear    | 10        |    51.23% |   90.00% |   69.59% |    61.32%
+6        | shorts                 | 9         |    94.75% |   77.78% |   81.31% |    73.08%
+7        | trousers               | 44        |    78.09% |   95.45% |   89.34% |    68.28%
+8        | skirt                  | 47        |    87.53% |   89.36% |   94.57% |    74.92%
+9        | short sleeve dress     | 32        |    77.39% |   42.83% |   69.43% |    56.96%
+--------------------------------------------------------------------------------
+ALL      | Combined Aggregate     | 238       |    75.54% |   73.95% |   77.19% |    62.95%
+
+Untested Classes in Split (0 ground-truth occurrences):
+  2: short sleeve outwear, 4: vest, 5: sling, 10: long sleeve dress, 11: vest dress, 12: sling dress
+
+SECTION 3: VERIFICATION SUMMARY & CONCLUSION
+--------------------------------------------------------------------------------
+1. tyaw9 837-Image Test Benchmark achieves 71.25% mAP@50 (up from 37.25% in Phase 5).
+2. Phase 6 mAP@50-95 reaches 53.08% on tyaw9 (up from 25.12% in Phase 5).
+3. Precision stands at 73.07% with 67.67% Recall across 1,513 test instances.
+4. CPU inference runs at ~50.4 ms / image (~19.2 FPS) without GPU requirements.
+5. Final Status: MODEL OFFICIALLY VALIDATED & PRODUCTION READY FOR FITLOOP V1.
+================================================================================
