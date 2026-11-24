@@ -1,0 +1,3 @@
+participant_id,session_id,standing_height_cm,clothing_condition,front_image_path,side_image_path,chest_r1,chest_r2,chest_r3,waist_r1,waist_r2,waist_r3,abdomen_r1,abdomen_r2,abdomen_r3,hips_r1,hips_r2,hips_r3,capture_notes
+P001,S001,175,standard,file:///Users/kunalkakkar/Desktop/IMG_5411.JPG,file:///Users/kunalkakkar/Desktop/IMG_5391.jpg,83.5,83.5,83.5,92.5,92.5,92.5,93.2,93.2,93.2,101.2,101.2,101.2,Initial pilot capture
+P002,S002,170,standard,file:///Users/kunalkakkar/Desktop/WhatsApp%20Image%202026-10-14%20at%2020.12.06.jpeg,file:///Users/kunalkakkar/Desktop/WhatsApp%20Image%202026-10-14%20at%2020.12.06%20copy.jpeg,95,95,95,97,97,97,94,94,94,102,102,102,Initial pilot capture

@@ -4,7 +4,22 @@ segmentation/segmenter.py
 Body silhouette segmentation engine using MediaPipe Tasks PoseLandmarker.
 
 Generates a binary foreground mask, performs conservative morphological
-cleanup (preserving anatomical limb boundaries), and extracts the principal contour.
+cleanup (preserving anatomical limb boundaries), and extracts the principal
+contour.
+
+Subprocess isolation
+--------------------
+MediaPipe's Python binding for VEC32F1 images (segmentation confidence masks)
+calls `MpImageDataFloat32` which internally invokes `CopyToBuffer()`.  On
+ARM64 macOS (Apple M-series) this function aborts the process via SIGABRT
+due to a channel-size assertion failure that cannot be caught by Python
+exception handlers.
+
+To prevent the FastAPI / uvicorn server process from being killed, all
+MediaPipe inference is dispatched to a dedicated child process via
+`segmentation._worker.run_segmentation_in_subprocess`.  If the child
+aborts, the parent (the server) survives and returns a graceful
+SegmentationStatus.ERROR result.
 """
 
 from __future__ import annotations
@@ -14,15 +29,21 @@ from pathlib import Path
 from typing import Optional, Union
 
 import cv2
-import mediapipe as mp
 import numpy as np
 
 from ..config import DEFAULT_MODEL_PATH
 from ..image_io import ImageLoadError, image_to_rgb, load_image
 from .contours import extract_principal_contour
 from .schemas import SegmentationResult, SegmentationStatus
+from ._worker import run_segmentation_in_subprocess
 
 logger = logging.getLogger(__name__)
+
+# Maximum image side length passed to the subprocess for MediaPipe inference.
+# Images larger than this are downsampled inside the worker before being fed
+# to the landmarker.  Segmentation quality is not meaningfully affected by
+# downsampling to this level because MediaPipe's model input is much smaller.
+_MP_MAX_SIDE: int = 1920
 
 
 def clean_binary_mask(
@@ -95,7 +116,12 @@ def clean_binary_mask(
 
 
 class BodySegmenter:
-    """Reusable person silhouette segmenter using MediaPipe PoseLandmarker."""
+    """Reusable person silhouette segmenter using MediaPipe PoseLandmarker.
+
+    Inference is dispatched to an isolated subprocess to prevent a fatal
+    SIGABRT crash in MediaPipe's VEC32F1 buffer routine from killing the
+    parent server process.
+    """
 
     MODEL_IDENTIFIER: str = "mediapipe-pose-landmarker-heavy-v1"
 
@@ -106,36 +132,14 @@ class BodySegmenter:
         enable_mask_cleanup: bool = True,
         min_component_area: int = 500,
         morph_kernel_size: int = 3,
+        subprocess_timeout: float = 60.0,
     ) -> None:
         self.model_path = Path(model_asset_path or DEFAULT_MODEL_PATH).resolve()
         self.foreground_threshold = foreground_threshold
         self.enable_mask_cleanup = enable_mask_cleanup
         self.min_component_area = min_component_area
         self.morph_kernel_size = morph_kernel_size
-        self._landmarker = None
-
-    def _get_landmarker(self):
-        """Lazy-initialize MediaPipe PoseLandmarker with output_segmentation_masks enabled."""
-        if self._landmarker is None:
-            if not self.model_path.exists():
-                raise FileNotFoundError(
-                    f"PoseLandmarker asset not found at {self.model_path}. "
-                    "Ensure models/pose_landmarker_heavy.task is present."
-                )
-
-            BaseOptions = mp.tasks.BaseOptions
-            PoseLandmarker = mp.tasks.vision.PoseLandmarker
-            PoseLandmarkerOptions = mp.tasks.vision.PoseLandmarkerOptions
-            RunningMode = mp.tasks.vision.RunningMode
-
-            options = PoseLandmarkerOptions(
-                base_options=BaseOptions(model_asset_path=str(self.model_path)),
-                running_mode=RunningMode.IMAGE,
-                num_poses=1,
-                output_segmentation_masks=True,
-            )
-            self._landmarker = PoseLandmarker.create_from_options(options)
-        return self._landmarker
+        self.subprocess_timeout = subprocess_timeout
 
     def segment(
         self,
@@ -143,6 +147,9 @@ class BodySegmenter:
         view_type: str = "front",
     ) -> SegmentationResult:
         """Extract foreground silhouette mask and contour from a photograph.
+
+        Dispatches MediaPipe inference to a subprocess to guard the caller
+        against process-aborting native library crashes.
 
         Parameters
         ----------
@@ -154,7 +161,8 @@ class BodySegmenter:
         Returns
         -------
         SegmentationResult
-            Structured result containing binary mask, contour, foreground ratio, and metadata.
+            Structured result containing binary mask, contour, foreground
+            ratio, and metadata.
         """
         # Validate view_type
         v_type_clean = str(view_type).lower().strip()
@@ -195,57 +203,84 @@ class BodySegmenter:
                 warnings=[f"Unsupported image input type: {type(image_input)}"],
             )
 
-        h, w = bgr_image.shape[:2]
-        rgb = image_to_rgb(bgr_image)
-        mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
+        orig_h, orig_w = bgr_image.shape[:2]
 
-        try:
-            landmarker = self._get_landmarker()
-            detect_results = landmarker.detect(mp_image)
-        except Exception as e:
-            logger.error("Segmentation inference failed: %s", e)
+        if not self.model_path.exists():
             return SegmentationResult(
                 view_type=v_type_clean,
-                image_width=w,
-                image_height=h,
+                image_width=orig_w,
+                image_height=orig_h,
                 status=SegmentationStatus.ERROR,
                 model_id=self.MODEL_IDENTIFIER,
-                warnings=[f"Segmentation inference failed: {e}"],
+                warnings=[
+                    f"PoseLandmarker asset not found at {self.model_path}. "
+                    "Ensure models/pose_landmarker_heavy.task is present."
+                ],
             )
 
-        # Check if segmentation masks were returned
-        if not detect_results.segmentation_masks or len(detect_results.segmentation_masks) == 0:
+        # ───────────────────────────────────────────────────────────────
+        # Dispatch inference to an isolated subprocess.
+        # If the MediaPipe C extension aborts (SIGABRT), only the child
+        # dies; the parent process and uvicorn worker remain alive.
+        # ───────────────────────────────────────────────────────────────
+        logger.debug(
+            "Dispatching segmentation to subprocess (view=%s, shape=%dx%d)",
+            v_type_clean, orig_w, orig_h,
+        )
+        worker_result = run_segmentation_in_subprocess(
+            bgr_image=bgr_image,
+            model_path_str=str(self.model_path),
+            mp_max_side=_MP_MAX_SIDE,
+            timeout=self.subprocess_timeout,
+        )
+
+        # Handle failure modes returned by the worker
+        if isinstance(worker_result, str):
+            if worker_result == "NO_MASKS":
+                return SegmentationResult(
+                    view_type=v_type_clean,
+                    image_width=orig_w,
+                    image_height=orig_h,
+                    status=SegmentationStatus.NO_FOREGROUND,
+                    model_id=self.MODEL_IDENTIFIER,
+                    warnings=["No person segmentation mask detected."],
+                )
+            # TIMEOUT, CRASH:..., ERROR:...
+            logger.error("Subprocess segmentation failed: %s", worker_result)
             return SegmentationResult(
                 view_type=v_type_clean,
-                image_width=w,
-                image_height=h,
-                status=SegmentationStatus.NO_FOREGROUND,
+                image_width=orig_w,
+                image_height=orig_h,
+                status=SegmentationStatus.ERROR,
                 model_id=self.MODEL_IDENTIFIER,
-                warnings=["No person segmentation mask detected."],
+                warnings=[f"Segmentation subprocess failed: {worker_result}"],
             )
 
-        # Extract float confidence mask
-        raw_mask_obj = detect_results.segmentation_masks[0]
-        confidence_mask = raw_mask_obj.numpy_view()
+        # ───────────────────────────────────────────────────────────────
+        # Process the confidence mask returned by the worker
+        # ───────────────────────────────────────────────────────────────
+        confidence_mask: np.ndarray = worker_result["confidence_mask"]
+        infer_h: int = worker_result["h"]
+        infer_w: int = worker_result["w"]
 
-        # If mask shape doesn't match original dimensions, resize probability map
-        if confidence_mask.shape[:2] != (h, w):
+        # Scale mask back to original image dimensions if worker downsampled
+        if (infer_h, infer_w) != (orig_h, orig_w):
             confidence_mask = cv2.resize(
-                confidence_mask, (w, h), interpolation=cv2.INTER_LINEAR
+                confidence_mask, (orig_w, orig_h), interpolation=cv2.INTER_LINEAR
             )
 
         # Apply configurable foreground threshold
         raw_binary = (confidence_mask >= self.foreground_threshold).astype(np.uint8) * 255
 
-        total_pixels = h * w
+        total_pixels = orig_h * orig_w
         fg_pixels = int(np.count_nonzero(raw_binary))
         fg_ratio = float(fg_pixels) / float(total_pixels) if total_pixels > 0 else 0.0
 
         if fg_pixels == 0 or fg_ratio < 0.01:
             return SegmentationResult(
                 view_type=v_type_clean,
-                image_width=w,
-                image_height=h,
+                image_width=orig_w,
+                image_height=orig_h,
                 status=SegmentationStatus.NO_FOREGROUND,
                 model_id=self.MODEL_IDENTIFIER,
                 raw_mask=raw_binary,
@@ -284,10 +319,12 @@ class BodySegmenter:
             )
             status = SegmentationStatus.LOW_CONFIDENCE
 
+        inference_scale = round(min(1.0, _MP_MAX_SIDE / max(orig_h, orig_w, 1)), 4)
+
         return SegmentationResult(
             view_type=v_type_clean,
-            image_width=w,
-            image_height=h,
+            image_width=orig_w,
+            image_height=orig_h,
             status=status,
             model_id=self.MODEL_IDENTIFIER,
             mask=cleaned_mask,
@@ -300,14 +337,13 @@ class BodySegmenter:
                 "cleanup_enabled": self.enable_mask_cleanup,
                 "min_component_area": self.min_component_area,
                 "morph_kernel_size": self.morph_kernel_size,
+                "inference_scale": inference_scale,
+                "subprocess_isolation": True,
             },
         )
 
     def close(self) -> None:
-        """Release underlying landmarker graph."""
-        if self._landmarker is not None:
-            self._landmarker.close()
-            self._landmarker = None
+        """No-op: subprocess model is not persistent between calls."""
 
     def __enter__(self) -> "BodySegmenter":
         return self

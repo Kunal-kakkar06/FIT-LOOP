@@ -1,0 +1,5 @@
+measurement_name,total_samples,valid_predictions_count,failed_predictions_count,coverage_rate,mae_cm,rmse_cm,signed_bias_cm,median_ae_cm,p90_ae_cm,pct_within_1cm_valid,pct_within_2cm_valid,pct_within_1cm_total,pct_within_2cm_total,model_version
+abdomen,2,2,0,1.0,1.81,1.955,-1.81,1.81,2.402,0.0,50.0,0.0,50.0,model1_v0.1.0
+chest,2,2,0,1.0,0.725,0.753,-0.205,0.725,0.889,100.0,100.0,100.0,100.0,model1_v0.1.0
+hips,2,2,0,1.0,1.435,1.456,-1.435,1.435,1.631,0.0,100.0,0.0,100.0,model1_v0.1.0
+waist,2,2,0,1.0,1.83,1.978,-1.83,1.83,2.43,0.0,50.0,0.0,50.0,model1_v0.1.0

@@ -27,6 +27,7 @@ from sqlalchemy import (
     create_engine,
     event,
     select,
+    update,
 )
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import (
@@ -468,3 +469,35 @@ class WardrobeRepository:
             .order_by(DuplicateCheck.created_at.desc())
         )
         return list(self.session.scalars(stmt).all())
+
+    def delete_wardrobe_item(self, item_id: int, user_id: int) -> bool:
+        """Delete a wardrobe item and its associated records if belonging to user_id."""
+        stmt = select(WardrobeItem).where(WardrobeItem.id == item_id, WardrobeItem.user_id == user_id)
+        item = self.session.scalars(stmt).first()
+        if not item:
+            return False
+        # Nullify any foreign key references in duplicate checks
+        self.session.execute(
+            update(DuplicateCheck).where(DuplicateCheck.matched_item_id == item_id).values(matched_item_id=None)
+        )
+        self.session.delete(item)
+        self.session.commit()
+        return True
+
+    def update_wardrobe_item(self, item_id: int, user_id: int, updates: Dict[str, Any]) -> Optional[WardrobeItem]:
+        """Update properties (category, colour_name, colour_hex, etc.) of a wardrobe item."""
+        stmt = select(WardrobeItem).where(WardrobeItem.id == item_id, WardrobeItem.user_id == user_id)
+        item = self.session.scalars(stmt).first()
+        if not item:
+            return None
+        if "category" in updates and updates["category"]:
+            item.category = updates["category"]
+            item.subcategory = updates["category"]
+        if "colour_hex" in updates and updates["colour_hex"]:
+            item.colour_hex = updates["colour_hex"]
+        if "colour_name" in updates and updates["colour_name"]:
+            item.colour_name = updates["colour_name"]
+        self.session.commit()
+        self.session.refresh(item)
+        return item
+
