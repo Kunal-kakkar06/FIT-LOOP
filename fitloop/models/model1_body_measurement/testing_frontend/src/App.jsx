@@ -61,7 +61,13 @@ export default function App() {
     if (clientErrors.length > 0) { setErrorMessages(clientErrors); return; }
     setIsLoading(true);
     try {
-      const response = await estimateCircumferences({ frontImage: frontFile, sideImage: sideFile, heightCm, simulateFailure });
+      const response = await estimateCircumferences({
+        frontImage: frontFile,
+        sideImage: sideFile,
+        heightCm,
+        userId: currentUser?.id || '1',
+        simulateFailure,
+      });
       setResult(response);
     } catch (err) { setErrorMessages(err.validationErrors || [err.message || 'Unexpected error.']); }
     finally { setIsLoading(false); }
@@ -198,9 +204,15 @@ export default function App() {
             )}
           </>
         )}
-        {activeTab === 'wardrobe' && <WardrobeScanner userId={currentUser?.id || 'kunal_01'} />}
-        {activeTab === 'check_buy' && <CheckBeforeBuy userId={currentUser?.id || 'kunal_01'} />}
-        {activeTab === 'passport' && <IntegratedFitPassport userId={currentUser?.id || 'kunal_01'} onNavigateTab={setActiveTab} />}
+        {activeTab === 'wardrobe' && <WardrobeScanner userId={currentUser?.id || '1'} />}
+        {activeTab === 'check_buy' && <CheckBeforeBuy userId={currentUser?.id || '1'} />}
+        {activeTab === 'passport' && (
+          <IntegratedFitPassport
+            userId={currentUser?.id || '1'}
+            scanResult={result}
+            onNavigateTab={setActiveTab}
+          />
+        )}
       </main>
 
       <footer className="border-t py-4 text-center text-[11px]" style={{ borderColor: '#2A2218', backgroundColor: '#181410', color: '#4A3D2A' }}>

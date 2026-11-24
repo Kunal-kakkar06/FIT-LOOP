@@ -244,6 +244,7 @@ export async function estimateCircumferences({
   frontImage,
   sideImage,
   heightCm,
+  userId = '1',
   simulateFailure = false,
   mockQualityStatus = QualityStatus.PASS,
 }) {
@@ -277,6 +278,7 @@ export async function estimateCircumferences({
   formData.append('front_image', frontImage);
   formData.append('side_image', sideImage);
   formData.append('standing_height_cm', String(heightCm));
+  formData.append('user_id', String(userId || '1'));
 
   const response = await fetch(`${apiBaseUrl}/api/v1/measurements/estimate`, {
     method: 'POST',
