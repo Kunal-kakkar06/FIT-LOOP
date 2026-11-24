@@ -340,3 +340,98 @@ class TestCircumferenceEstimatorEngine:
         json_str = json.dumps(d)
         decoded = json.loads(json_str)
         assert decoded["status"] in {"SUCCESS", "PARTIAL"}
+
+    def test_partial_status_preservation_with_slice_warnings(self, sample_view_features):
+        """A measurement with valid slice numbers but slice-level warnings must be PARTIAL, not SUCCESS."""
+        # Create a slice result with warning
+        m = estimate_circumference_at_level(
+            level=AnatomicalLevel.ABDOMEN,
+            front_width_px=400,
+            side_depth_px=300,
+            front_scale_cm_per_pixel=0.065,
+            side_scale_cm_per_pixel=0.065,
+            level_warnings=["[Side] Scanline at y=1300 contains 2 disconnected segments (arm or garment separation)."],
+        )
+        assert m.circumference_cm is not None
+        assert m.circumference_cm > 0.0
+        assert m.status == MeasurementStatus.PARTIAL
+        assert len(m.warnings) == 1
+        assert "disconnected segments" in m.warnings[0]
+
+    def test_scale_calculation_coordinate_consistency(self):
+        """Scale cm_per_pixel must equal known_height_cm / silhouette_height_px."""
+        cal = calibrate_view(
+            known_height_cm=175.0,
+            view_features=ViewGeometricFeatures(
+                view_type="front",
+                image_width=1011,
+                image_height=2943,
+                status=FeatureStatus.SUCCESS,
+                silhouette_height=2828,
+                silhouette_bbox_y=100,
+            ),
+        )
+        assert cal.is_valid is True
+        assert cal.silhouette_height_px == 2828
+        expected_scale = 175.0 / 2828.0
+        assert math.isclose(cal.scale_cm_per_pixel, expected_scale, rel_tol=1e-6)
+
+    def test_calibration_known_height_and_pixel_scale_mm_per_pixel(self):
+        """176 cm over 1537 pixels must produce scale ~0.114509 cm/px (1.1451 mm/px)."""
+        cal = calibrate_view(
+            known_height_cm=176.0,
+            view_features=ViewGeometricFeatures(
+                view_type="front",
+                image_width=1080,
+                image_height=1920,
+                status=FeatureStatus.SUCCESS,
+                silhouette_height=1537,
+                silhouette_bbox_y=190,
+            ),
+        )
+        assert cal.is_valid is True
+        assert cal.silhouette_height_px == 1537
+        # 176 cm / 1537 px = 0.11450878... cm/px
+    def test_torso_aware_scanline_width_no_clipping(self):
+        """Verify torso_aware_scanline_width isolates true torso interval without clipping lateral boundaries."""
+        from fitloop_measurement.features.silhouette_geometry import torso_aware_scanline_width
+        mask = np.zeros((100, 200), dtype=np.uint8)
+        # True torso interval [70, 130]
+        mask[50, 70:131] = 255
+        # Separated arm runs [30, 45] and [155, 170]
+        mask[50, 30:46] = 255
+        mask[50, 155:171] = 255
+
+        res = torso_aware_scanline_width(
+            binary_mask=mask,
+            image_y=50,
+            shoulder_mid_x=100.0,
+            hip_mid_x=100.0,
+            shoulder_width=50.0,
+            hip_width=45.0,
+        )
+        assert res.is_valid is True
+        assert res.left_x == 70
+        assert res.right_x == 130
+        assert res.width_pixels == 61
+        assert res.segment_count == 3
+        assert len(res.rejected_intervals) == 2
+
+    def test_select_anatomical_slice_from_mask_preserves_bounds(self, sample_view_features):
+        """Verify select_anatomical_slice_from_mask runs torso-aware extraction directly on mask."""
+        from fitloop_measurement.measurements.slice_selector import select_anatomical_slice_from_mask
+        mask = np.zeros((1000, 640), dtype=np.uint8)
+        # Fill torso around expected waist y (~445)
+        mask[400:500, 220:420] = 255
+        # Add lateral arm intervals
+        mask[400:500, 100:150] = 255
+        mask[400:500, 490:540] = 255
+
+        slc, result = select_anatomical_slice_from_mask(AnatomicalLevel.WAIST, sample_view_features, mask)
+        assert result.is_valid is True
+        assert slc is not None
+        assert slc.left_x == 220
+        assert slc.right_x == 419
+        assert slc.width_pixels == 200
+
+

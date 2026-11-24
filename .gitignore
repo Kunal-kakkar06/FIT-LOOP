@@ -26,3 +26,26 @@ fitloop/models/model1_body_measurement/data/ground_truth/*
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# Separate external repository
+AI-project/
+
+# Node / Frontend builds
+**/node_modules/
+**/.npm-cache/
+**/dist/
+
+# Databases & local caches
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Backend uploaded media
+**/backend/app/uploads/*
+!**/backend/app/uploads/.gitkeep
+!**/backend/app/uploads/*/.gitkeep
+
+# Evaluation output & diagnostic overlays
+**/diagnostic_overlays/
+**/evaluation_output/

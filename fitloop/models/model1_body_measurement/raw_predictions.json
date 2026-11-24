@@ -1,0 +1,98 @@
+[
+  {
+    "participant_id": "P001",
+    "session_id": "S001",
+    "measurement_name": "chest",
+    "predicted_cm": 82.57,
+    "prediction_status": "PARTIAL",
+    "warnings": [
+      "[Front] Scanline at y=1833 contains 3 disconnected segments (arm or garment separation).",
+      "[Front] Torso window [1033, 1615] (source: inter-landmark width); selected interval [1097, 1529] with 100.0% overlap. 2 interval(s) rejected as non-torso."
+    ],
+    "model_version": "model1_v0.1.0"
+  },
+  {
+    "participant_id": "P001",
+    "session_id": "S001",
+    "measurement_name": "waist",
+    "predicted_cm": 91.42,
+    "prediction_status": "PARTIAL",
+    "warnings": [
+      "[Front] Scanline at y=2041 contains 3 disconnected segments (arm or garment separation).",
+      "[Front] Torso window [1033, 1615] (source: inter-landmark width); selected interval [1077, 1556] with 100.0% overlap. 2 interval(s) rejected as non-torso."
+    ],
+    "model_version": "model1_v0.1.0"
+  },
+  {
+    "participant_id": "P001",
+    "session_id": "S001",
+    "measurement_name": "abdomen",
+    "predicted_cm": 92.13,
+    "prediction_status": "PARTIAL",
+    "warnings": [
+      "[Front] Scanline at y=2145 contains 3 disconnected segments (arm or garment separation).",
+      "[Front] Torso window [1033, 1615] (source: inter-landmark width); selected interval [1075, 1543] with 100.0% overlap. 2 interval(s) rejected as non-torso."
+    ],
+    "model_version": "model1_v0.1.0"
+  },
+  {
+    "participant_id": "P001",
+    "session_id": "S001",
+    "measurement_name": "hips",
+    "predicted_cm": 100.01,
+    "prediction_status": "PARTIAL",
+    "warnings": [
+      "[Front] Scanline at y=2318 contains 3 disconnected segments (arm or garment separation).",
+      "[Front] Torso window [1033, 1615] (source: inter-landmark width); selected interval [1058, 1591] with 100.0% overlap. 2 interval(s) rejected as non-torso."
+    ],
+    "model_version": "model1_v0.1.0"
+  },
+  {
+    "participant_id": "P002",
+    "session_id": "S002",
+    "measurement_name": "chest",
+    "predicted_cm": 95.52,
+    "prediction_status": "PARTIAL",
+    "warnings": [
+      "[Front] Scanline at y=592 contains 3 disconnected segments (arm or garment separation).",
+      "[Front] Torso window [443, 694] (source: inter-landmark width); selected interval [462, 666] with 100.0% overlap. 2 interval(s) rejected as non-torso."
+    ],
+    "model_version": "model1_v0.1.0"
+  },
+  {
+    "participant_id": "P002",
+    "session_id": "S002",
+    "measurement_name": "waist",
+    "predicted_cm": 94.42,
+    "prediction_status": "PARTIAL",
+    "warnings": [
+      "[Front] Scanline at y=688 contains 3 disconnected segments (arm or garment separation).",
+      "[Front] Torso window [443, 694] (source: inter-landmark width); selected interval [460, 659] with 100.0% overlap. 2 interval(s) rejected as non-torso."
+    ],
+    "model_version": "model1_v0.1.0"
+  },
+  {
+    "participant_id": "P002",
+    "session_id": "S002",
+    "measurement_name": "abdomen",
+    "predicted_cm": 91.45,
+    "prediction_status": "PARTIAL",
+    "warnings": [
+      "[Front] Scanline at y=736 contains 3 disconnected segments (arm or garment separation).",
+      "[Front] Torso window [443, 694] (source: inter-landmark width); selected interval [459, 656] with 100.0% overlap. 2 interval(s) rejected as non-torso."
+    ],
+    "model_version": "model1_v0.1.0"
+  },
+  {
+    "participant_id": "P002",
+    "session_id": "S002",
+    "measurement_name": "hips",
+    "predicted_cm": 100.32,
+    "prediction_status": "PARTIAL",
+    "warnings": [
+      "[Front] Scanline at y=816 contains 2 disconnected segments (arm or garment separation).",
+      "[Front] Torso window [443, 694] (source: inter-landmark width); selected interval [442, 674] with 99.6% overlap. 1 interval(s) rejected as non-torso."
+    ],
+    "model_version": "model1_v0.1.0"
+  }
+]

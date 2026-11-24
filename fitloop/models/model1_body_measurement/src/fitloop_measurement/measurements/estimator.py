@@ -8,7 +8,7 @@ anatomical slice selection, and Ramanujan elliptical perimeter calculations.
 from __future__ import annotations
 
 import logging
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 from ..features.schemas import PairedGeometricFeatures, ViewGeometricFeatures
 from .calibration import calibrate_dual_views
@@ -20,7 +20,13 @@ from .schemas import (
     MeasurementEngineResult,
     MeasurementStatus,
 )
-from .slice_selector import select_anatomical_slice
+from .slice_selector import select_anatomical_slice, select_anatomical_slice_from_mask
+from .slice_strategy import (
+    AlignedSlicePair,
+    BaselineFixedFractionStrategy,
+    ISliceSelectionStrategy,
+    SliceSelectionStrategyType,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -35,13 +41,20 @@ class CircumferenceEstimator:
         AnatomicalLevel.HIPS,
     ]
 
-    def __init__(self, target_levels: Optional[List[AnatomicalLevel]] = None) -> None:
+    def __init__(
+        self,
+        target_levels: Optional[List[AnatomicalLevel]] = None,
+        strategy: Optional[ISliceSelectionStrategy] = None,
+    ) -> None:
         self.target_levels = target_levels or self.SUPPORTED_LEVELS
+        self.strategy: ISliceSelectionStrategy = strategy or BaselineFixedFractionStrategy()
 
     def estimate_measurements(
         self,
         paired_features: PairedGeometricFeatures,
         known_height_cm: Optional[float] = None,
+        front_mask: Optional[Any] = None,
+        side_mask: Optional[Any] = None,
     ) -> MeasurementEngineResult:
         """Compute circumferences across targeted anatomical levels.
 
@@ -51,6 +64,10 @@ class CircumferenceEstimator:
             Stage 4A PairedGeometricFeatures container.
         known_height_cm:
             Standing height in cm (if not already recorded in paired_features).
+        front_mask:
+            Optional uint8 binary mask for the front view to enable torso-aware extraction.
+        side_mask:
+            Optional uint8 binary mask for the side view.
 
         Returns
         -------
@@ -96,12 +113,21 @@ class CircumferenceEstimator:
 
         # 2. Iterate each anatomical level
         for lvl in self.target_levels:
-            f_slice, f_result = select_anatomical_slice(lvl, paired_features.front)
-            s_slice, s_result = select_anatomical_slice(lvl, paired_features.side)
+            slice_pair: AlignedSlicePair = self.strategy.select_slices(
+                level=lvl,
+                front_features=paired_features.front,
+                side_features=paired_features.side,
+                calibration=calibration,
+                front_mask=front_mask,
+                side_mask=side_mask,
+            )
 
-            level_warnings: list[str] = []
-            level_warnings.extend([f"[Front] {w}" for w in f_result.warnings])
-            level_warnings.extend([f"[Side] {w}" for w in s_result.warnings])
+            f_slice = slice_pair.front_slice
+            s_slice = slice_pair.side_slice
+            f_result = slice_pair.front_result
+            s_result = slice_pair.side_result
+
+            level_warnings: list[str] = list(slice_pair.warnings)
 
             if f_slice is None or s_slice is None or not f_result.is_valid or not s_result.is_valid:
                 measurements[lvl.value] = CircumferenceMeasurement(

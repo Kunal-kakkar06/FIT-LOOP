@@ -188,15 +188,77 @@ class TestSilhouetteGeometry:
         assert slice_data.segment_count == 1
         assert round(slice_data.relative_y, 2) == 0.50
 
-    def test_disconnected_scanline_count(self):
+    def test_disconnected_scanline_picks_widest_segment(self):
+        """When the scanline has 2 disconnected segments, width_pixels must reflect
+        the widest single segment, NOT the outermost-endpoints span (the bug)."""
         mask = np.zeros((100, 100), dtype=np.uint8)
-        # Two separated arm/leg blocks on the same line
+        # Segment A: columns 10-19 (width 10)
+        # Segment B: columns 40-49 (width 10)
         mask[50, 10:20] = 255
         mask[50, 40:50] = 255
 
         slice_data = sample_scanline_width(mask, image_y=50)
         assert slice_data.segment_count == 2
-        assert slice_data.width_pixels == 40  # span from 10 to 49
+        # Widths are equal (both 10px); either may be chosen as the widest run.
+        # Critically, the returned width must NOT be 40 (the old outermost span).
+        assert slice_data.width_pixels == 10, (
+            f"Expected widest-segment width 10, got {slice_data.width_pixels}. "
+            "Arm-torso fusion bug may have been reintroduced."
+        )
+        assert slice_data.is_valid is True
+
+    def test_three_segment_arm_torso_arm_fusion(self):
+        """Three-segment scanline: left arm (10px), torso (60px), right arm (10px).
+        The model must select the torso (widest segment) and not span arm-to-arm."""
+        mask = np.zeros((200, 300), dtype=np.uint8)
+        # Left arm:  cols 10-19   (10 px)
+        # Torso:     cols 50-109  (60 px)  <-- widest
+        # Right arm: cols 140-149 (10 px)
+        mask[100, 10:20] = 255
+        mask[100, 50:110] = 255
+        mask[100, 140:150] = 255
+
+        # Sanity check: old outermost span would have been 149 - 10 + 1 = 140 px
+        old_outermost_span = 140
+
+        slice_data = sample_scanline_width(mask, image_y=100)
+        assert slice_data.segment_count == 3
+        assert slice_data.width_pixels == 60, (
+            f"Expected torso-only width 60, got {slice_data.width_pixels}. "
+            "Regression: arm-torso fusion is back."
+        )
+        assert slice_data.width_pixels != old_outermost_span, (
+            "width_pixels must not equal the arm-to-arm outermost span."
+        )
+        assert slice_data.left_x == 50
+        assert slice_data.right_x == 109
+        assert slice_data.is_valid is True
+
+    def test_single_segment_unchanged_by_fix(self):
+        """Single contiguous segment must behave identically to before the fix."""
+        mask = np.zeros((100, 100), dtype=np.uint8)
+        mask[50, 20:61] = 255  # Width = 41 pixels
+
+        slice_data = sample_scanline_width(mask, image_y=50, silhouette_top_y=10, silhouette_height=80)
+        assert slice_data.is_valid is True
+        assert slice_data.left_x == 20
+        assert slice_data.right_x == 60
+        assert slice_data.width_pixels == 41
+        assert slice_data.segment_count == 1
+
+    def test_two_segments_unequal_width_picks_wider(self):
+        """When two segments have different widths, the wider one must be chosen."""
+        mask = np.zeros((100, 200), dtype=np.uint8)
+        # Narrow left:  cols 5-14   (10 px)
+        # Wide torso:   cols 40-99  (60 px) <-- should win
+        mask[50, 5:15] = 255
+        mask[50, 40:100] = 255
+
+        slice_data = sample_scanline_width(mask, image_y=50)
+        assert slice_data.segment_count == 2
+        assert slice_data.width_pixels == 60
+        assert slice_data.left_x == 40
+        assert slice_data.right_x == 99
 
     def test_vertical_width_profile(self, synthetic_segmentation_result):
         profile, warnings = extract_vertical_width_profile(

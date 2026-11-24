@@ -1,4 +1,4 @@
-# fitloop_measurement/quality/__init__.py
+from .capture_gate import CaptureQualityGate, compute_symmetric_scale_discrepancy
 from .checker import QualityChecker, QualityReport
 from .pair_checker import (
     ErrorCode,
@@ -6,6 +6,14 @@ from .pair_checker import (
     PairedQualityReport,
     QualityIssue,
     ViewValidationResult,
+)
+from .schemas import (
+    CaptureQualityReport,
+    QualityIssueCode,
+    QualityIssueDetail,
+    QualitySeverity,
+    QualityStatus,
+    ViewFramingDiagnostics,
 )
 
 __all__ = [
@@ -16,4 +24,12 @@ __all__ = [
     "ErrorCode",
     "QualityIssue",
     "ViewValidationResult",
+    "CaptureQualityGate",
+    "compute_symmetric_scale_discrepancy",
+    "CaptureQualityReport",
+    "QualityStatus",
+    "QualitySeverity",
+    "QualityIssueCode",
+    "QualityIssueDetail",
+    "ViewFramingDiagnostics",
 ]

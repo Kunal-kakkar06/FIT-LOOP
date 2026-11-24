@@ -19,6 +19,14 @@ from .schemas import (
     ViewCalibration,
 )
 from .slice_selector import select_anatomical_slice
+from .slice_strategy import (
+    AlignedSlicePair,
+    AlignmentConfidence,
+    AnatomicalCrossViewStrategy,
+    BaselineFixedFractionStrategy,
+    ISliceSelectionStrategy,
+    SliceSelectionStrategyType,
+)
 
 __all__ = [
     "CircumferenceEstimator",
@@ -35,4 +43,10 @@ __all__ = [
     "SliceSelectionResult",
     "CircumferenceMeasurement",
     "MeasurementEngineResult",
+    "AlignedSlicePair",
+    "AlignmentConfidence",
+    "SliceSelectionStrategyType",
+    "ISliceSelectionStrategy",
+    "BaselineFixedFractionStrategy",
+    "AnatomicalCrossViewStrategy",
 ]

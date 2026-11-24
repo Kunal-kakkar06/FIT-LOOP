@@ -1,0 +1,170 @@
+{
+  "1": {
+    "measurements": {
+      "chest_cm": 104.5,
+      "waist_cm": 88.0,
+      "hip_cm": 102.5,
+      "neck_cm": 39.2,
+      "thigh_cm": 54.9,
+      "bicep_cm": 31.5
+    },
+    "linear_dimensions": {
+      "shoulder_width_cm": 45.4,
+      "inseam_cm": 83.7,
+      "sleeve_length_cm": 61.6,
+      "torso_length_cm": 57.6
+    },
+    "sizing": {
+      "recommended_top_size": "L",
+      "recommended_bottom_size": "L (34)",
+      "fit_profile": {
+        "chest_cm": 104.5,
+        "waist_cm": 88.0,
+        "hip_cm": 102.5,
+        "stature_cm": 175.0
+      },
+      "garment_category_fit": {
+        "short sleeve top": {
+          "recommended_size": "L",
+          "ease_cm": 6.0,
+          "fit_type": "Regular Fit"
+        },
+        "long sleeve top": {
+          "recommended_size": "L",
+          "ease_cm": 6.5,
+          "fit_type": "Comfort Fit"
+        },
+        "trousers": {
+          "recommended_size": "L (34)",
+          "ease_cm": 3.0,
+          "fit_type": "True to Size"
+        },
+        "shorts": {
+          "recommended_size": "L (34)",
+          "ease_cm": 4.0,
+          "fit_type": "Relaxed Fit"
+        },
+        "outerwear": {
+          "recommended_size": "L",
+          "ease_cm": 10.0,
+          "fit_type": "Layered Fit"
+        }
+      }
+    },
+    "standing_height_cm": 180.0,
+    "quality_status": "PASS",
+    "updated_at": "2026-11-24T15:11:32.504580+00:00"
+  },
+  "user_1": {
+    "measurements": {
+      "chest_cm": 104.5,
+      "waist_cm": 88.0,
+      "hip_cm": 102.5,
+      "neck_cm": 39.2,
+      "thigh_cm": 54.9,
+      "bicep_cm": 31.5
+    },
+    "linear_dimensions": {
+      "shoulder_width_cm": 45.4,
+      "inseam_cm": 83.7,
+      "sleeve_length_cm": 61.6,
+      "torso_length_cm": 57.6
+    },
+    "sizing": {
+      "recommended_top_size": "L",
+      "recommended_bottom_size": "L (34)",
+      "fit_profile": {
+        "chest_cm": 104.5,
+        "waist_cm": 88.0,
+        "hip_cm": 102.5,
+        "stature_cm": 175.0
+      },
+      "garment_category_fit": {
+        "short sleeve top": {
+          "recommended_size": "L",
+          "ease_cm": 6.0,
+          "fit_type": "Regular Fit"
+        },
+        "long sleeve top": {
+          "recommended_size": "L",
+          "ease_cm": 6.5,
+          "fit_type": "Comfort Fit"
+        },
+        "trousers": {
+          "recommended_size": "L (34)",
+          "ease_cm": 3.0,
+          "fit_type": "True to Size"
+        },
+        "shorts": {
+          "recommended_size": "L (34)",
+          "ease_cm": 4.0,
+          "fit_type": "Relaxed Fit"
+        },
+        "outerwear": {
+          "recommended_size": "L",
+          "ease_cm": 10.0,
+          "fit_type": "Layered Fit"
+        }
+      }
+    },
+    "standing_height_cm": 180.0,
+    "quality_status": "PASS",
+    "updated_at": "2026-11-24T15:11:32.504580+00:00"
+  },
+  "kunal_01": {
+    "measurements": {
+      "chest_cm": 104.5,
+      "waist_cm": 88.0,
+      "hip_cm": 102.5,
+      "neck_cm": 39.2,
+      "thigh_cm": 54.9,
+      "bicep_cm": 31.5
+    },
+    "linear_dimensions": {
+      "shoulder_width_cm": 45.4,
+      "inseam_cm": 83.7,
+      "sleeve_length_cm": 61.6,
+      "torso_length_cm": 57.6
+    },
+    "sizing": {
+      "recommended_top_size": "L",
+      "recommended_bottom_size": "L (34)",
+      "fit_profile": {
+        "chest_cm": 104.5,
+        "waist_cm": 88.0,
+        "hip_cm": 102.5,
+        "stature_cm": 175.0
+      },
+      "garment_category_fit": {
+        "short sleeve top": {
+          "recommended_size": "L",
+          "ease_cm": 6.0,
+          "fit_type": "Regular Fit"
+        },
+        "long sleeve top": {
+          "recommended_size": "L",
+          "ease_cm": 6.5,
+          "fit_type": "Comfort Fit"
+        },
+        "trousers": {
+          "recommended_size": "L (34)",
+          "ease_cm": 3.0,
+          "fit_type": "True to Size"
+        },
+        "shorts": {
+          "recommended_size": "L (34)",
+          "ease_cm": 4.0,
+          "fit_type": "Relaxed Fit"
+        },
+        "outerwear": {
+          "recommended_size": "L",
+          "ease_cm": 10.0,
+          "fit_type": "Layered Fit"
+        }
+      }
+    },
+    "standing_height_cm": 180.0,
+    "quality_status": "PASS",
+    "updated_at": "2026-11-24T15:11:32.504580+00:00"
+  }
+}

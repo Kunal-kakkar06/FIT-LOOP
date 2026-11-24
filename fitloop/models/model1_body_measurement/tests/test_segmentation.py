@@ -145,22 +145,25 @@ class TestMaskCleanup:
 
 
 class TestBodySegmenterMocked:
-    @patch("mediapipe.tasks.vision.PoseLandmarker.create_from_options")
+    @patch("fitloop_measurement.segmentation.segmenter.run_segmentation_in_subprocess")
     @patch("pathlib.Path.exists", return_value=True)
-    def test_successful_segmentation_mock(self, mock_exists, mock_create, dummy_bgr_img):
-        mock_landmarker = MagicMock()
-        mock_create.return_value = mock_landmarker
+    def test_successful_segmentation_mock(self, mock_exists, mock_run, dummy_bgr_img):
+        """Verify BodySegmenter correctly processes a successful subprocess result.
 
-        # Mock segmentation mask float probability array
+        The subprocess boundary is mocked via run_segmentation_in_subprocess so
+        that no MediaPipe C extensions are invoked in-process.
+        """
+        # Simulate the worker returning a float32 confidence mask
         mock_prob = np.zeros((960, 640), dtype=np.float32)
-        mock_prob[200:800, 200:440] = 0.95  # High confidence foreground
+        mock_prob[200:800, 200:440] = 0.95  # High confidence foreground region
 
-        mock_mask_obj = MagicMock()
-        mock_mask_obj.numpy_view.return_value = mock_prob
-
-        mock_results = MagicMock()
-        mock_results.segmentation_masks = [mock_mask_obj]
-        mock_landmarker.detect.return_value = mock_results
+        mock_run.return_value = {
+            "confidence_mask": mock_prob,
+            "h": 960,
+            "w": 640,
+            "orig_h": 960,
+            "orig_w": 640,
+        }
 
         segmenter = BodySegmenter()
         result = segmenter.segment(dummy_bgr_img, view_type="front")
@@ -173,6 +176,8 @@ class TestBodySegmenterMocked:
         assert result.foreground_ratio > 0.10
         assert result.principal_contour is not None
         assert result.principal_contour.bounding_box.width > 200
+        # Confirm subprocess was called exactly once
+        mock_run.assert_called_once()
 
     @patch("mediapipe.tasks.vision.PoseLandmarker.create_from_options")
     @patch("pathlib.Path.exists", return_value=True)
@@ -202,21 +207,24 @@ class TestBodySegmenterMocked:
         with pytest.raises(ValueError, match="Invalid view_type"):
             segmenter.segment(dummy_bgr_img, view_type="oblique")
 
-    @patch("mediapipe.tasks.vision.PoseLandmarker.create_from_options")
+    @patch("fitloop_measurement.segmentation.segmenter.run_segmentation_in_subprocess")
     @patch("pathlib.Path.exists", return_value=True)
-    def test_context_manager_cleanup(self, mock_exists, mock_create, dummy_bgr_img):
-        mock_landmarker = MagicMock()
-        mock_create.return_value = mock_landmarker
-        mock_results = MagicMock()
-        mock_results.segmentation_masks = []
-        mock_landmarker.detect.return_value = mock_results
+    def test_context_manager_cleanup(self, mock_exists, mock_run, dummy_bgr_img):
+        """Verify BodySegmenter can be used as a context manager without error.
+
+        In the subprocess architecture the model lifecycle is managed by the worker
+        process; BodySegmenter.close() is a no-op and _landmarker does not exist.
+        The test confirms the context manager exits cleanly and that segment() ran.
+        """
+        mock_run.return_value = "NO_MASKS"  # Simulate no person detected
 
         with BodySegmenter() as segmenter:
-            segmenter.segment(dummy_bgr_img)
-            assert segmenter._landmarker is not None
+            result = segmenter.segment(dummy_bgr_img)
+            assert result.status == SegmentationStatus.NO_FOREGROUND
 
-        mock_landmarker.close.assert_called_once()
-        assert segmenter._landmarker is None
+        # After __exit__ the segmenter should still be accessible (no error)
+        # and the subprocess was invoked exactly once
+        mock_run.assert_called_once()
 
 
 class TestVisualizationSafety:
